@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno Maciel Servulo - Dynamics 365 Resume</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Segoe UI"', '"Segoe UI Web (West European)"', '-apple-system', 'BlinkMacSystemFont', 'Roboto', 'Helvetica Neue', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6fc',
+                            100: '#deecf9',
+                            200: '#c7e0f4',
+                            300: '#6ea2d5',
+                            600: '#0078d4',
+                            700: '#005a9e',
+                            800: '#004578',
+                            900: '#002050',
+                        },
+                        neutral: {
+                           gray: '#f3f2f1',
+                           white: '#ffffff',
+                        }
+                    },
+                    boxShadow: {
+                        'fluent': '0 1.6px 3.6px 0 rgba(0,0,0,0.132), 0 0.3px 0.9px 0 rgba(0,0,0,0.108)',
+                        'fluent-hover': '0 3.2px 7.2px 0 rgba(0,0,0,0.132), 0 0.6px 1.8px 0 rgba(0,0,0,0.108)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Segoe UI", "Segoe UI Web (West European)", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        @media print {
+            @page {
+                margin: 0.5cm;
+                size: auto;
+            }
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: white !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            /* Force all tab contents to be visible when printing */
+            .tab-content {
+                display: block !important;
+            }
+            #root {
+                height: auto !important;
+                overflow: visible !important;
+            }
+        }
+        
+        /* Custom scrollbar for Fluent look */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0f0f0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cdcdcd;
+            border: 3px solid #f0f0f0;
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a6a6a6;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-tagcloud": "https://esm.sh/react-tagcloud@2.3.3"
+  }
+}
+</script>
+</head>
+<body class="bg-neutral-gray text-[#242424] antialiased overflow-hidden h-screen flex flex-col">
+    <div id="root" class="h-full flex flex-col"></div>
+</body>
+</html>
