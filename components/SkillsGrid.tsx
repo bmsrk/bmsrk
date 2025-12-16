@@ -1,5 +1,5 @@
 import React from 'react';
-import { SkillCategory } from '../types';
+import { SkillCategory, Project } from '../types';
 import { getSkillUrl, getSkillDescription } from '../constants';
 import { 
   ServerIcon, 
@@ -13,9 +13,11 @@ import {
 
 interface SkillsGridProps {
   skills: SkillCategory[];
+  projects: Project[];
+  onSkillClick: (skill: string) => void;
 }
 
-const SkillsGrid: React.FC<SkillsGridProps> = ({ skills }) => {
+const SkillsGrid: React.FC<SkillsGridProps> = ({ skills, projects, onSkillClick }) => {
   const getIcon = (category: string) => {
     const className = "w-4 h-4";
     switch (category) {
@@ -46,18 +48,39 @@ const SkillsGrid: React.FC<SkillsGridProps> = ({ skills }) => {
           
           {/* Skills Pills Grid */}
           <div className="p-4 flex flex-wrap gap-2 content-start">
-            {skillGroup.skills.map((skill, idx) => (
-              <a 
-                key={idx} 
-                href={getSkillUrl(skill)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative inline-flex items-center px-2.5 py-1 bg-[#f3f2f1] hover:bg-[#eff6fc] hover:text-[#0078d4] hover:border-[#0078d4] border border-transparent rounded-full text-xs font-medium text-[#323130] transition-all cursor-pointer"
-                title={getSkillDescription(skill)}
-              >
-                {skill}
-              </a>
-            ))}
+            {skillGroup.skills.map((skill, idx) => {
+              // Calculate how many projects use this skill
+              const count = projects.filter(p => p.technologies.includes(skill)).length;
+              
+              return (
+                <div key={idx} className="inline-flex items-center bg-[#f3f2f1] border border-transparent rounded-full px-2.5 py-1 text-xs font-medium text-[#323130] hover:bg-[#eff6fc] hover:border-[#0078d4] transition-all group">
+                   {/* Main Link to Documentation */}
+                   <a 
+                     href={getSkillUrl(skill)} 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="hover:text-[#0078d4] hover:underline cursor-pointer"
+                     title={getSkillDescription(skill)}
+                   >
+                     {skill}
+                   </a>
+                   
+                   {/* Project Counter Badge - Click triggers filtering in Projects tab */}
+                   {count > 0 && (
+                      <button
+                         onClick={(e) => {
+                             e.preventDefault();
+                             onSkillClick(skill);
+                         }}
+                         className="ml-2 flex items-center justify-center bg-[#c7e0f4] text-[#005a9e] text-[10px] font-bold h-5 min-w-[20px] px-1 rounded-full hover:bg-[#0078d4] hover:text-white transition-colors cursor-pointer"
+                         title={`View ${count} related projects`}
+                      >
+                         {count}
+                      </button>
+                   )}
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}

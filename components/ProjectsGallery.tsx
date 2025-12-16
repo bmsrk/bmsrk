@@ -1,15 +1,14 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Project } from '../types';
-import Section from './Section';
 import { CheckMarkIcon, RocketIcon } from './Icons';
 
 interface ProjectsGalleryProps {
   projects: Project[];
+  filter: string | null;
+  onFilterChange: (tag: string | null) => void;
 }
 
-const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onFilterChange }) => {
 
   // Extract all unique technologies from projects
   const allTags = useMemo(() => {
@@ -18,11 +17,11 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
     return Array.from(tags).sort();
   }, [projects]);
 
-  // Filter projects based on selected tag
+  // Filter projects based on filter prop
   const filteredProjects = useMemo(() => {
-    if (!selectedTag) return projects;
-    return projects.filter(p => p.technologies.includes(selectedTag));
-  }, [projects, selectedTag]);
+    if (!filter) return projects;
+    return projects.filter(p => p.technologies.includes(filter));
+  }, [projects, filter]);
 
   return (
     <div className="space-y-6">
@@ -43,12 +42,22 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
 
       {/* Filter Bar */}
       <div className="mb-6">
-          <h3 className="text-xs font-bold text-[#605e5c] uppercase tracking-wide mb-3">Filter by Technology</h3>
+          <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-bold text-[#605e5c] uppercase tracking-wide">Filter by Technology</h3>
+              {filter && (
+                  <button 
+                      onClick={() => onFilterChange(null)}
+                      className="text-xs text-[#0078d4] hover:underline font-semibold"
+                  >
+                      Clear Filter
+                  </button>
+              )}
+          </div>
           <div className="flex flex-wrap gap-2">
               <button
-                  onClick={() => setSelectedTag(null)}
+                  onClick={() => onFilterChange(null)}
                   className={`px-3 py-1 text-xs font-semibold rounded-full border transition-all ${
-                      selectedTag === null 
+                      filter === null 
                       ? 'bg-[#0078d4] text-white border-[#0078d4]' 
                       : 'bg-white text-[#333] border-[#edebe9] hover:bg-[#f3f2f1]'
                   }`}
@@ -58,9 +67,9 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
               {allTags.map(tag => (
                   <button
                       key={tag}
-                      onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
+                      onClick={() => onFilterChange(tag === filter ? null : tag)}
                       className={`px-3 py-1 text-xs font-semibold rounded-full border transition-all ${
-                          selectedTag === tag 
+                          filter === tag 
                           ? 'bg-[#0078d4] text-white border-[#0078d4]' 
                           : 'bg-white text-[#333] border-[#edebe9] hover:bg-[#f3f2f1]'
                       }`}
@@ -115,16 +124,20 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
                           {/* Tech Stack Pills */}
                           <div className="flex flex-wrap gap-1.5 pt-3 border-t border-[#f3f2f1]">
                               {project.technologies.map(tech => (
-                                  <span 
-                                    key={tech} 
-                                    className={`text-[10px] px-2 py-0.5 rounded-sm border ${
-                                        selectedTag === tech 
+                                  <button
+                                    key={tech}
+                                    onClick={(e) => {
+                                        e.stopPropagation(); // Prevent card click if added later
+                                        onFilterChange(tech);
+                                    }}
+                                    className={`text-[10px] px-2 py-0.5 rounded-sm border cursor-pointer transition-colors ${
+                                        filter === tech 
                                         ? 'bg-[#eff6fc] text-[#005a9e] border-[#c7e0f4] font-bold' 
-                                        : 'bg-[#faf9f8] text-[#605e5c] border-[#edebe9]'
+                                        : 'bg-[#faf9f8] text-[#605e5c] border-[#edebe9] hover:bg-[#e1dfdd]'
                                     }`}
                                   >
                                       {tech}
-                                  </span>
+                                  </button>
                               ))}
                           </div>
                       </div>
@@ -137,7 +150,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects }) => {
           <div className="text-center py-10 bg-[#faf9f8] border border-dashed border-gray-300 rounded-sm">
               <p className="text-gray-500 text-sm">No projects found matching the selected filter.</p>
               <button 
-                  onClick={() => setSelectedTag(null)}
+                  onClick={() => onFilterChange(null)}
                   className="mt-2 text-[#0078d4] text-sm font-semibold hover:underline"
               >
                   Clear filters

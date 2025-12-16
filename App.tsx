@@ -15,6 +15,9 @@ const App: React.FC = () => {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null);
   const [activeTab, setActiveTab] = useState('summary');
   const [loading, setLoading] = useState(true);
+  
+  // State for Project Filtering (Lifted up to share between Skills and Projects tabs)
+  const [projectFilter, setProjectFilter] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('./resume_data.json')
@@ -31,6 +34,11 @@ const App: React.FC = () => {
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleSkillClick = (skill: string) => {
+      setProjectFilter(skill);
+      setActiveTab('projects');
   };
 
   if (loading) {
@@ -62,10 +70,6 @@ const App: React.FC = () => {
     languages,
     projects
   } = resumeData;
-
-  // If in Printable Mode, we just render the PrintableResume, but we wrap it in Shell to keep nav 
-  // UNLESS we are actually printing, which is handled by CSS (@media print) hiding the shell parts.
-  // Actually, standard Dynamics tabs logic is better: The Shell content area renders the component.
 
   return (
     <DynamicsShell onPrint={handlePrint} title={name} activeTab={activeTab} onTabChange={setActiveTab} data={resumeData}>
@@ -147,7 +151,11 @@ const App: React.FC = () => {
                     <h2 className="text-xl font-semibold text-[#201f1e]">Projects & Impact (Brag Doc)</h2>
                     <p className="text-sm text-gray-500">Key initiatives demonstrating technical leadership and outcomes</p>
                 </div>
-                <ProjectsGallery projects={projects || []} />
+                <ProjectsGallery 
+                    projects={projects || []} 
+                    filter={projectFilter}
+                    onFilterChange={setProjectFilter}
+                />
             </div>
 
             {/* 
@@ -207,7 +215,11 @@ const App: React.FC = () => {
                     <h2 className="text-xl font-semibold text-[#201f1e]">Core Technical Skills</h2>
                     <p className="text-sm text-gray-500">Comprehensive list of technical competencies</p>
                 </div>
-                <SkillsGrid skills={skills} />
+                <SkillsGrid 
+                    skills={skills} 
+                    projects={projects || []}
+                    onSkillClick={handleSkillClick}
+                />
             </div>
 
             {/* 

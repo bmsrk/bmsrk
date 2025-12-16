@@ -116,17 +116,6 @@ const SolutionDocs: React.FC = () => {
                     </table>
                 </div>
             </Section>
-
-            <Section title="4. Future Roadmap">
-                <div className="bg-[#fff4ce] border border-[#fde7e9] p-4 rounded-sm text-sm text-[#323130]">
-                    <h4 className="font-bold mb-2">Planned Enhancements</h4>
-                    <ul className="list-disc ml-5 space-y-1">
-                        <li>Integration with live Dataverse environment via Azure Functions proxy.</li>
-                        <li>Implementation of dark mode theme switching.</li>
-                        <li>Export to Word capability using Power Automate flow logic simulation.</li>
-                    </ul>
-                </div>
-            </Section>
         </div>
     );
 };

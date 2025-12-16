@@ -375,34 +375,34 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
       <div className="flex flex-1 overflow-hidden">
         
         {/* Left Navigation (Sitemap) */}
-        <div className="w-[260px] bg-[#f3f2f1] border-r border-[#edebe9] flex flex-col flex-shrink-0 no-print">
+        <div className="w-[260px] bg-[#f3f2f1] border-r border-[#edebe9] flex flex-col flex-shrink-0 no-print overflow-y-auto">
            
-           <div className="flex-1 overflow-y-auto">
+           <div className="flex-1">
                 {/* Area Switcher */}
                 <div className="h-[48px] flex items-center px-4 hover:bg-[#edebe9] cursor-pointer mb-2">
                     <span className="font-semibold text-[14px]">My Work</span>
                     <ChevronDownIcon className="w-3 h-3 ml-auto text-gray-600" />
                 </div>
 
-                <div className="flex flex-col">
-                    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">General</div>
+                <div className="flex flex-col pb-4">
+                    <div className="px-4 py-1.5 text-xs font-semibold text-gray-500 uppercase tracking-wide">General</div>
                     {navItems.map(item => (
                         <button 
                             key={item.id}
                             onClick={() => onTabChange(item.id)}
-                            className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${activeTab === item.id ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
+                            className={`flex items-center gap-3 px-4 py-1.5 text-sm transition-colors ${activeTab === item.id ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
                         >
                             <span className="text-gray-600">{item.icon}</span>
                             {item.label}
                         </button>
                     ))}
 
-                    <div className="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wide mt-4">Related</div>
+                    <div className="px-4 py-1.5 mt-2 text-xs font-semibold text-gray-500 uppercase tracking-wide">Related</div>
                     
                     {/* Printable Version in Nav */}
                     <button 
                         onClick={() => onTabChange('printable')}
-                        className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${activeTab === 'printable' ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
+                        className={`flex items-center gap-3 px-4 py-1.5 text-sm transition-colors ${activeTab === 'printable' ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
                     >
                         <span className="text-gray-600"><DownloadIcon className="w-4 h-4" /></span>
                         Printable Version
@@ -411,7 +411,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            </div>
 
            {/* Footer Text Moved Here */}
-           <div className="p-4 text-xs text-gray-400 border-t border-[#edebe9] text-center bg-[#f3f2f1]">
+           <div className="p-4 text-xs text-gray-400 border-t border-[#edebe9] text-center bg-[#f3f2f1] mt-auto">
                 Microsoft Dynamics 365 look-alike interface built with React & Tailwind.
            </div>
         </div>
@@ -479,7 +479,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            </div>
 
            {/* Scrollable Canvas - Updated padding to mimic Dynamics behavior better */}
-           <div className="flex-1 overflow-y-auto p-3 scroll-smooth relative" id="main-scroll">
+           <div className="flex-1 overflow-y-auto p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
                     <div className="absolute top-5 right-5 bg-black text-white px-4 py-2 rounded shadow-lg z-50 text-sm animate-fade-in-down flex items-center gap-2">
@@ -488,8 +488,8 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                     </div>
                 )}
 
-                {/* Resume Content Wrapper - Reduced padding and adjusted constraints */}
-                <div className={`max-w-[1200px] bg-white border border-[#edebe9] shadow-fluent min-h-[500px] p-5 print:p-0 print:border-none print:shadow-none print:w-full print:max-w-none ${activeTab === 'printable' ? 'bg-transparent border-none shadow-none p-0' : ''}`}>
+                {/* Resume Content Wrapper - Restored card styling but with minimal top gap */}
+                <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white border border-[#edebe9] shadow-sm rounded-sm p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0`}>
                     {children}
                 </div>
            </div>
