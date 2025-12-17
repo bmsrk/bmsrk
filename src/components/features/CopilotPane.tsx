@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CopilotIcon } from '../common/Icons';
 
+const TYPING_DELAY_MS = 1500;
+
 interface Message {
   id: number;
   sender: 'user' | 'bot';
@@ -70,7 +72,7 @@ const CopilotPane: React.FC<{ onClose: () => void }> = ({ onClose }) => {
         actions: nextActions
       }]);
       setIsTyping(false);
-    }, 1500);
+    }, TYPING_DELAY_MS);
   };
 
   return (

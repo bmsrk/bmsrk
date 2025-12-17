@@ -8,14 +8,25 @@ interface SkillCloudProps {
 }
 
 const SkillCloud: React.FC<SkillCloudProps> = ({ skills }) => {
+  // Create a simple hash function for consistent but varied weights
+  const hashCode = (str: string): number => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+  };
+
   // Flatten skills into a single array for the cloud
-  // Assign weights based on category or just random variance for visual interest
-  const data = skills.flatMap(category => 
-    category.skills.map(skill => ({
+  // Assign weights based on skill name hash for consistent visual variance
+  const data = skills.flatMap((category) =>
+    category.skills.map((skill) => ({
       value: skill,
-      count: Math.floor(Math.random() * 20) + 15, // Random weight for size variation
+      count: 15 + (hashCode(skill) % 20), // Deterministic weight based on skill name (15-34)
       key: skill,
-      category: category.category
+      category: category.category,
     }))
   );
 
