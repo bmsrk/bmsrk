@@ -74,7 +74,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
                    </label>
                    <select
                        id="segment-filter"
-                       value={segments.includes(filter || '') ? filter || '' : ''}
+                       value={filter && segments.includes(filter) ? filter : ''}
                        onChange={(e) => onFilterChange(e.target.value || null)}
                        className="w-full px-3 py-2 text-sm border border-[#8a8886] rounded-sm bg-white text-[#323130] focus:outline-none focus:border-[#0078d4] focus:ring-1 focus:ring-[#0078d4] hover:border-[#605e5c] transition-colors"
                    >
@@ -93,7 +93,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
                    </label>
                    <select
                        id="tech-filter"
-                       value={allTechnologies.includes(filter || '') ? filter || '' : ''}
+                       value={filter && allTechnologies.includes(filter) ? filter : ''}
                        onChange={(e) => onFilterChange(e.target.value || null)}
                        className="w-full px-3 py-2 text-sm border border-[#8a8886] rounded-sm bg-white text-[#323130] focus:outline-none focus:border-[#0078d4] focus:ring-1 focus:ring-[#0078d4] hover:border-[#605e5c] transition-colors"
                    >
