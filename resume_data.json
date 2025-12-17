@@ -1,261 +1,498 @@
 {
-  "name": "Bruno Maciel Servulo",
-  "title": "Dynamics 365 Technical Specialist",
-  "contact": {
-    "location": "São Bernardo do Campo, Brazil",
+  "meta": {
+    "schema": "resume-v1",
+    "version": "2.0",
+    "ats_optimized": true,
+    "nda_compliant": true
+  },
+  "personal": {
+    "name": "Bruno Maciel Servulo",
+    "title": "Senior Software Engineer - Dynamics 365 and Azure",
     "email": "bruno.m.servulo@gmail.com",
     "phone": "Available upon request",
+    "location": "Brazil",
     "linkedin": "linkedin.com/in/brunoservulo",
-    "portfolio": "bmsrk.github.io"
+    "portfolio": "bmsrk.github.io",
+    "work_authorization": "Remote - LATAM and US time zones"
   },
-  "summary": "Microsoft-certified Technical Specialist with 15 years of experience architecting enterprise-scale Dynamics 365 Customer Engagement, Power Platform, and Azure integration solutions for Fortune 500 companies. Proven expertise in designing secure, scalable CRM architectures that reduce operational costs by up to 20% while improving system performance and user adoption.",
-  "aboutMe": [
-    "My journey in technology began over 15 years ago, fueled by a curiosity for how software can optimize real-world processes. Starting as a functional consultant, I quickly realized that the true power of Dynamics CRM lay in its extensibility. This drove me to master .NET development, bridging the gap between business requirements and technical feasibility.",
-    "Throughout my career, I have specialized in large-scale enterprise implementations. I thrive in complex environments where performance and scalability are paramount. Whether it is integrating SAP with Azure Service Bus or architecting a global CRM rollout for 10,000 users, I approach every challenge with a solution-oriented mindset.",
-    "Beyond code, I am passionate about mentorship and team leadership. I believe that building great software requires building great teams. I actively mentor junior developers, conduct code reviews, and establish best practices to ensure long-term project success. My goal is to continue pushing the boundaries of the Microsoft Cloud ecosystem, delivering innovative solutions that drive business value."
+  "professional_summary": "Senior Software Engineer and CRM Architect with 10+ years of experience designing and delivering enterprise-scale Microsoft Dynamics 365, Power Platform, and Azure integration solutions. Proven track record delivering high-availability systems for 10,000+ user bases with complex integrations across financial services, manufacturing, retail, education, and government sectors. Expert in scalable architecture, system reliability, and delivery in regulated environments. Strong background in C#, .NET, Azure cloud services, and enterprise CRM implementations.",
+  "core_competencies": [
+    "Microsoft Dynamics 365",
+    "Power Platform",
+    "Azure Cloud Services",
+    "C# and .NET Development",
+    "Enterprise Architecture",
+    "System Integration",
+    "Technical Leadership",
+    "CRM Implementation"
   ],
-  "skills": [
-    {
-      "category": "CRM Platforms",
-      "skills": ["Dynamics 365 Customer Engagement", "Dynamics 365 Sales", "Dynamics 365 Customer Service", "Dynamics 365 Field Service", "Dynamics 365 Customer Insights", "Microsoft Dataverse", "Model-Driven Apps"]
-    },
-    {
-      "category": "Power Platform",
-      "skills": ["Power Apps", "Power Automate", "Power BI", "Power Apps Portals", "Custom Connectors", "PCF Components", "Canvas Apps"]
-    },
-    {
-      "category": "Azure Services",
-      "skills": ["Azure Logic Apps", "Azure Functions", "Azure Service Bus", "Azure API Management", "Azure DevOps", "Azure App Services", "Azure Blob Storage"]
-    },
-    {
-      "category": "Development",
-      "skills": ["C#", ".NET Framework", ".NET Core", "JavaScript", "TypeScript", "React", "HTML", "CSS", "SQL Server", "T-SQL", "Web API", "REST API", "Plugin Development"]
-    },
-    {
-      "category": "Integration",
-      "skills": ["API Integration", "Middleware Development", "ETL Processes", "Real-time Data Synchronization", "Legacy System Integration", "SAP Integration", "ERP Integration"]
-    },
-    {
-      "category": "Methodologies",
-      "skills": ["Agile", "Scrum", "DevOps", "CI/CD", "Test-Driven Development", "Code Reviews", "Solution Architecture", "Enterprise Architecture"]
-    },
-    {
-      "category": "Leadership",
-      "skills": ["Technical Team Leadership", "Client Workshops", "Stakeholder Management", "Solution Design", "Mentoring", "Training", "Project Rescue"]
-    }
-  ],
-  "achievements": [
-    {
-      "title": "Enterprise Transformation",
-      "description": "Led CRM modernization serving 10,000+ users across Latin America, reducing system downtime by 20% and improving data access speed by 30% through optimized Azure architecture and caching strategies"
-    },
-    {
-      "title": "Cost Optimization",
-      "description": "Designed and implemented Azure Logic Apps and Service Bus integrations that reduced infrastructure costs by 15% while increasing system reliability and processing 50,000+ daily transactions"
-    },
-    {
-      "title": "Delivery Excellence",
-      "description": "Rescued 15+ at-risk projects through strategic technical leadership and problem-solving, saving clients an estimated 10% in sunk costs and maintaining client relationships"
-    },
-    {
-      "title": "Team Development",
-      "description": "Mentored 8+ developers on Azure integration best practices and secure coding standards, improving team code quality scores by 35%"
-    }
-  ],
-  "experience": [
+  "professional_experience": [
     {
       "company": "fivemonkey devs",
-      "title": "Dynamics 365 Specialist (Independent Contractor)",
-      "date": "October 2025 – Present",
+      "position": "Dynamics 365 Specialist",
+      "employment_type": "Independent Contractor",
       "location": "Remote",
-      "intro": "Deliver end-to-end Dynamics 365 Customer Engagement and Power Platform solutions for international enterprise clients as independent technical consultant.",
-      "responsibilities": [
-        "Architect secure, cloud-native CRM solutions integrating Dynamics 365 with Azure services including Logic Apps, Azure Functions, and Service Bus for enhanced automation and scalability",
-        "Conduct technical discovery workshops and solution design sessions with C-level stakeholders to define requirements and technical architecture",
-        "Implement DevOps best practices and CI/CD pipelines using Azure DevOps for faster, more reliable deployments with automated testing",
-        "Design custom Power Apps solutions with complex business logic using PCF components and Canvas apps"
-      ]
+      "start_date": "October 2025",
+      "end_date": "Present",
+      "description": "Deliver end-to-end Dynamics 365 Customer Engagement and Power Platform solutions for international enterprise clients as independent technical consultant.",
+      "achievements": [
+        "Architected secure cloud-native CRM solutions integrating Dynamics 365 with Azure Logic Apps, Azure Functions, and Service Bus for enhanced automation and scalability",
+        "Conducted technical discovery workshops and solution design sessions with C-level stakeholders to define requirements and technical architecture",
+        "Implemented DevOps best practices and CI/CD pipelines using Azure DevOps for faster more reliable deployments with automated testing",
+        "Designed custom Power Apps solutions with complex business logic using PCF components and Canvas apps"
+      ],
+      "technologies": ["Dynamics 365", "Azure Functions", "Azure Logic Apps", "Azure Service Bus", "Power Apps", "Power Automate", "Azure DevOps", "C#", ".NET"]
     },
     {
       "company": "Zup Innovation",
-      "title": "Dynamics Developer Specialist",
-      "date": "March 2025 – September 2025",
-      "location": "Brazil (Contract Project)",
-      "intro": "Specialized contract engagement for Dynamics 365 implementation supporting digital transformation initiative for financial services client.",
-      "responsibilities": [
-        "Built custom Dynamics 365 Customer Engagement solutions automating complex approval workflows, reducing processing time by 40%",
+      "position": "Dynamics Developer Specialist",
+      "employment_type": "Contract",
+      "location": "Brazil",
+      "start_date": "March 2025",
+      "end_date": "September 2025",
+      "description": "Specialized contract engagement for Dynamics 365 implementation supporting digital transformation initiative for financial services client.",
+      "achievements": [
+        "Built custom Dynamics 365 Customer Engagement solutions automating complex approval workflows reducing processing time by 40%",
         "Developed Azure Function-based middleware for real-time data synchronization between Dynamics 365 and legacy banking systems",
-        "Implemented Power Automate cloud flows handling 1,000+ daily transactions with 99.9% reliability",
+        "Implemented Power Automate cloud flows handling 1000+ daily transactions with 99.9% reliability",
         "Created custom plugins using C# and .NET for complex business logic and data validation"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "Azure Functions", "Power Automate", "C#", ".NET", "API Integration"]
     },
     {
       "company": "Kinix",
-      "title": "Senior Solutions Architect",
-      "date": "January 2025 – March 2025",
-      "location": "Brazil (Contract Project)",
-      "intro": "Subject matter expert engagement to define technical standards and architecture frameworks for Dynamics 365 practice.",
-      "responsibilities": [
+      "position": "Senior Solutions Architect",
+      "employment_type": "Contract",
+      "location": "Brazil",
+      "start_date": "January 2025",
+      "end_date": "March 2025",
+      "description": "Subject matter expert engagement to define technical standards and architecture frameworks for Dynamics 365 practice.",
+      "achievements": [
         "Established enterprise architecture standards for Dynamics 365 and Azure integration patterns adopted across 5+ concurrent projects",
         "Created solution design templates and technical governance framework reducing architecture review time by 50%",
-        "Mentored 8 developers on Azure integration best practices, secure coding standards, and Dynamics 365 customization",
+        "Mentored 8 developers on Azure integration best practices secure coding standards and Dynamics 365 customization",
         "Defined CI/CD pipeline standards and deployment processes using Azure DevOps"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "Azure", "Solution Architecture", "Azure DevOps", "CI/CD"]
     },
     {
       "company": "XMS Chile",
-      "title": "Lead Technical Specialist",
-      "date": "December 2021 – September 2024",
+      "position": "Lead Technical Specialist",
+      "employment_type": "Full-time",
       "location": "Santiago, Chile",
-      "intro": "Led technical delivery team for enterprise CRM implementations across Chilean and Brazilian markets in manufacturing and retail sectors.",
-      "responsibilities": [
+      "start_date": "December 2021",
+      "end_date": "September 2024",
+      "description": "Led technical delivery team for enterprise CRM implementations across Chilean and Brazilian markets in manufacturing and retail sectors.",
+      "achievements": [
         "Managed 4-member technical team delivering Dynamics 365 Sales and Customer Service solutions serving 10,000+ users",
-        "Redesigned data architecture and implemented caching strategies, increasing data access speed by 30% and reducing system downtime by 20%",
-        "Architected Azure Service Bus integration connecting Dynamics 365 with SAP ERP system, processing 50,000+ daily transactions",
-        "Conducted code reviews and technical mentoring sessions, improving team code quality scores by 35%",
+        "Redesigned data architecture and implemented caching strategies increasing data access speed by 30% and reducing system downtime by 20%",
+        "Architected Azure Service Bus integration connecting Dynamics 365 with SAP ERP system processing 50,000+ daily transactions",
+        "Conducted code reviews and technical mentoring sessions improving team code quality scores by 35%",
         "Implemented Power BI dashboards for real-time business intelligence and KPI tracking"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "Azure Service Bus", "SAP Integration", "Power BI", "C#", ".NET", "SQL Server"]
     },
     {
       "company": "AlfaPeople",
-      "title": "Technical Lead",
-      "date": "October 2021 – December 2021",
+      "position": "Technical Lead",
+      "employment_type": "Full-time",
       "location": "Brazil",
-      "responsibilities": [
-        "Led technical delivery of Dynamics 365 Customer Service implementation for logistics client, reducing planned delivery time by 30% through agile sprint optimization",
+      "start_date": "October 2021",
+      "end_date": "December 2021",
+      "achievements": [
+        "Led technical delivery of Dynamics 365 Customer Service implementation for logistics client reducing planned delivery time by 30% through agile sprint optimization",
         "Designed custom plugin architecture using C# for complex business logic requirements and data transformation",
         "Established automated testing framework using Azure DevOps catching 60+ bugs pre-production"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "C#", "Plugin Development", "Azure DevOps"]
     },
     {
       "company": "Accenture Brasil",
-      "title": "Senior Developer",
-      "date": "March 2021 – August 2021",
+      "position": "Senior Developer",
+      "employment_type": "Full-time",
       "location": "São Paulo, Brazil",
-      "responsibilities": [
-        "Developed advanced Dynamics 365 Customer Service customizations for telecommunications client's customer service transformation",
-        "Created custom Power Apps portal with integrated authentication, reducing customer support tickets by 25%",
+      "start_date": "March 2021",
+      "end_date": "August 2021",
+      "achievements": [
+        "Developed advanced Dynamics 365 Customer Service customizations for telecommunications client customer service transformation",
+        "Created custom Power Apps portal with integrated authentication reducing customer support tickets by 25%",
         "Built JavaScript-based form validations and business rules reducing data entry errors by 35%",
         "Implemented Power BI dashboards providing real-time visibility into customer service KPIs"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "Power Apps", "Power BI", "JavaScript"]
     },
     {
       "company": "AX4B Enterprise Solutions",
-      "title": "Senior Developer",
-      "date": "April 2019 – March 2021",
+      "position": "Senior Developer",
+      "employment_type": "Full-time",
       "location": "Brazil",
-      "responsibilities": [
+      "start_date": "April 2019",
+      "end_date": "March 2021",
+      "achievements": [
         "Delivered complex Dynamics 365 and Azure integration projects for healthcare and manufacturing clients",
-        "Implemented bidirectional integration between Dynamics 365 and Azure Blob Storage for document management, cutting storage costs by 15%",
+        "Implemented bidirectional integration between Dynamics 365 and Azure Blob Storage for document management cutting storage costs by 15%",
         "Developed custom workflows using C# plugins processing 10,000+ records daily with error handling and logging",
         "Created Power Automate cloud flows connecting Dynamics 365 with third-party APIs including DocuSign and SendGrid"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "Azure Blob Storage", "C#", "Power Automate", "API Integration"]
     },
     {
       "company": "AlfaPeople",
-      "title": "Senior Developer",
-      "date": "June 2018 – October 2018",
+      "position": "Senior Developer",
+      "employment_type": "Full-time",
       "location": "Brazil",
-      "responsibilities": [
+      "start_date": "June 2018",
+      "end_date": "October 2018",
+      "achievements": [
         "Developed custom sales forecasting module for retail client improving forecast accuracy by 20%",
         "Led User Acceptance Testing sessions resolving 50+ critical issues and training 30+ end users",
         "Created technical documentation and knowledge transfer materials for client IT team"
-      ]
+      ],
+      "technologies": ["Dynamics 365", "C#", "Sales Forecasting"]
     },
     {
       "company": "XMS Chile",
-      "title": "Senior Consultant",
-      "date": "June 2014 – May 2018",
+      "position": "Senior Consultant",
+      "employment_type": "Full-time",
       "location": "Santiago, Chile",
-      "responsibilities": [
-        "Delivered full-lifecycle Dynamics CRM 2013/2015/2016 and Dynamics 365 implementations for 8+ enterprise clients in banking, insurance, and retail sectors across Latin America",
-        "Built customer-facing portals using Power Apps Portals (formerly Adxstudio) reducing support call volume by 30%",
-        "Developed custom integrations with Microsoft SharePoint, Outlook, and ERP systems reducing project delivery timelines by 20%",
-        "Configured Dynamics CRM workflows, business process flows, and security roles for complex organizational structures"
-      ]
+      "start_date": "June 2014",
+      "end_date": "May 2018",
+      "achievements": [
+        "Delivered full-lifecycle Dynamics CRM 2013/2015/2016 and Dynamics 365 implementations for 8+ enterprise clients in banking insurance and retail sectors across Latin America",
+        "Built customer-facing portals using Power Apps Portals reducing support call volume by 30%",
+        "Developed custom integrations with Microsoft SharePoint Outlook and ERP systems reducing project delivery timelines by 20%",
+        "Configured Dynamics CRM workflows business process flows and security roles for complex organizational structures"
+      ],
+      "technologies": ["Dynamics CRM", "Dynamics 365", "Power Apps Portals", "SharePoint", "ERP Integration"]
     },
     {
       "company": "AlfaPeople",
-      "title": "Consultant",
-      "date": "September 2011 – April 2014",
+      "position": "Consultant",
+      "employment_type": "Full-time",
       "location": "Brazil",
-      "responsibilities": [
-        "Progressed from functional consultant to technical developer role, advancing from CRM configuration to .NET development within first 18 months",
-        "Rescued 15 at-risk CRM projects through technical problem-solving and client relationship management, saving estimated 10% in project costs",
-        "Conducted 40+ training sessions for clients on Dynamics CRM functionality, customization, and best practices",
-        "Performed requirements gathering, solution design, configuration, and deployment for Dynamics CRM 2011 implementations"
-      ]
+      "start_date": "September 2011",
+      "end_date": "April 2014",
+      "achievements": [
+        "Progressed from functional consultant to technical developer role advancing from CRM configuration to .NET development within first 18 months",
+        "Rescued 15 at-risk CRM projects through technical problem-solving and client relationship management saving estimated 10% in project costs",
+        "Conducted 40+ training sessions for clients on Dynamics CRM functionality customization and best practices",
+        "Performed requirements gathering solution design configuration and deployment for Dynamics CRM 2011 implementations"
+      ],
+      "technologies": ["Dynamics CRM 2011", ".NET", "CRM Configuration"]
     }
   ],
   "education": [
     {
+      "degree": "Bachelor of Business Administration",
       "institution": "Universidade Metodista de São Paulo",
-      "degree": "Bachelor of Business Administration (B.B.A.)",
-      "year": "2011"
+      "location": "Brazil",
+      "graduation_year": "2011"
     }
   ],
   "certifications": [
-    "Microsoft Certified: Dynamics 365 Field Service Functional Consultant Associate",
-    "Microsoft Certified: Dynamics 365 Customer Service Functional Consultant Associate",
-    "Microsoft Certified Technology Specialist (MCTS): Dynamics CRM 2011",
-    "Microsoft Certified Trainer (MCT)",
-    "Microsoft Certified Professional (MCP)"
+    {
+      "name": "Microsoft Certified Dynamics 365 Field Service Functional Consultant Associate",
+      "issuer": "Microsoft"
+    },
+    {
+      "name": "Microsoft Certified Dynamics 365 Customer Service Functional Consultant Associate",
+      "issuer": "Microsoft"
+    },
+    {
+      "name": "Microsoft Certified Technology Specialist Dynamics CRM 2011",
+      "issuer": "Microsoft"
+    },
+    {
+      "name": "Microsoft Certified Trainer",
+      "issuer": "Microsoft"
+    },
+    {
+      "name": "Microsoft Certified Professional",
+      "issuer": "Microsoft"
+    }
   ],
   "languages": [
-    "Portuguese (Native)",
-    "English (Fluent)",
-    "Spanish (Fluent)"
-  ],
-  "projects": [
     {
-      "id": "p1",
-      "title": "LATAM CRM Modernization",
-      "role": "Lead Architect",
-      "customer": "Manufacturing Client",
-      "date": "2023",
-      "description": "Orchestrated the migration and modernization of a legacy CRM to Dynamics 365 for 10,000+ users across Latin America.",
-      "technologies": ["Dynamics 365 Sales", "Azure Service Bus", "React", "C#", "SQL Server"],
-      "impact": ["Reduced downtime by 20%", "Improved data access speed by 30%", "Unified data across 3 countries"]
+      "language": "Portuguese",
+      "proficiency": "Native"
     },
     {
-      "id": "p2",
-      "title": "Banking Legacy Sync",
-      "role": "Senior Developer",
-      "customer": "Financial Services",
-      "date": "2025",
-      "description": "Developed high-performance middleware to synchronize sensitive financial data between Dynamics 365 and mainframe systems.",
-      "technologies": ["Azure Functions", ".NET Core", "Dynamics 365 Customer Engagement", "API Integration"],
-      "impact": ["Processed 1,000+ daily transactions", "99.9% reliability achieved", "Secured PII data transfer"]
+      "language": "English",
+      "proficiency": "Fluent"
     },
     {
-      "id": "p3",
-      "title": "Logistics Portal",
-      "role": "Technical Lead",
-      "customer": "Logistics Provider",
-      "date": "2021",
-      "description": "Created a self-service Power Apps Portal for customers to track shipments and manage support tickets.",
-      "technologies": ["Power Apps Portals", "JavaScript", "Dynamics 365 Customer Service", "Power Automate"],
-      "impact": ["Reduced support call volume by 30%", "Improved customer satisfaction (CSAT) scores", "Automated status updates"]
-    },
-    {
-      "id": "p4",
-      "title": "Retail Forecasting Module",
-      "role": "Developer",
-      "customer": "Retail Chain",
-      "date": "2018",
-      "description": "Built a custom sales forecasting engine within Dynamics CRM using complex plugin logic.",
-      "technologies": ["C#", "Plugin Development", "Dynamics 365 Sales", "SQL Server"],
-      "impact": ["Improved forecast accuracy by 20%", "Eliminated manual Excel processes", "Real-time dashboard reporting"]
-    },
-    {
-      "id": "p5",
-      "title": "SAP ERP Integration",
-      "role": "Solutions Architect",
-      "customer": "Industrial Sector",
-      "date": "2024",
-      "description": "Designed a robust, decoupled integration architecture using Azure Service Bus to connect Dynamics 365 with SAP.",
-      "technologies": ["Azure Service Bus", "Azure Logic Apps", "SAP Integration", "ERP Integration"],
-      "impact": ["Processed 50,000+ daily transactions", "Decoupled architecture prevented data loss during ERP maintenance", "Reduced infrastructure costs by 15%"]
+      "language": "Spanish",
+      "proficiency": "Fluent"
     }
-  ]
+  ],
+  "key_projects": [
+    {
+      "project_name": "Multi-Country CRM Modernization",
+      "role": "Lead Architect",
+      "client_industry": "Manufacturing",
+      "location": "Latin America",
+      "year": "2022-2024",
+      "description": "Orchestrated migration and modernization of legacy CRM to Dynamics 365 for 10,000+ users across multiple countries in Latin America",
+      "technologies": ["Dynamics 365 Sales", "Azure Service Bus", "React", "C#", "SQL Server"],
+      "key_results": [
+        "Reduced system downtime by 20%",
+        "Improved data access speed by 30%",
+        "Unified data across 3 countries"
+      ]
+    },
+    {
+      "project_name": "Financial Services Legacy Integration",
+      "role": "Senior Developer",
+      "client_industry": "Financial Services",
+      "location": "Brazil",
+      "year": "2025",
+      "description": "Developed high-performance middleware to synchronize sensitive financial data between Dynamics 365 and mainframe systems",
+      "technologies": ["Azure Functions", ".NET Core", "Dynamics 365", "API Integration"],
+      "key_results": [
+        "Processed 1,000+ daily transactions",
+        "Achieved 99.9% system reliability",
+        "Secured PII data transfer with encryption"
+      ]
+    },
+    {
+      "project_name": "Enterprise ERP Integration",
+      "role": "Solutions Architect",
+      "client_industry": "Manufacturing",
+      "location": "Latin America",
+      "year": "2022-2024",
+      "description": "Designed robust decoupled integration architecture using Azure Service Bus to connect Dynamics 365 with SAP ERP",
+      "technologies": ["Azure Service Bus", "Azure Logic Apps", "SAP Integration", "Dynamics 365"],
+      "key_results": [
+        "Processed 50,000+ daily transactions",
+        "Prevented data loss during ERP maintenance",
+        "Reduced infrastructure costs by 15%"
+      ]
+    },
+    {
+      "project_name": "Government Education Platform",
+      "role": "Lead Architect",
+      "client_industry": "Government",
+      "location": "Chile",
+      "year": "2016-2018",
+      "description": "Led technical team supporting government education customer service system with transparency portal integration and multi-agency connections",
+      "technologies": ["Dynamics CRM", "Integration", "Web Portals"],
+      "key_results": [
+        "First transparency portal integration in Chile",
+        "Multi-agency government integration",
+        "2 years of production support"
+      ]
+    },
+    {
+      "project_name": "B2B Order Management Platform",
+      "role": "Developer",
+      "client_industry": "Manufacturing",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "B2B platform connecting manufacturer with dealer network for streamlined order management",
+      "technologies": ["Dynamics CRM", "Integration"],
+      "key_results": [
+        "Streamlined order processing",
+        "Improved dealer relationships"
+      ]
+    },
+    {
+      "project_name": "Corporate Roadmap Visualization System",
+      "role": "Developer",
+      "client_industry": "Chemical Industry",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Board-level decision support system with database modeling for HTML canvas generation of vectorized corporate decision roadmaps",
+      "technologies": ["Dynamics CRM", "HTML Canvas", "SQL Server", "Database Modeling"],
+      "key_results": [
+        "Visual corporate roadmap for executives",
+        "Enhanced board decision-making process"
+      ]
+    },
+    {
+      "project_name": "Media Project and Cost Management",
+      "role": "Developer",
+      "client_industry": "Media and Entertainment",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Custom project and cost management module with multi-instance integration",
+      "technologies": ["Dynamics CRM", "Custom Development", "Integration"],
+      "key_results": [
+        "Centralized project tracking",
+        "Improved cost visibility"
+      ]
+    },
+    {
+      "project_name": "Public Utilities Citizen Portal",
+      "role": "Developer",
+      "client_industry": "Public Utilities",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "CRM implementation supporting public-facing Power Pages portal for citizen services",
+      "technologies": ["Dynamics CRM", "Power Pages"],
+      "key_results": [
+        "Public-facing self-service portal",
+        "Improved citizen service delivery"
+      ]
+    },
+    {
+      "project_name": "Insurance Multi-System Implementation",
+      "role": "Developer",
+      "client_industry": "Insurance",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Comprehensive CRM solution including lead management, customer service platform, and automated commission calculation",
+      "technologies": ["Dynamics CRM", "Custom Development", "Integration"],
+      "key_results": [
+        "End-to-end CRM solution",
+        "Automated commission processing"
+      ]
+    },
+    {
+      "project_name": "Government Transport Document System",
+      "role": "Developer/Architect",
+      "client_industry": "Government",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Document processing system with digital signature and treasury system integration",
+      "technologies": ["Dynamics CRM", "Integration", "Digital Signatures"],
+      "key_results": [
+        "Automated document processing",
+        "Government system integration"
+      ]
+    },
+    {
+      "project_name": "Higher Education CRM Architecture",
+      "role": "Architect",
+      "client_industry": "Education",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Implementation and integration architecture for Dynamics CRM across multiple departments of educational institutions (3 separate institutions)",
+      "technologies": ["Dynamics CRM", "Integration Architecture"],
+      "key_results": [
+        "Unified educational platform",
+        "Multi-department integration",
+        "Delivered for 3 major institutions"
+      ]
+    },
+    {
+      "project_name": "Mining Company Global Sales Platform",
+      "role": "Developer/Architect",
+      "client_industry": "Mining and Chemical",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Global sales system with custom pricing engine and advanced product search capabilities",
+      "technologies": ["Dynamics CRM", "Custom Development"],
+      "key_results": [
+        "Global sales platform",
+        "Advanced product search",
+        "Dynamic pricing capabilities"
+      ]
+    },
+    {
+      "project_name": "Corporate Banking Platform",
+      "role": "Developer",
+      "client_industry": "Banking",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Corporate banking CRM for large client evaluation and relationship management",
+      "technologies": ["Dynamics CRM", "Custom Development"],
+      "key_results": [
+        "Enhanced corporate banking capabilities"
+      ]
+    },
+    {
+      "project_name": "Insurance Cloud Migration",
+      "role": "Developer/Architect",
+      "client_industry": "Insurance",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Cloud migration of custom customer service system to Azure",
+      "technologies": ["Dynamics CRM", "Cloud Migration", "Azure"],
+      "key_results": [
+        "Successful cloud migration",
+        "Modernized infrastructure"
+      ]
+    },
+    {
+      "project_name": "Banking System Optimization",
+      "role": "Developer/Architect",
+      "client_industry": "Banking",
+      "location": "Chile",
+      "year": "2014-2018",
+      "description": "Refactoring and optimization of CRM customer service implementation and bank system integrations",
+      "technologies": ["Dynamics CRM", "Integration", "Performance Optimization"],
+      "key_results": [
+        "Improved system performance",
+        "Optimized bank integrations"
+      ]
+    },
+    {
+      "project_name": "Automotive Management Reports",
+      "role": "Developer",
+      "client_industry": "Automotive",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Complete refactoring of management reporting infrastructure",
+      "technologies": ["Dynamics CRM", "SQL Server Reporting Services"],
+      "key_results": [
+        "Improved report performance",
+        "Enhanced data visualization"
+      ]
+    },
+    {
+      "project_name": "Industrial Budget System",
+      "role": "Developer",
+      "client_industry": "Industrial",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Budget management with report optimization and ASP.NET MVC cost calculation system",
+      "technologies": ["Dynamics CRM", "ASP.NET MVC 4", "SQL Server"],
+      "key_results": [
+        "Optimized budget processes",
+        "Enhanced cost calculation accuracy"
+      ]
+    },
+    {
+      "project_name": "Construction Materials Contact Center",
+      "role": "Developer",
+      "client_industry": "Construction Materials",
+      "location": "Brazil",
+      "year": "2014-2018",
+      "description": "Contact center customer service system implementation and go-live",
+      "technologies": ["Dynamics CRM", "Integration"],
+      "key_results": [
+        "Improved customer service operations",
+        "Successful go-live delivery"
+      ]
+    }
+  ],
+  "technical_skills": {
+    "primary_technologies": [
+      "Microsoft Dynamics 365",
+      "Power Platform (Power Apps, Power Automate, Power BI, Power Pages)",
+      "Azure Cloud Services (Functions, Logic Apps, Service Bus, API Management)",
+      "C# and .NET Development",
+      "SQL Server and Database Design"
+    ],
+    "integration_expertise": [
+      "REST and SOAP APIs",
+      "Azure Service Bus",
+      "SAP Integration",
+      "ERP Systems",
+      "Legacy System Integration",
+      "Third-party API Integration"
+    ],
+    "development_tools": [
+      "Visual Studio",
+      "Azure DevOps",
+      "Git",
+      "CI/CD Pipelines"
+    ],
+    "methodologies": [
+      "Agile and Scrum",
+      "DevOps Practices",
+      "Solution Architecture",
+      "Enterprise Architecture"
+    ]
+  }
 }

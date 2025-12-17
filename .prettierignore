@@ -1,8 +1,0 @@
-dist
-node_modules
-build
-coverage
-*.log
-.env
-.env.local
-package-lock.json
