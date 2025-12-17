@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { ResumeData } from '../types';
+import { ResumeData } from '../../types/types';
 import { 
   WaffleIcon, 
   HomeIcon, 
@@ -22,7 +22,7 @@ import {
   RocketIcon,
   ServerIcon,
   BriefcaseIcon
-} from './Icons';
+} from '../common/Icons';
 
 interface DynamicsShellProps {
   children: React.ReactNode;

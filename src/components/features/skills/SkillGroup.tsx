@@ -1,5 +1,5 @@
 import React from 'react';
-import { SkillCategory } from '../types';
+import { SkillCategory } from '../../../types/types';
 
 interface SkillGroupProps {
   category: SkillCategory;

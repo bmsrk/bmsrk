@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { Project } from '../types';
-import { CheckMarkIcon, RocketIcon } from './Icons';
+import { Project } from '../../../types/types';
+import { CheckMarkIcon, RocketIcon } from '../../common/Icons';
 
 interface ProjectsGalleryProps {
   projects: Project[];

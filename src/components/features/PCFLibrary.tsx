@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Section from './Section';
+import Section from '../common/Section';
 import PCFWrapper from './PCFWrapper';
 
 // --- CONTROL 1: LINEAR SLIDER INPUT ---

@@ -1,4 +1,4 @@
-import { ResumeData } from './types';
+import { ResumeData } from '../types/types';
 
 export const SKILL_URL_MAP: Record<string, string> = {
   // Dynamics & Power Platform

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TagCloud } from 'react-tagcloud';
-import { SkillCategory } from '../types';
-import { getSkillUrl } from '../constants';
+import { SkillCategory } from '../../../types/types';
+import { getSkillUrl } from '../../../constants/constants';
 
 interface SkillCloudProps {
   skills: SkillCategory[];

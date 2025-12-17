@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Job } from '../types';
-import { MapPinIcon, ClockIcon, ChevronDownIcon, ChevronRightIcon } from './Icons';
+import { Job } from '../../../types/types';
+import { MapPinIcon, ClockIcon, ChevronDownIcon, ChevronRightIcon } from '../../common/Icons';
 
 interface ExperienceItemProps {
   job: Job;

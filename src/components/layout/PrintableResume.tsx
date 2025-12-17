@@ -1,5 +1,5 @@
 import React from 'react';
-import { ResumeData } from '../types';
+import { ResumeData } from '../../types/types';
 
 interface PrintableResumeProps {
   data: ResumeData;

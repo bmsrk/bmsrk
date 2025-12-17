@@ -1,6 +1,6 @@
 import React from 'react';
-import { ContactInfo } from '../types';
-import { MailIcon, MapPinIcon, LinkedinIcon, GlobeIcon, PhoneIcon } from './Icons';
+import { ContactInfo } from '../../types/types';
+import { MailIcon, MapPinIcon, LinkedinIcon, GlobeIcon, PhoneIcon } from '../common/Icons';
 
 interface ResumeHeaderProps {
   name: string;

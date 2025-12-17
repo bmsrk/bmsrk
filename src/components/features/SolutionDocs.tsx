@@ -1,6 +1,6 @@
 import React from 'react';
-import Section from './Section';
-import { ServerIcon, CodeIcon, CubeIcon, CloudIcon } from './Icons';
+import Section from '../common/Section';
+import { ServerIcon, CodeIcon, CubeIcon, CloudIcon } from '../common/Icons';
 
 const SolutionDocs: React.FC = () => {
     return (

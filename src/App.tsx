@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { ResumeData } from './types';
-import Section from './components/Section';
-import ExperienceItem from './components/ExperienceItem';
-import SkillsGrid from './components/SkillsGrid';
-import DynamicsShell from './components/DynamicsShell';
-import FormField from './components/FormField';
-import ProjectsGallery from './components/ProjectsGallery';
-import SolutionDocs from './components/SolutionDocs';
-import PrintableResume from './components/PrintableResume';
-import HireMe from './components/HireMe';
-import { MailIcon, PhoneIcon, MapPinIcon, LinkedinIcon, GlobeIcon } from './components/Icons';
+import { ResumeData } from './types/types';
+import Section from './components/common/Section';
+import ExperienceItem from './components/features/experience/ExperienceItem';
+import SkillsGrid from './components/features/skills/SkillsGrid';
+import DynamicsShell from './components/layout/DynamicsShell';
+import FormField from './components/common/FormField';
+import ProjectsGallery from './components/features/projects/ProjectsGallery';
+import SolutionDocs from './components/features/SolutionDocs';
+import PrintableResume from './components/layout/PrintableResume';
+import HireMe from './components/features/HireMe';
+import { MailIcon, PhoneIcon, MapPinIcon, LinkedinIcon, GlobeIcon } from './components/common/Icons';
 
 const App: React.FC = () => {
   const [resumeData, setResumeData] = useState<ResumeData | null>(null);

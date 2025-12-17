@@ -1,6 +1,6 @@
 import React from 'react';
-import { SkillCategory, Project } from '../types';
-import { getSkillUrl, getSkillDescription } from '../constants';
+import { SkillCategory, Project } from '../../../types/types';
+import { getSkillUrl, getSkillDescription } from '../../../constants/constants';
 import { 
   ServerIcon, 
   ZapIcon, 
@@ -9,7 +9,7 @@ import {
   NetworkIcon, 
   ClipboardCheckIcon, 
   UsersIcon 
-} from './Icons';
+} from '../../common/Icons';
 
 interface SkillsGridProps {
   skills: SkillCategory[];

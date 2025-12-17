@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { CopilotIcon } from './Icons';
+import { CopilotIcon } from '../common/Icons';
 
 interface Message {
   id: number;
