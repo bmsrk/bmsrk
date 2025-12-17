@@ -76,7 +76,7 @@ I'm currently open to **contract roles** and **consulting engagements** in:
 
 <div align="center">
   
-### ⭐ Check out my [Interactive Resume](https://bmsrk.github.io) built with React + TypeScript!
+### ⭐ Check out my [Interactive Resume](https://bmsrk.github.io/bmsrk) built with React + TypeScript!
 
 *Designed to look like Dynamics 365 because... why not? 😄*
 
