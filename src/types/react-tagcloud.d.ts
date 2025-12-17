@@ -1,4 +1,5 @@
 declare module 'react-tagcloud' {
+  import * as React from 'react';
   import { ReactNode } from 'react';
 
   export interface Tag {
