@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ResumeData } from './types/types';
+import React from 'react';
 import DynamicsShell from './components/layout/DynamicsShell';
 import PrintableResume from './components/layout/PrintableResume';
+import LoadingSkeleton from './components/common/LoadingSkeleton';
 import { 
   SummaryPage, 
   ProjectsPage, 
@@ -12,50 +12,28 @@ import {
   HirePage, 
   DocsPage 
 } from './pages';
+import { useResumeData, useTabNavigation, useProjectFilter } from './hooks';
 
 const App: React.FC = () => {
-  const [resumeData, setResumeData] = useState<ResumeData | null>(null);
-  const [activeTab, setActiveTab] = useState('summary');
-  const [loading, setLoading] = useState(true);
-  
-  // State for Project Filtering (Lifted up to share between Skills and Projects tabs)
-  const [projectFilter, setProjectFilter] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetch('./resume_data.json')
-      .then(response => response.json())
-      .then((data: ResumeData) => {
-        setResumeData(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Failed to load resume data", error);
-        setLoading(false);
-      });
-  }, []);
+  const { data: resumeData, loading, error } = useResumeData();
+  const { activeTab, setActiveTab } = useTabNavigation();
+  const { projectFilter, setProjectFilter } = useProjectFilter();
 
   const handlePrint = () => {
     window.print();
   };
 
   const handleSkillClick = (skill: string) => {
-      setProjectFilter(skill);
-      setActiveTab('projects');
+    setProjectFilter(skill);
+    setActiveTab('projects');
   };
 
   if (loading) {
-      return (
-          <div className="flex flex-col items-center justify-center h-screen bg-[#f3f2f1] gap-4">
-              <div className="relative w-12 h-12">
-                  <div className="absolute top-0 left-0 w-full h-full border-4 border-[#0078d4] border-t-transparent rounded-full animate-spin"></div>
-              </div>
-              <div className="text-[#0078d4] font-semibold">Loading Dynamics 365...</div>
-          </div>
-      );
+    return <LoadingSkeleton />;
   }
 
-  if (!resumeData) {
-      return <div className="flex items-center justify-center h-screen bg-red-50 text-red-600">Error loading data.</div>;
+  if (error || !resumeData) {
+    return <div className="flex items-center justify-center h-screen bg-red-50 text-red-600">Error loading data.</div>;
   }
 
   const { 
