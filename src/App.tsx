@@ -9,6 +9,7 @@ import {
   LinkedinIcon,
   GlobeIcon,
   CheckMarkIcon,
+  SEO,
 } from './components/common';
 import { DynamicsShell } from './components/layout';
 import {
@@ -65,6 +66,7 @@ const App: React.FC = () => {
 
   return (
     <DynamicsShell onPrint={handlePrint} title={name} activeTab={activeTab} onTabChange={setActiveTab} data={resumeData}>
+      <SEO />
       
       {/* 
         TAB: PRINTABLE VERSION (ATS FRIENDLY)
