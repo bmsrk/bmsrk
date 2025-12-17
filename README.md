@@ -4,6 +4,12 @@
 
 I'm a Microsoft-certified Technical Specialist with **15 years of experience** architecting enterprise-scale Dynamics 365 Customer Engagement, Power Platform, and Azure integration solutions for Fortune 500 companies.
 
+## 📫 Let's Connect
+
+- 💼 **LinkedIn:** [linkedin.com/in/brunoservulo](https://linkedin.com/in/brunoservulo)
+- 🌐 **Portfolio:** [bmsrk.github.io](https://bmsrk.github.io/bmsrk)
+- 📧 **Email:** bruno.m.servulo@gmail.com
+- 📍 **Location:** São Bernardo do Campo, SP, Brazil
 ---
 
 ## 🎯 What I Do
@@ -55,15 +61,6 @@ I'm a Microsoft-certified Technical Specialist with **15 years of experience** a
 - 💰 **Cost Reduction** - Delivered 20% operational cost savings through strategic cloud architecture
 - 🔒 **Security Leadership** - Implemented SOC 2 compliance frameworks for enterprise CRM systems
 - 🎯 **Migration Expert** - Successfully executed multi-million dollar CRM migration projects
-
----
-
-## 📫 Let's Connect
-
-- 💼 **LinkedIn:** [linkedin.com/in/brunoservulo](https://linkedin.com/in/brunoservulo)
-- 🌐 **Portfolio:** [bmsrk.github.io](https://bmsrk.github.io)
-- 📧 **Email:** bruno.m.servulo@gmail.com
-- 📍 **Location:** São Bernardo do Campo, Brazil
 
 ---
 
