@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ResumeData } from '../../types';
 import {
   WaffleIcon,
+  MenuIcon,
+  CloseIcon,
   HomeIcon,
   SearchIcon,
   SaveIcon,
@@ -45,6 +47,9 @@ interface SearchResult {
 const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title, activeTab, onTabChange, data }) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  
+  // Mobile Menu State
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Search State
   const [searchQuery, setSearchQuery] = useState("");
@@ -259,12 +264,21 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
       {/* 1. Universal Header (Office 365 / Dynamics Style) */}
       <div className="h-[48px] bg-[#000000] text-white flex items-center justify-between px-2 flex-shrink-0 no-print z-50">
         <div className="flex items-center">
-            <button className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333] transition-colors">
+            {/* Mobile Menu Button - Shown only on mobile */}
+            <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333] transition-colors lg:hidden"
+            >
+                {isMobileMenuOpen ? <CloseIcon className="w-5 h-5" /> : <MenuIcon className="w-5 h-5" />}
+            </button>
+            
+            {/* Waffle Button - Hidden on mobile */}
+            <button className="w-[48px] h-[48px] hidden lg:flex items-center justify-center hover:bg-[#333333] transition-colors">
                 <WaffleIcon className="w-5 h-5" />
             </button>
-            <div className="px-2 font-semibold text-[16px]">Dynamics 365</div>
-            <div className="mx-2 text-gray-400">|</div>
-            <div className="px-2 text-[14px]">Resume Entity</div>
+            <div className="px-2 font-semibold text-[16px] hidden sm:block">Dynamics 365</div>
+            <div className="mx-2 text-gray-400 hidden sm:block">|</div>
+            <div className="px-2 text-[14px] hidden md:block">Resume Entity</div>
         </div>
         
         {/* Center Search - Dynamics Unified Interface style */}
@@ -353,8 +367,8 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
         </div>
       </div>
 
-      {/* 2. Command Bar (Ribbon) */}
-      <div className="h-[44px] bg-white border-b border-[#edebe9] flex items-center px-2 shadow-sm flex-shrink-0 no-print z-40 overflow-x-auto whitespace-nowrap">
+      {/* 2. Command Bar (Ribbon) - Hidden on mobile */}
+      <div className="h-[44px] bg-white border-b border-[#edebe9] hidden md:flex items-center px-2 shadow-sm flex-shrink-0 no-print z-40 overflow-x-auto whitespace-nowrap">
          <div className="flex items-center gap-1">
             <CommandButton icon={<AddIcon className="w-4 h-4 text-[#0078d4]" />} label="New" onClick={() => triggerToast("Create privileges required")} />
             <div className="h-5 w-px bg-gray-300 mx-1"></div>
@@ -372,10 +386,23 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
       </div>
 
       {/* 3. Main Layout Area */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden relative">
         
-        {/* Left Navigation (Sitemap) */}
-        <div className="w-[260px] bg-[#f3f2f1] border-r border-[#edebe9] flex flex-col flex-shrink-0 no-print overflow-y-auto">
+        {/* Mobile Overlay */}
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+        )}
+        
+        {/* Left Navigation (Sitemap) - Responsive with mobile drawer */}
+        <div className={`
+          w-[260px] bg-[#f3f2f1] border-r border-[#edebe9] flex flex-col flex-shrink-0 no-print overflow-y-auto
+          lg:relative lg:translate-x-0
+          fixed inset-y-0 left-0 z-50 transition-transform duration-300 ease-in-out
+          ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+        `}>
            
            <div className="flex-1">
                 {/* Area Switcher */}
@@ -389,7 +416,10 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                     {navItems.map(item => (
                         <button 
                             key={item.id}
-                            onClick={() => onTabChange(item.id)}
+                            onClick={() => {
+                                onTabChange(item.id);
+                                setIsMobileMenuOpen(false);
+                            }}
                             className={`flex items-center gap-3 px-4 py-1.5 text-sm transition-colors ${activeTab === item.id ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
                         >
                             <span className="text-gray-600">{item.icon}</span>
@@ -401,7 +431,10 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                     
                     {/* Printable Version in Nav */}
                     <button 
-                        onClick={() => onTabChange('printable')}
+                        onClick={() => {
+                            onTabChange('printable');
+                            setIsMobileMenuOpen(false);
+                        }}
                         className={`flex items-center gap-3 px-4 py-1.5 text-sm transition-colors ${activeTab === 'printable' ? 'bg-white font-semibold border-l-2 border-[#0078d4]' : 'hover:bg-[#edebe9] text-[#242424] border-l-2 border-transparent'}`}
                     >
                         <span className="text-gray-600"><DownloadIcon className="w-4 h-4" /></span>
@@ -420,16 +453,16 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
         <div className="flex-1 flex flex-col overflow-hidden bg-[#faf9f8]">
            
            {/* Form Header */}
-           <div className="px-5 pt-4 pb-2 border-b border-[#edebe9] bg-white no-print">
+           <div className="px-3 sm:px-5 pt-4 pb-2 border-b border-[#edebe9] bg-white no-print">
                <div className="flex items-center text-xs text-gray-500 mb-1">
                    <span>Resume</span>
                    <span className="mx-2">&gt;</span>
-                   <span>Bruno Maciel Servulo</span>
+                   <span className="hidden sm:inline">Bruno Maciel Servulo</span>
                </div>
-               <div className="flex items-start justify-between">
-                   <div className="flex items-center gap-4">
+               <div className="flex flex-col sm:flex-row items-start sm:justify-between gap-4">
+                   <div className="flex items-center gap-3 sm:gap-4">
                         {/* Entity Image - Dynamics Style - Smart Crop */}
-                        <div className="w-[64px] h-[64px] rounded-full shadow-sm border border-[#edebe9] overflow-hidden flex-shrink-0 bg-white flex items-center justify-center group relative">
+                        <div className="w-[48px] h-[48px] sm:w-[64px] sm:h-[64px] rounded-full shadow-sm border border-[#edebe9] overflow-hidden flex-shrink-0 bg-white flex items-center justify-center group relative">
                             <img 
                                 src={localProfileImage} 
                                 alt="Bruno Maciel Servulo"
@@ -450,12 +483,12 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                         </div>
 
                         <div>
-                            <h1 className="text-3xl font-light text-[#242424] tracking-tight">{title}</h1>
-                            <div className="text-sm text-gray-500">Dynamics 365 Technical Specialist</div>
+                            <h1 className="text-xl sm:text-2xl lg:text-3xl font-light text-[#242424] tracking-tight">{title}</h1>
+                            <div className="text-xs sm:text-sm text-gray-500">Dynamics 365 Technical Specialist</div>
                         </div>
                    </div>
 
-                   <div className="flex gap-8 mr-8">
+                   <div className="hidden lg:flex gap-8 mr-8">
                         <HeaderField label="Status" value="Active" />
                         <HeaderField label="Availability" value="Immediate" />
                         <HeaderField label="Location" value="Brazil" />
@@ -464,7 +497,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                </div>
 
                {/* Tabs */}
-               <div className="flex gap-6 mt-6 overflow-x-auto">
+               <div className="flex gap-4 sm:gap-6 mt-4 sm:mt-6 overflow-x-auto">
                   {navItems.map(item => (
                       <button
                         key={item.id}
@@ -479,17 +512,17 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            </div>
 
            {/* Scrollable Canvas - Updated padding to mimic Dynamics behavior better */}
-           <div className="flex-1 overflow-y-auto p-2 scroll-smooth relative" id="main-scroll">
+           <div className="flex-1 overflow-y-auto p-1 sm:p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
-                    <div className="absolute top-5 right-5 bg-black text-white px-4 py-2 rounded shadow-lg z-50 text-sm animate-fade-in-down flex items-center gap-2">
+                    <div className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2">
                         <CheckMarkIcon className="w-4 h-4 text-green-400" />
                         {toastMessage}
                     </div>
                 )}
 
-                {/* Resume Content Wrapper - Restored card styling but with minimal top gap */}
-                <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white border border-[#edebe9] shadow-sm rounded-sm p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0`}>
+                {/* Resume Content Wrapper - Responsive card styling */}
+                <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white lg:border border-[#edebe9] lg:shadow-sm rounded-sm p-3 sm:p-4 lg:p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0`}>
                     {children}
                 </div>
            </div>
