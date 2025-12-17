@@ -10,7 +10,10 @@ export const useResumeData = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('./resume_data.json');
+        const response = await fetch('/bmsrk/resume_data.json');
+        if (!response.ok) {
+          throw new Error(`Failed to load resume data: ${response.status} ${response.statusText}`);
+        }
         const data: ResumeApiResponse = await response.json();
         setResumeData(transformApiResponse(data));
       } catch (err) {
