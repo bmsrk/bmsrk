@@ -53,58 +53,55 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
       </div>
 
       {/* Filter Control Board */}
-      <div className="bg-white border border-[#edebe9] rounded-sm p-4 mb-6 shadow-sm space-y-4">
-          <div className="flex items-center justify-between border-b border-[#f3f2f1] pb-2 mb-2">
+      <div className="bg-white border border-[#edebe9] rounded-sm p-4 mb-6 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#f3f2f1] pb-3 mb-3">
               <h3 className="text-xs font-bold text-[#605e5c] uppercase tracking-wide">Filter Projects</h3>
               <button 
                   onClick={() => onFilterChange(null)}
-                  className={`text-xs font-semibold hover:underline ${filter ? 'text-[#0078d4]' : 'text-gray-400 cursor-default'}`}
+                  className={`text-xs font-semibold hover:underline self-start sm:self-auto ${filter ? 'text-[#0078d4]' : 'text-gray-400 cursor-default'}`}
                   disabled={!filter}
               >
                   Clear All Filters
               </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              {/* Business Segments */}
-              <div className="md:col-span-5">
-                   <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-[#201f1e]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Business Segments Dropdown */}
+              <div>
+                   <label htmlFor="segment-filter" className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#201f1e]">
                        <BriefcaseIcon className="w-4 h-4 text-[#004578]" />
                        <span>Business Segments</span>
-                   </div>
-                   <div className="flex flex-wrap gap-2">
-                        {segments.map(seg => (
-                            <FilterButton 
-                                key={seg} 
-                                label={seg} 
-                                isActive={filter === seg} 
-                                onClick={() => onFilterChange(filter === seg ? null : seg)}
-                                activeColor="bg-[#eff6fc] text-[#005a9e] border-[#005a9e]"
-                            />
-                        ))}
-                   </div>
+                   </label>
+                   <select
+                       id="segment-filter"
+                       value={segments.includes(filter || '') ? filter || '' : ''}
+                       onChange={(e) => onFilterChange(e.target.value || null)}
+                       className="w-full px-3 py-2 text-sm border border-[#8a8886] rounded-sm bg-white text-[#323130] focus:outline-none focus:border-[#0078d4] focus:ring-1 focus:ring-[#0078d4] hover:border-[#605e5c] transition-colors"
+                   >
+                       <option value="">All Business Segments</option>
+                       {segments.map(seg => (
+                           <option key={seg} value={seg}>{seg}</option>
+                       ))}
+                   </select>
               </div>
-              
-              {/* Divider for mobile/desktop */}
-              <div className="hidden md:block md:col-span-1 border-r border-[#f3f2f1] mx-auto h-full"></div>
 
-              {/* Technologies */}
-              <div className="md:col-span-6">
-                   <div className="flex items-center gap-2 mb-3 text-sm font-semibold text-[#201f1e]">
+              {/* Technologies Dropdown */}
+              <div>
+                   <label htmlFor="tech-filter" className="flex items-center gap-2 mb-2 text-sm font-semibold text-[#201f1e]">
                        <CodeIcon className="w-4 h-4 text-[#C71D7E]" />
                        <span>Technology Stack</span>
-                   </div>
-                   <div className="flex flex-wrap gap-2">
-                        {allTechnologies.map(tech => (
-                            <FilterButton 
-                                key={tech} 
-                                label={tech} 
-                                isActive={filter === tech} 
-                                onClick={() => onFilterChange(filter === tech ? null : tech)}
-                                activeColor="bg-[#fdf3f9] text-[#C71D7E] border-[#C71D7E]"
-                            />
-                        ))}
-                   </div>
+                   </label>
+                   <select
+                       id="tech-filter"
+                       value={allTechnologies.includes(filter || '') ? filter || '' : ''}
+                       onChange={(e) => onFilterChange(e.target.value || null)}
+                       className="w-full px-3 py-2 text-sm border border-[#8a8886] rounded-sm bg-white text-[#323130] focus:outline-none focus:border-[#0078d4] focus:ring-1 focus:ring-[#0078d4] hover:border-[#605e5c] transition-colors"
+                   >
+                       <option value="">All Technologies</option>
+                       {allTechnologies.map(tech => (
+                           <option key={tech} value={tech}>{tech}</option>
+                       ))}
+                   </select>
               </div>
           </div>
       </div>
@@ -201,25 +198,5 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
     </div>
   );
 };
-
-interface FilterButtonProps {
-    label: string;
-    isActive: boolean;
-    onClick: () => void;
-    activeColor: string;
-}
-
-const FilterButton: React.FC<FilterButtonProps> = ({ label, isActive, onClick, activeColor }) => (
-    <button
-        onClick={onClick}
-        className={`px-2.5 py-1 text-xs font-medium rounded-full border transition-all ${
-            isActive 
-            ? activeColor
-            : 'bg-white text-[#333] border-[#edebe9] hover:bg-[#f3f2f1]'
-        }`}
-    >
-        {label}
-    </button>
-);
 
 export default ProjectsGallery;

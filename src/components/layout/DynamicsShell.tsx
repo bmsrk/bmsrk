@@ -495,20 +495,6 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                         <HeaderField label="Owner" value="System" />
                    </div>
                </div>
-
-               {/* Tabs */}
-               <div className="flex gap-4 sm:gap-6 mt-4 sm:mt-6 overflow-x-auto">
-                  {navItems.map(item => (
-                      <button
-                        key={item.id}
-                        onClick={() => onTabChange(item.id)}
-                        className={`pb-2 text-sm font-semibold transition-colors relative whitespace-nowrap px-1 ${activeTab === item.id ? 'text-[#0078d4]' : 'text-gray-600 hover:text-gray-800'}`}
-                      >
-                          {item.label}
-                          {activeTab === item.id && <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#0078d4]"></div>}
-                      </button>
-                  ))}
-               </div>
            </div>
 
            {/* Scrollable Canvas - Updated padding to mimic Dynamics behavior better */}
