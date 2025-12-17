@@ -13,6 +13,18 @@ export const WaffleIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
+export const MenuIcon: React.FC<IconProps> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" className={className}>
+    <path d="M0 256h2048v128H0V256zm0 640h2048v128H0V896zm0 640h2048v128H0v-128z" />
+  </svg>
+);
+
+export const CloseIcon: React.FC<IconProps> = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" className={className}>
+    <path d="M1115 1024l914 915-90 90-915-914-915 914-90-90 914-915L19 109l90-90 915 914L1939 19l90 90-914 915z" />
+  </svg>
+);
+
 export const SaveIcon: React.FC<IconProps> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" className={className}>
     <path d="M1728 640l256 256v784q0 53-20 99t-55 82-81 55-100 20H256q-53 0-99-20t-82-55-55-81-20-100V256q0-53 20-99t55-82 81-55 100-20h1152v512h256V0H256q-53 0-99 20t-82 55-55 81-20 100v1408q0 53 20 99t55 82 81 55 100 20h1408q53 0 99-20t82-55 55-81 20-100V640h-256zM384 128h1024v384H384V128zm1280 1664H384V896h1280v896zM640 1024h768v128H640v-128zm0 256h768v128H640v-128zm0 256h512v128H640v-128z" />
