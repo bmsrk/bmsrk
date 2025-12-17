@@ -514,9 +514,9 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
                 {/* Footer with Microsoft Clarity Disclaimer */}
                 <div className="max-w-[1200px] mx-auto mt-4 mb-2 px-3 no-print">
-                    <div className="text-center text-[11px] text-[#605e5c] py-2 border-t border-[#edebe9]">
+                    <p className="text-center text-[11px] text-[#605e5c] py-2 border-t border-[#edebe9]" role="contentinfo">
                         We improve our products and advertising by using Microsoft Clarity to see how you use our website. By using our site, you agree that we and Microsoft can collect and use this data.
-                    </div>
+                    </p>
                 </div>
            </div>
         </div>
