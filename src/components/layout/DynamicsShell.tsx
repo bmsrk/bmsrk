@@ -511,6 +511,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                 <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white lg:border border-[#edebe9] lg:shadow-sm rounded-sm p-3 sm:p-4 lg:p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0`}>
                     {children}
                 </div>
+
+                {/* Footer with Analytics Disclaimer */}
+                <div className="max-w-[1200px] mx-auto mt-4 mb-2 px-3 no-print">
+                    <p className="text-center text-[11px] text-[#605e5c] py-2 border-t border-[#edebe9]" role="contentinfo">
+                        We use Google Analytics and Microsoft Clarity to understand how you use our website. By using our site, you agree that we and our analytics partners can collect and use this data.
+                    </p>
+                </div>
            </div>
         </div>
       </div>
