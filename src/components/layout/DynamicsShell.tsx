@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useMemo } from 'react';
+import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { ResumeData } from '../../types';
 import {
   WaffleIcon,
@@ -17,14 +17,15 @@ import {
   CheckMarkIcon,
   ClockIcon,
   CodeIcon,
-  ClipboardCheckIcon,
-  CubeIcon,
   BookIcon,
   EducationIcon,
   RocketIcon,
   ServerIcon,
   BriefcaseIcon,
 } from '../common/Icons';
+import Clippy from '../features/Clippy';
+import useKonamiCode from '../features/KonamiCode';
+import AchievementNotification, { ACHIEVEMENTS, Achievement } from '../features/Achievements';
 
 interface DynamicsShellProps {
   children: React.ReactNode;
@@ -56,6 +57,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  // Easter Egg State
+  const [showClippy, setShowClippy] = useState(false);
+  const [_achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
+  const [currentAchievement, setCurrentAchievement] = useState<Achievement | null>(null);
+  const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set());
+  const [tabVisitTimes, setTabVisitTimes] = useState<number[]>([]);
+
   // Profile Image Logic
   // Priority: 1. Local 'profile.jpg' (User provided) -> 2. GitHub Avatar -> 3. Initials
   // Note: Place 'profile.jpg' in the public/root folder.
@@ -68,18 +76,84 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     setTimeout(() => setShowToast(false), 3000);
   };
 
+  // Achievement System
+  const unlockAchievement = useCallback((achievementId: string) => {
+    setAchievements(prev => {
+      const alreadyUnlocked = prev.find(a => a.id === achievementId)?.unlocked;
+      if (alreadyUnlocked) return prev;
+      
+      const updated = prev.map(a => 
+        a.id === achievementId ? { ...a, unlocked: true } : a
+      );
+      const achievement = updated.find(a => a.id === achievementId);
+      if (achievement) {
+        setCurrentAchievement(achievement);
+        triggerToast(`Achievement Unlocked: ${achievement.title}`);
+      }
+      return updated;
+    });
+  }, []);
+
+  // Konami Code Easter Egg
+  useKonamiCode(() => {
+    unlockAchievement('konami');
+    triggerToast("🎮 Konami Code Activated! You're a legend!");
+    // Add a fun effect
+    document.body.style.animation = 'rainbow 2s linear';
+    setTimeout(() => {
+      document.body.style.animation = '';
+    }, 2000);
+  });
+
+  // Track tab visits for achievements
+  useEffect(() => {
+    const newVisited = new Set(visitedTabs);
+    newVisited.add(activeTab);
+    setVisitedTabs(newVisited);
+    
+    // Track visit time for speed run achievement
+    const now = Date.now();
+    setTabVisitTimes(prev => [...prev, now]);
+    
+    // Check if all main tabs visited
+    const mainTabs = ['summary', 'projects', 'about', 'experience', 'skills', 'qualifications', 'docs'];
+    const allVisited = mainTabs.every(tab => newVisited.has(tab));
+    if (allVisited) {
+      unlockAchievement('explorer');
+    }
+    
+    // Check speed run (5 tabs in 30 seconds)
+    const recentVisits = tabVisitTimes.filter(time => now - time < 30000);
+    if (recentVisits.length >= 5) {
+      unlockAchievement('speedrun');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, unlockAchievement]);
+
   const handlePrintAction = () => {
     if (activeTab !== 'printable') {
-        triggerToast("Opening Printable Version...");
+        triggerToast("Preparing printable version...");
         onTabChange('printable');
-        // We let the user initiate print manually from the new view or click button again
+        // Automatically trigger print after the tab changes
+        setTimeout(() => {
+          unlockAchievement('printer');
+          onPrint();
+        }, 300); // Give time for the view to render
     } else {
+        unlockAchievement('printer');
         onPrint();
     }
   };
 
   const handleEmail = () => {
     window.location.href = "mailto:bruno.m.servulo@gmail.com?subject=Dynamics 365 Opportunity";
+  };
+
+  const handleShare = () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      unlockAchievement('sharer');
+      triggerToast("Link copied to clipboard");
+    });
   };
 
   const handleExportJson = () => {
@@ -99,6 +173,11 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
             triggerToast("Pop-up blocked. Allow pop-ups to view JSON.");
         }
     }
+  };
+
+  const handleProfileClick = () => {
+    setShowClippy(true);
+    unlockAchievement('clippy');
   };
 
   // Close search results when clicking outside
@@ -245,6 +324,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
       onTabChange(tab);
       setIsSearchOpen(false);
       setSearchQuery("");
+      unlockAchievement('searcher');
   };
 
   const navItems = [
@@ -305,7 +385,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                         {searchResults.length > 0 ? (
                             <div>
                                 <div className="px-3 py-2 text-xs text-gray-500 bg-[#f3f2f1] border-b border-[#edebe9]">
-                                    Top Results for "{searchQuery}"
+                                    Top Results for &ldquo;{searchQuery}&rdquo;
                                 </div>
                                 {searchResults.map((result) => (
                                     <button
@@ -334,7 +414,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                             </div>
                         ) : (
                             <div className="p-4 text-center text-gray-500 text-sm">
-                                No records found matching "{searchQuery}"
+                                No records found matching &ldquo;{searchQuery}&rdquo;
                             </div>
                         )}
                     </div>
@@ -346,7 +426,11 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
              <button className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333]">
                 <span className="text-xl">?</span>
              </button>
-             <button className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333]">
+             <button 
+                onClick={handleProfileClick}
+                className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333] transition-colors"
+                title="Click for a surprise! 📎"
+             >
                  {/* Navigation User Icon: Uses Smart Crop */}
                  <img 
                     src={localProfileImage}
@@ -378,7 +462,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
             <CommandButton icon={<CheckMarkIcon className="w-4 h-4 text-[#0078d4]" />} label="Mark Complete" onClick={() => triggerToast("Application marked as reviewed")} />
             <div className="h-5 w-px bg-gray-300 mx-1"></div>
             <CommandButton icon={<MailIcon className="w-4 h-4 text-gray-600" />} label="Email a Link" onClick={handleEmail} />
-            <CommandButton icon={<ShareIcon className="w-4 h-4 text-gray-600" />} label="Share" onClick={() => navigator.clipboard.writeText(window.location.href).then(() => triggerToast("Link copied to clipboard"))} />
+            <CommandButton icon={<ShareIcon className="w-4 h-4 text-gray-600" />} label="Share" onClick={handleShare} />
             <CommandButton icon={<CodeIcon className="w-4 h-4 text-gray-600" />} label="Export Data" onClick={handleExportJson} />
             <div className="h-5 w-px bg-gray-300 mx-1"></div>
             <CommandButton icon={<DownloadIcon className="w-4 h-4 text-[#0078d4]" />} label="Export to PDF" onClick={handlePrintAction} />
@@ -521,6 +605,15 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            </div>
         </div>
       </div>
+
+      {/* Easter Eggs */}
+      {showClippy && <Clippy onClose={() => setShowClippy(false)} />}
+      {currentAchievement && (
+        <AchievementNotification 
+          achievement={currentAchievement} 
+          onDismiss={() => setCurrentAchievement(null)} 
+        />
+      )}
     </div>
   );
 };

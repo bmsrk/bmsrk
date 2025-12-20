@@ -26,6 +26,13 @@ export default [
         console: 'readonly',
         fetch: 'readonly',
         process: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        navigator: 'readonly',
+        HTMLDivElement: 'readonly',
+        MouseEvent: 'readonly',
+        KeyboardEvent: 'readonly',
+        Node: 'readonly',
       },
     },
     plugins: {
