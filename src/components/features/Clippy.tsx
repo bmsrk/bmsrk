@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
 import { Project } from '../../types';
-import { getSkillUrl, getSkillDescription } from '../../constants/skillUrls';
+import { getSkillUrl, getSkillDescription, getCompetencyDescription } from '../../constants';
 
 interface ClippyProps {
   onClose: () => void;
@@ -31,8 +31,12 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
     ? projects.filter((p) => p.technologies.includes(skill)).length
     : 0;
 
-  // Get skill description
+  // Get skill or competency description
   const skillDescription = skill ? getSkillDescription(skill) : '';
+  const competencyDescription = skill ? getCompetencyDescription(skill) : '';
+  const description = competencyDescription !== `Specialized expertise in ${skill}, contributing to successful project delivery and business transformation.` 
+    ? competencyDescription 
+    : skillDescription;
   const skillUrl = skill ? getSkillUrl(skill) : '';
 
   useEffect(() => {
@@ -78,29 +82,37 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
                 {skill}
               </h3>
               <p className="text-sm text-gray-800 mb-3 leading-relaxed">
-                {skillDescription}
+                {description}
               </p>
               {projectCount > 0 && (
                 <p className="text-sm font-semibold text-[#0078d4] mb-3">
                   Bruno has used this in {projectCount} project{projectCount !== 1 ? 's' : ''}!
                 </p>
               )}
-              <div className="flex gap-2">
-                <a
-                  href={skillUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-blue-600 hover:text-blue-800 font-semibold hover:underline"
-                >
-                  🔗 Learn More
-                </a>
-                <button 
-                  onClick={nextMessage}
-                  className="text-xs text-blue-600 hover:text-blue-800 font-semibold ml-2"
-                >
-                  Tell me more →
-                </button>
-              </div>
+              {skillUrl && (
+                <div className="mt-4 pt-3 border-t border-gray-200">
+                  <a
+                    href={skillUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-semibold rounded transition-colors shadow-sm"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                    </svg>
+                    Learn More on Microsoft Learn
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  </a>
+                </div>
+              )}
+              <button 
+                onClick={nextMessage}
+                className="mt-3 text-xs text-blue-600 hover:text-blue-800 font-semibold"
+              >
+                Tell me more →
+              </button>
             </div>
           ) : (
             /* Easter Egg Mode */
