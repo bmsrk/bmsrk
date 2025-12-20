@@ -59,7 +59,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
   // Easter Egg State
   const [showClippy, setShowClippy] = useState(false);
-  const [achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
+  const [_achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
   const [currentAchievement, setCurrentAchievement] = useState<Achievement | null>(null);
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set());
   const [tabVisitTimes, setTabVisitTimes] = useState<number[]>([]);
@@ -385,7 +385,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                         {searchResults.length > 0 ? (
                             <div>
                                 <div className="px-3 py-2 text-xs text-gray-500 bg-[#f3f2f1] border-b border-[#edebe9]">
-                                    Top Results for "{searchQuery}"
+                                    Top Results for &ldquo;{searchQuery}&rdquo;
                                 </div>
                                 {searchResults.map((result) => (
                                     <button
@@ -414,7 +414,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
                             </div>
                         ) : (
                             <div className="p-4 text-center text-gray-500 text-sm">
-                                No records found matching "{searchQuery}"
+                                No records found matching &ldquo;{searchQuery}&rdquo;
                             </div>
                         )}
                     </div>
