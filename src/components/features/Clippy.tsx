@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
-import { Project } from '../../types';
-import { getSkillUrl, getSkillDescription, getCompetencyDescription, COMPETENCY_DESCRIPTION_MAP } from '../../constants';
+import { Project, SkillMetadata } from '../../types';
+import { getSkillUrl, getSkillDescription } from '../../utils';
 
 interface ClippyProps {
   onClose: () => void;
   skill?: string;
   projects?: Project[];
+  skillMetadata?: Record<string, SkillMetadata>;
 }
 
 const CLIPPY_MESSAGES = [
@@ -22,7 +23,7 @@ const CLIPPY_MESSAGES = [
   "Looking for a CRM architect? You're in the right place!",
 ];
 
-const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
+const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMetadata }) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -31,14 +32,9 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
     ? projects.filter((p) => p.technologies.includes(skill)).length
     : 0;
 
-  // Get skill or competency description
-  const skillDescription = skill ? getSkillDescription(skill) : '';
-  const competencyDescription = skill ? getCompetencyDescription(skill) : '';
-  // Use competency description if it's a known competency, otherwise use skill description
-  const description = skill && COMPETENCY_DESCRIPTION_MAP[skill] 
-    ? competencyDescription 
-    : skillDescription;
-  const skillUrl = skill ? getSkillUrl(skill) : '';
+  // Get skill description and URL
+  const description = skill ? getSkillDescription(skill, skillMetadata) : '';
+  const skillUrl = skill ? getSkillUrl(skill, skillMetadata) : '';
 
   useEffect(() => {
     // Animate in

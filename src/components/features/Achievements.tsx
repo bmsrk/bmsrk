@@ -111,6 +111,13 @@ export const ACHIEVEMENTS: Achievement[] = [
     unlocked: false,
   },
   {
+    id: 'tourist',
+    title: 'Tourist',
+    description: 'Completed the guided tour with Clippy',
+    icon: '🎫',
+    unlocked: false,
+  },
+  {
     id: 'completionist',
     title: 'Completionist',
     description: 'Unlocked all achievements',

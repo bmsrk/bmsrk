@@ -43,6 +43,11 @@ export interface Project {
   impact: string[];
 }
 
+export interface SkillMetadata {
+  description: string;
+  learn_url: string;
+}
+
 export interface ResumeData {
   name: string;
   title: string;
@@ -56,4 +61,5 @@ export interface ResumeData {
   certifications: string[];
   languages: string[];
   projects: Project[];
+  skill_metadata?: Record<string, SkillMetadata>;
 }

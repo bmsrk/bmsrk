@@ -1,6 +1,5 @@
 import React from 'react';
 import { SkillCategory, Project } from '../../../types';
-import { getSkillUrl, getSkillDescription } from '../../../constants';
 import {
   ServerIcon,
   ZapIcon,
@@ -53,32 +52,24 @@ const SkillsGrid: React.FC<SkillsGridProps> = ({ skills, projects, onSkillClick 
               const count = projects.filter(p => p.technologies.includes(skill)).length;
               
               return (
-                <div key={idx} className="inline-flex items-center bg-[#f3f2f1] border border-transparent rounded-full px-2.5 py-1 text-xs font-medium text-[#323130] hover:bg-[#eff6fc] hover:border-[#0078d4] transition-all group">
-                   {/* Main Link to Documentation */}
-                   <a 
-                     href={getSkillUrl(skill)} 
-                     target="_blank" 
-                     rel="noopener noreferrer"
-                     className="hover:text-[#0078d4] hover:underline cursor-pointer"
-                     title={getSkillDescription(skill)}
-                   >
-                     {skill}
-                   </a>
+                <button
+                  key={idx}
+                  onClick={() => onSkillClick(skill)}
+                  className="inline-flex items-center bg-[#f3f2f1] border border-transparent rounded-full px-2.5 py-1 text-xs font-medium text-[#323130] hover:bg-[#eff6fc] hover:border-[#0078d4] transition-all cursor-pointer group"
+                  title={`Click to learn more about ${skill}`}
+                >
+                  <span className="hover:text-[#0078d4]">{skill}</span>
                    
-                   {/* Project Counter Badge - Click triggers filtering in Projects tab */}
-                   {count > 0 && (
-                      <button
-                         onClick={(e) => {
-                             e.preventDefault();
-                             onSkillClick(skill);
-                         }}
-                         className="ml-2 flex items-center justify-center bg-[#c7e0f4] text-[#005a9e] text-[10px] font-bold h-5 min-w-[20px] px-1 rounded-full hover:bg-[#0078d4] hover:text-white transition-colors cursor-pointer"
-                         title={`View ${count} related projects`}
-                      >
-                         {count}
-                      </button>
-                   )}
-                </div>
+                  {/* Project Counter Badge */}
+                  {count > 0 && (
+                    <span
+                      className="ml-2 flex items-center justify-center bg-[#c7e0f4] text-[#005a9e] text-[10px] font-bold h-5 min-w-[20px] px-1 rounded-full group-hover:bg-[#0078d4] group-hover:text-white transition-colors"
+                      title={`Used in ${count} project${count !== 1 ? 's' : ''}`}
+                    >
+                      {count}
+                    </span>
+                  )}
+                </button>
               );
             })}
           </div>

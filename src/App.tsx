@@ -27,7 +27,21 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('summary');
   const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
   const [showClippy, setShowClippy] = useState(false);
+  const [showPitchMode, setShowPitchMode] = useState(false);
   const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
+
+  // Check if this is the user's first visit and auto-start pitch mode after a delay
+  React.useEffect(() => {
+    const hasVisited = localStorage.getItem('hasVisitedBefore');
+    if (!hasVisited) {
+      // Show pitch mode after 3 seconds on first visit
+      const timer = setTimeout(() => {
+        setShowPitchMode(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, []);
 
   const handlePrint = () => {
     window.print();
@@ -50,6 +64,15 @@ const App: React.FC = () => {
     // Show Clippy with competency explanation
     setClippySkill(competencyTitle);
     setShowClippy(true);
+  };
+
+  const handlePitchModeComplete = () => {
+    localStorage.setItem('hasVisitedBefore', 'true');
+    setShowPitchMode(false);
+  };
+
+  const handleStartPitchMode = () => {
+    setShowPitchMode(true);
   };
 
   if (loading) {
@@ -100,6 +123,8 @@ const App: React.FC = () => {
         setShowClippy(true);
       }}
       onGeneratePDF={handleGeneratePDFCallback}
+      showPitchMode={showPitchMode}
+      onPitchModeClose={handlePitchModeComplete}
     >
       <SEO />
       
@@ -259,7 +284,7 @@ const App: React.FC = () => {
                 TAB: HELP
             */}
             <div className={`tab-content ${activeTab === 'help' ? 'block' : 'hidden'}`}>
-                <HelpPage />
+                <HelpPage onStartTour={handleStartPitchMode} />
             </div>
 
             {/* 
