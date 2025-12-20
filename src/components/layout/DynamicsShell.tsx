@@ -17,8 +17,6 @@ import {
   CheckMarkIcon,
   ClockIcon,
   CodeIcon,
-  ClipboardCheckIcon,
-  CubeIcon,
   BookIcon,
   EducationIcon,
   RocketIcon,
@@ -129,13 +127,18 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     if (recentVisits.length >= 5) {
       unlockAchievement('speedrun');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, unlockAchievement]);
 
   const handlePrintAction = () => {
     if (activeTab !== 'printable') {
-        triggerToast("Opening Printable Version...");
+        triggerToast("Preparing printable version...");
         onTabChange('printable');
-        // We let the user initiate print manually from the new view or click button again
+        // Automatically trigger print after the tab changes
+        setTimeout(() => {
+          unlockAchievement('printer');
+          onPrint();
+        }, 300); // Give time for the view to render
     } else {
         unlockAchievement('printer');
         onPrint();

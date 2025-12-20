@@ -8,10 +8,6 @@ const KONAMI_CODE = [
   'b', 'a'
 ];
 
-interface KonamiCodeProps {
-  onActivate: () => void;
-}
-
 export const useKonamiCode = (onActivate: () => void) => {
   useEffect(() => {
     let currentIndex = 0;
