@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { getSimsAudio } from '../utils/simsAudio';
 import { useNaturalTyping } from './useNaturalTyping';
 
@@ -27,21 +27,40 @@ export const useSpeakingAnimation = ({
   onComplete,
 }: UseSpeakingAnimationOptions): UseSpeakingAnimationResult => {
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const simsAudio = getSimsAudio();
+  const simsAudio = useMemo(() => getSimsAudio(), []);
   const hasStartedRef = useRef(false);
+  const currentTextRef = useRef(text);
+  const onCompleteRef = useRef(onComplete);
 
-  const { displayedText, isComplete, reset } = useNaturalTyping({
+  // Keep onComplete ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  // Memoized callback for typing completion
+  const handleTypingComplete = useCallback(() => {
+    setIsSpeaking(false);
+    simsAudio.stop();
+    onCompleteRef.current?.();
+  }, [simsAudio]);
+
+  const { displayedText, isComplete } = useNaturalTyping({
     text,
     enabled,
-    onComplete: () => {
-      setIsSpeaking(false);
-      simsAudio.stop();
-      if (onComplete) {
-        onComplete();
-      }
-    },
+    onComplete: handleTypingComplete,
   });
 
+  // Handle text changes - reset audio tracking
+  useEffect(() => {
+    if (currentTextRef.current !== text) {
+      currentTextRef.current = text;
+      hasStartedRef.current = false;
+      setIsSpeaking(false);
+      simsAudio.stop();
+    }
+  }, [text, simsAudio]);
+
+  // Start audio when enabled and text is available
   useEffect(() => {
     if (!enabled || !text) {
       setIsSpeaking(false);
@@ -49,13 +68,10 @@ export const useSpeakingAnimation = ({
       return;
     }
 
-    // Start speaking animation and audio
     if (!hasStartedRef.current) {
       hasStartedRef.current = true;
       setIsSpeaking(true);
 
-      // Play audio with appropriate voice
-      // Bruno: pitch 1.5, Clippy: pitch 1.8 with isClippy flag
       const pitch = isClippy ? 1.8 : 1.5;
       simsAudio.speak(text, pitch, isClippy);
     }
@@ -67,13 +83,7 @@ export const useSpeakingAnimation = ({
         hasStartedRef.current = false;
       }
     };
-  }, [text, enabled, isClippy, isComplete]);
-
-  // Reset when text changes
-  useEffect(() => {
-    hasStartedRef.current = false;
-    reset();
-  }, [text]);
+  }, [text, enabled, isClippy, isComplete, simsAudio]);
 
   return {
     displayedText,

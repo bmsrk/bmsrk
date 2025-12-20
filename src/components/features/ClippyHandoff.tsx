@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
+import { getSimsAudio } from '../../utils/simsAudio';
 
 interface ClippyHandoffProps {
   onHandoffComplete: () => void;
@@ -45,24 +46,35 @@ const HANDOFF_STEPS: HandoffStep[] = [
 const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profileImageSrc }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const simsAudio = useMemo(() => getSimsAudio(), []);
 
   const currentStep = HANDOFF_STEPS[currentStepIndex];
   const isBrunoSpeaking = currentStep?.speaker === 'bruno';
   const isClippySpeaking = currentStep?.speaker === 'clippy';
 
+  // Memoized callback for step completion
+  const handleStepComplete = useCallback(() => {
+    // Auto-advance after a brief pause when typing completes
+    if (currentStepIndex < HANDOFF_STEPS.length - 1) {
+      setTimeout(() => {
+        setCurrentStepIndex((prev) => prev + 1);
+      }, 800);
+    }
+  }, [currentStepIndex]);
+
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
-    onComplete: () => {
-      // Auto-advance after a brief pause when typing completes
-      if (currentStepIndex < HANDOFF_STEPS.length - 1) {
-        setTimeout(() => {
-          handleContinue();
-        }, 800);
-      }
-    },
+    onComplete: handleStepComplete,
   });
+
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      simsAudio.stop();
+    };
+  }, [simsAudio]);
 
   // Handle speaker transitions
   useEffect(() => {
@@ -79,16 +91,16 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [currentStepIndex]);
+  }, [currentStepIndex, currentStep]);
 
-  const handleContinue = () => {
+  const handleContinue = useCallback(() => {
     if (currentStepIndex < HANDOFF_STEPS.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     } else {
       // Handoff complete, start tour
       onHandoffComplete();
     }
-  };
+  }, [currentStepIndex, onHandoffComplete]);
 
   // Prevent interaction during auto-advance
   const canManuallyAdvance = isComplete && !isTransitioning;

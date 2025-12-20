@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface UseNaturalTypingOptions {
   text: string;
@@ -16,7 +16,7 @@ interface UseNaturalTypingResult {
  * Get natural typing delay based on current and next character
  * Mimics human/AI text generation with variable speeds and pauses
  */
-const getTypingDelay = (currentChar: string, nextChar: string): number => {
+const getTypingDelay = (currentChar: string, _nextChar: string): number => {
   const baseDelay = 35;
 
   // Punctuation pauses (like taking a breath)
@@ -49,60 +49,77 @@ export const useNaturalTyping = ({
   const [isComplete, setIsComplete] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const indexRef = useRef(0);
+  const textRef = useRef(text);
+  const onCompleteRef = useRef(onComplete);
+
+  // Keep refs updated without triggering re-renders
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
+    textRef.current = text;
+  }, [text]);
+
+  useEffect(() => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+
     if (!enabled || !text) {
       setDisplayedText('');
       setIsComplete(false);
+      indexRef.current = 0;
       return;
     }
 
-    // Reset state
+    // Reset state for new text
     setDisplayedText('');
     setIsComplete(false);
     indexRef.current = 0;
 
     const typeNextChar = () => {
       const currentIndex = indexRef.current;
+      const currentText = textRef.current;
 
-      if (currentIndex >= text.length) {
+      if (currentIndex >= currentText.length) {
         setIsComplete(true);
-        if (onComplete) {
-          onComplete();
-        }
+        onCompleteRef.current?.();
         return;
       }
 
-      // Add current character
-      setDisplayedText(text.slice(0, currentIndex + 1));
+      setDisplayedText(currentText.slice(0, currentIndex + 1));
 
-      // Calculate delay for next character
-      const currentChar = text[currentIndex] ?? '';
-      const nextChar = text[currentIndex + 1] ?? '';
+      const currentChar = currentText[currentIndex] ?? '';
+      const nextChar = currentText[currentIndex + 1] ?? '';
       const delay = getTypingDelay(currentChar, nextChar);
 
       indexRef.current++;
       timeoutRef.current = setTimeout(typeNextChar, delay);
     };
 
-    // Start typing
-    timeoutRef.current = setTimeout(typeNextChar, 100); // Small initial delay
+    // Start typing with small initial delay
+    timeoutRef.current = setTimeout(typeNextChar, 100);
 
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
       }
     };
-  }, [text, enabled, onComplete]);
+  }, [text, enabled]); // onComplete intentionally removed from deps
 
-  const reset = () => {
+  const reset = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
     setDisplayedText('');
     setIsComplete(false);
     indexRef.current = 0;
-  };
+  }, []);
 
   return {
     displayedText,

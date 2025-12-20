@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
+import { getSimsAudio } from '../../utils/simsAudio';
 
 interface CenteredWelcomeModalProps {
   onTakeTour: () => void;
@@ -16,40 +17,41 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
   profileImageSrc,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
+  const simsAudio = useMemo(() => getSimsAudio(), []);
+
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: WELCOME_MESSAGE,
     isClippy: false,
-    enabled: true,
+    enabled: isVisible, // Only start typing when modal is visible
   });
 
   useEffect(() => {
-    // Animate in after short delay
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
 
-    // Prevent body scroll
     document.body.style.overflow = 'hidden';
 
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = '';
+      simsAudio.stop(); // Ensure audio stops on unmount
     };
-  }, []);
+  }, [simsAudio]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {
       onDismiss();
     }, 300);
-  };
+  }, [onDismiss]);
 
-  const handleTakeTour = () => {
+  const handleTakeTour = useCallback(() => {
     setIsVisible(false);
     setTimeout(() => {
       onTakeTour();
     }, 300);
-  };
+  }, [onTakeTour]);
 
   // Handle ESC key
   useEffect(() => {
@@ -61,7 +63,7 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [handleClose]);
 
   return (
     <>
