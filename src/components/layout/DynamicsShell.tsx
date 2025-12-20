@@ -241,7 +241,8 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
       }
 
       // Check if html2pdf is available
-      if (typeof (window as any).html2pdf === 'undefined') {
+      const html2pdfLib = (window as any).html2pdf;
+      if (typeof html2pdfLib === 'undefined') {
         triggerToast("PDF library not loaded, using print dialog...");
         setIsGeneratingPDF(false);
         onPrint();
@@ -256,7 +257,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       };
 
-      (window as any).html2pdf()
+      html2pdfLib()
         .set(opt)
         .from(element)
         .save()
