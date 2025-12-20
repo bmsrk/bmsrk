@@ -21,7 +21,6 @@ import {
   HireMe,
   HelpPage,
 } from './components/features';
-import { getCompetencyDescription } from './constants';
 
 const App: React.FC = () => {
   const { resumeData, loading, projectFilter, setProjectFilter, filterBySkill } = useResumeContext();
