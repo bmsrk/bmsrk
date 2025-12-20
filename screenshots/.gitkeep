@@ -1,0 +1,6 @@
+# Screenshots will be generated here by E2E tests
+# Run: npm run test:e2e:screenshots
+
+# Note: Screenshots are intentionally committed to the repository
+# to showcase the portfolio in the README without requiring users
+# to run the tests themselves.
