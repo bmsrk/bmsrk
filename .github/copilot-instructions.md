@@ -28,7 +28,7 @@ npm run lint
 # Format code
 npm run format
 
-# Build for production
+# Build for production (runs TypeScript compiler + Vite build)
 npm run build
 
 # Preview production build
@@ -109,6 +109,7 @@ npm run preview
 
 - Currently no test framework is configured
 - Type checking serves as the primary validation (`npm run type-check`)
+- Consider adding Vitest, Jest, or React Testing Library for future test coverage
 
 ## Notes for AI Assistants
 
