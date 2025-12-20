@@ -9,6 +9,7 @@ import {
   LinkedinIcon,
   GlobeIcon,
   CheckMarkIcon,
+  InfoIcon,
   SEO,
 } from './components/common';
 import { DynamicsShell } from './components/layout';
@@ -43,6 +44,12 @@ const App: React.FC = () => {
     // Also filter and navigate to projects
     filterBySkill(skill);
     setActiveTab('projects');
+  };
+
+  const handleCompetencyClick = (competencyTitle: string) => {
+    // Show Clippy with competency explanation
+    setClippySkill(competencyTitle);
+    setShowClippy(true);
   };
 
   if (loading) {
@@ -150,10 +157,16 @@ const App: React.FC = () => {
                                 <div className="border border-[#edebe9] rounded-sm overflow-hidden mt-2 bg-white">
                                     <div className="grid grid-cols-1 md:grid-cols-2">
                                         {achievements.map((comp, i) => (
-                                            <div key={i} className="p-3 border-b border-r border-[#edebe9] last:border-0 hover:bg-[#eff6fc] transition-colors flex items-center gap-2">
+                                            <button 
+                                                key={i} 
+                                                onClick={() => handleCompetencyClick(comp.title)}
+                                                className="p-3 border-b border-r border-[#edebe9] last:border-0 hover:bg-[#eff6fc] transition-colors flex items-center gap-2 text-left cursor-pointer group w-full"
+                                                aria-label={`Learn more about ${comp.title}`}
+                                            >
                                                 <CheckMarkIcon className="w-4 h-4 text-[#0078d4] flex-shrink-0" />
-                                                <span className="text-[13px] font-semibold text-[#323130]">{comp.title}</span>
-                                            </div>
+                                                <span className="text-[13px] font-semibold text-[#323130] flex-1">{comp.title}</span>
+                                                <InfoIcon className="w-3.5 h-3.5 text-[#605e5c] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                                            </button>
                                         ))}
                                     </div>
                                 </div>

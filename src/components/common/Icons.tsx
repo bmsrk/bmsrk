@@ -73,9 +73,10 @@ export const UserIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
+// Sparkle/Magic Wand icon to indicate intelligent search capabilities
 export const SearchIcon: React.FC<IconProps> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" className={className}>
-    <path d="M1965 1875l-515-515q58-77 89-168t31-186q0-119-45-224t-124-183-183-123-224-46q-119 0-224 45T387 399t-123 183-46 224q0 119 45 224t124 183 183 123 224 46q94 0 185-31t169-90l515 515 91-91zM256 928q0-93 35-174t96-142 142-96 175-36q93 0 174 35t142 96 96 142 36 175q0 93-35 174t-96 142-142 96-175 36q-93 0-174-35t-142-96-96-142-36-175z" />
+    <path d="M1024 0l85 597 597 85-597 85-85 597-85-597L342 682l597-85L1024 0zm768 1280l64 448 448 64-448 64-64 448-64-448-448-64 448-64 64-448zM256 1792l43 299 298 43-298 43-43 299-42-299-299-43 299-43 42-299z" />
   </svg>
 );
 
@@ -236,6 +237,12 @@ export const BriefcaseIcon: React.FC<IconProps> = ({ className }) => (
 export const HelpIcon: React.FC<IconProps> = ({ className = "w-4 h-4" }) => (
   <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+export const InfoIcon: React.FC<IconProps> = ({ className = "w-4 h-4" }) => (
+  <svg className={className} fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path fillRule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" clipRule="evenodd" />
   </svg>
 );
 
