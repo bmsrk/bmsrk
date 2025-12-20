@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
 import { Project } from '../../types';
-import { getSkillUrl, getSkillDescription, getCompetencyDescription } from '../../constants';
+import { getSkillUrl, getSkillDescription, getCompetencyDescription, COMPETENCY_DESCRIPTION_MAP } from '../../constants';
 
 interface ClippyProps {
   onClose: () => void;
@@ -34,7 +34,8 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
   // Get skill or competency description
   const skillDescription = skill ? getSkillDescription(skill) : '';
   const competencyDescription = skill ? getCompetencyDescription(skill) : '';
-  const description = competencyDescription !== `Specialized expertise in ${skill}, contributing to successful project delivery and business transformation.` 
+  // Use competency description if it's a known competency, otherwise use skill description
+  const description = skill && COMPETENCY_DESCRIPTION_MAP[skill] 
     ? competencyDescription 
     : skillDescription;
   const skillUrl = skill ? getSkillUrl(skill) : '';
