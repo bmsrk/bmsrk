@@ -50,6 +50,12 @@ npm run preview
 - **Hooks**: Prefer React hooks over class components
 - **No prop-types**: TypeScript interfaces are used for type checking
 - **JSX**: `react-jsx` transform (React doesn't need to be imported for JSX syntax, but React components and hooks still require explicit imports)
+- **Performance best practices**:
+  - Use `useCallback` to memoize event handlers and callbacks
+  - Use `useMemo` to memoize expensive computations and context values
+  - Use `useRef` for values that shouldn't trigger re-renders
+  - Memoize context provider values to prevent unnecessary re-renders
+  - Remove unstable dependencies from effect arrays (use refs for callbacks)
 
 ### Code Formatting
 
@@ -68,6 +74,7 @@ npm run preview
 - **Type definitions**: Store in `src/types/` directory
 - **Utilities**: Store in `src/utils/` directory
 - **Components**: Organize in `src/components/` with common, layout, and features subdirectories
+- **Custom hooks**: Store in `src/hooks/` directory
 
 ### Component Patterns
 
@@ -82,6 +89,20 @@ npm run preview
 - Use React Context for global state (see `src/context/ResumeContext`)
 - Use `useState` for local component state
 - Custom hooks in `src/hooks/` directory
+- **Important hooks**:
+  - `useNaturalTyping`: Provides natural typing animation with variable speeds
+  - `useSpeakingAnimation`: Coordinates audio playback with typing animation
+  - `useResumeData`: Fetches and manages resume data from JSON
+  - `useProjectFilter`: Manages project filtering state
+  - `useWelcomeFlow`: State machine for welcome modal and tour flow
+
+### Custom Hooks Best Practices
+
+- Always memoize callbacks returned from hooks with `useCallback`
+- Use `useRef` for storing callbacks that shouldn't trigger re-renders
+- Keep effect dependencies minimal - remove callbacks from dependency arrays when possible
+- Ensure proper cleanup in `useEffect` return functions
+- Use `useMemo` for singleton instances (e.g., audio singletons)
 
 ## Architecture Notes
 
@@ -89,6 +110,8 @@ npm run preview
 - Uses Tailwind CSS utility classes for styling
 - Color scheme follows Microsoft Dynamics 365 branding (`#0078d4` primary)
 - Responsive design with mobile-first approach
+- **Audio System**: Uses Web Audio API via `simsAudio` singleton for speech-like sounds
+- **Animation System**: Natural typing animation with Sims-like audio playback
 
 ## Build and Deployment
 
@@ -104,6 +127,8 @@ npm run preview
 - `eslint.config.js`: ESLint configuration (flat config format)
 - `.prettierrc`: Prettier formatting rules
 - `package.json`: Dependencies and scripts
+- `src/utils/simsAudio.ts`: Singleton audio generator for speech-like sounds
+- `src/context/ResumeContext.tsx`: Global state management for resume data and filters
 
 ## Testing
 
@@ -119,3 +144,6 @@ npm run preview
 - Maintain the Dynamics 365 design aesthetic when making UI changes
 - Use the `@/` path alias for all imports from the src directory
 - Ensure all TypeScript strict mode checks pass
+- **Performance**: Always apply React performance best practices (memoization, refs for callbacks, minimal dependencies)
+- **State machines**: Use proper state machine patterns for complex UI flows (see `useWelcomeFlow`)
+
