@@ -35,6 +35,10 @@ interface DynamicsShellProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
   data?: ResumeData;
+  clippySkill?: string;
+  showClippy?: boolean;
+  onClippyClose?: () => void;
+  onProfileClick?: () => void;
 }
 
 interface SearchResult {
@@ -46,7 +50,18 @@ interface SearchResult {
   icon?: React.ReactNode;
 }
 
-const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title, activeTab, onTabChange, data }) => {
+const DynamicsShell: React.FC<DynamicsShellProps> = ({ 
+  children, 
+  onPrint, 
+  title, 
+  activeTab, 
+  onTabChange, 
+  data,
+  clippySkill,
+  showClippy = false,
+  onClippyClose,
+  onProfileClick
+}) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   
@@ -59,7 +74,6 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Easter Egg State
-  const [showClippy, setShowClippy] = useState(false);
   const [_achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
   const [currentAchievement, setCurrentAchievement] = useState<Achievement | null>(null);
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set());
@@ -173,7 +187,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     setTabVisitTimes(prev => [...prev, now]);
     
     // Check if all main tabs visited
-    const mainTabs = ['summary', 'projects', 'about', 'experience', 'skills', 'qualifications', 'docs'];
+    const mainTabs = ['summary', 'projects', 'about', 'experience', 'skills', 'qualifications', 'help'];
     const allVisited = mainTabs.every(tab => newVisited.has(tab));
     if (allVisited) {
       unlockAchievement('explorer');
@@ -232,9 +246,11 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     }
   };
 
-  const handleProfileClick = () => {
-    setShowClippy(true);
+  const handleProfileClickInternal = () => {
     unlockAchievement('clippy');
+    if (onProfileClick) {
+      onProfileClick();
+    }
   };
 
   // Close search results when clicking outside
@@ -404,8 +420,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     { id: 'experience', label: 'Experience', icon: <ClockIcon className="w-4 h-4" /> },
     { id: 'skills', label: 'Skills', icon: <CodeIcon className="w-4 h-4" /> },
     { id: 'qualifications', label: 'Qualifications', icon: <EducationIcon className="w-4 h-4" /> },
-    { id: 'docs', label: 'Solution Docs', icon: <ServerIcon className="w-4 h-4" /> },
-    { id: 'help', label: 'Help & Tips', icon: <HelpIcon className="w-4 h-4" /> },
+    { id: 'help', label: 'Help', icon: <HelpIcon className="w-4 h-4" /> },
   ];
 
   return (
@@ -493,11 +508,15 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
         </div>
 
         <div className="flex items-center gap-1">
-             <button className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333]">
-                <span className="text-xl">?</span>
+             <button 
+                onClick={() => onTabChange('help')}
+                className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333] transition-colors"
+                title="Help & Tips"
+             >
+                <HelpIcon className="w-5 h-5" />
              </button>
              <button 
-                onClick={handleProfileClick}
+                onClick={handleProfileClickInternal}
                 className="w-[48px] h-[48px] flex items-center justify-center hover:bg-[#333333] transition-colors"
                 title="Click for a surprise! 📎"
              >
@@ -682,7 +701,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
       </div>
 
       {/* Easter Eggs */}
-      {showClippy && <Clippy onClose={() => setShowClippy(false)} />}
+      {showClippy && (
+        <Clippy 
+          onClose={onClippyClose || (() => {})} 
+          skill={clippySkill}
+          projects={data?.projects || []}
+        />
+      )}
       {currentAchievement && (
         <AchievementNotification 
           achievement={currentAchievement} 

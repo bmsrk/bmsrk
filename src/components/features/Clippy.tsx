@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
+import { Project } from '../../types';
+import { getSkillUrl, getSkillDescription } from '../../constants/skillUrls';
 
 interface ClippyProps {
   onClose: () => void;
+  skill?: string;
+  projects?: Project[];
 }
 
 const CLIPPY_MESSAGES = [
@@ -18,17 +22,28 @@ const CLIPPY_MESSAGES = [
   "Looking for a CRM architect? You're in the right place!",
 ];
 
-const Clippy: React.FC<ClippyProps> = ({ onClose }) => {
+const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [] }) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Calculate project count for the skill
+  const projectCount = skill
+    ? projects.filter((p) => p.technologies.includes(skill)).length
+    : 0;
+
+  // Get skill description
+  const skillDescription = skill ? getSkillDescription(skill) : '';
+  const skillUrl = skill ? getSkillUrl(skill) : '';
 
   useEffect(() => {
     // Animate in
     setTimeout(() => setIsVisible(true), 100);
     
-    // Random message
-    setCurrentMessage(Math.floor(Math.random() * CLIPPY_MESSAGES.length));
-  }, []);
+    // Random message if no skill is provided
+    if (!skill) {
+      setCurrentMessage(Math.floor(Math.random() * CLIPPY_MESSAGES.length));
+    }
+  }, [skill]);
 
   const handleClose = () => {
     setIsVisible(false);
@@ -47,64 +62,69 @@ const Clippy: React.FC<ClippyProps> = ({ onClose }) => {
     >
       <div className="relative">
         {/* Speech Bubble */}
-        <div className="absolute bottom-full right-0 mb-2 w-72 bg-yellow-50 border-2 border-yellow-400 rounded-lg shadow-2xl p-4">
+        <div className="absolute bottom-full right-0 mb-2 w-80 bg-yellow-50 border-2 border-yellow-400 rounded-lg shadow-2xl p-4">
           <button 
             onClick={handleClose}
             className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
           >
             <CloseIcon className="w-4 h-4" />
           </button>
-          <p className="text-sm text-gray-800 pr-6">
-            {CLIPPY_MESSAGES[currentMessage]}
-          </p>
-          <button 
-            onClick={nextMessage}
-            className="mt-3 text-xs text-blue-600 hover:text-blue-800 font-semibold"
-          >
-            Tell me more →
-          </button>
+          
+          {/* Technology Explanation Mode */}
+          {skill ? (
+            <div className="pr-6">
+              <h3 className="text-lg font-bold text-[#201f1e] mb-3 flex items-center gap-2">
+                <span className="text-2xl">📎</span>
+                {skill}
+              </h3>
+              <p className="text-sm text-gray-800 mb-3 leading-relaxed">
+                {skillDescription}
+              </p>
+              {projectCount > 0 && (
+                <p className="text-sm font-semibold text-[#0078d4] mb-3">
+                  Bruno has used this in {projectCount} project{projectCount !== 1 ? 's' : ''}!
+                </p>
+              )}
+              <div className="flex gap-2">
+                <a
+                  href={skillUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-blue-600 hover:text-blue-800 font-semibold hover:underline"
+                >
+                  🔗 Learn More
+                </a>
+                <button 
+                  onClick={nextMessage}
+                  className="text-xs text-blue-600 hover:text-blue-800 font-semibold ml-2"
+                >
+                  Tell me more →
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Easter Egg Mode */
+            <div className="pr-6">
+              <p className="text-sm text-gray-800">
+                {CLIPPY_MESSAGES[currentMessage]}
+              </p>
+              <button 
+                onClick={nextMessage}
+                className="mt-3 text-xs text-blue-600 hover:text-blue-800 font-semibold"
+              >
+                Tell me more →
+              </button>
+            </div>
+          )}
           {/* Bubble Arrow */}
           <div className="absolute -bottom-2 right-8 w-4 h-4 bg-yellow-50 border-r-2 border-b-2 border-yellow-400 transform rotate-45"></div>
         </div>
         
-        {/* Clippy Character */}
+        {/* Clippy Character - Larger with gentle float animation */}
         <div className="relative animate-bounce-gentle">
-          <svg 
-            width="120" 
-            height="120" 
-            viewBox="0 0 120 120" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg"
-            className="filter drop-shadow-2xl cursor-pointer hover:scale-110 transition-transform"
-            onClick={nextMessage}
-          >
-            {/* Paperclip Body */}
-            <path 
-              d="M45 20 Q30 20 30 35 L30 70 Q30 85 45 85 Q60 85 60 70 L60 40 Q60 30 50 30 Q40 30 40 40 L40 65" 
-              stroke="#C0C0C0" 
-              strokeWidth="8" 
-              fill="none" 
-              strokeLinecap="round"
-            />
-            {/* Eyes */}
-            <circle cx="42" cy="45" r="3" fill="#000" />
-            <circle cx="52" cy="45" r="3" fill="#000" />
-            {/* Smile */}
-            <path 
-              d="M40 55 Q47 60 54 55" 
-              stroke="#000" 
-              strokeWidth="2" 
-              fill="none" 
-              strokeLinecap="round"
-            />
-            {/* Shine effect */}
-            <path 
-              d="M40 25 L42 27" 
-              stroke="#FFF" 
-              strokeWidth="2" 
-              strokeLinecap="round"
-            />
-          </svg>
+          <div className="text-[90px] leading-none cursor-pointer hover:scale-110 transition-transform filter drop-shadow-2xl" onClick={nextMessage}>
+            📎
+          </div>
         </div>
       </div>
     </div>
