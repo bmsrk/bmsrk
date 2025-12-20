@@ -18,7 +18,7 @@ const HANDOFF_STEPS: HandoffStep[] = [
   },
   {
     speaker: 'clippy',
-    message: "Did someone say Clippy?! 📎 I've been waiting since Windows 97 for this moment!",
+    message: "Did someone say Clippy?! 📎 I've been waiting since Office 97 for this moment!",
   },
   {
     speaker: 'bruno',
