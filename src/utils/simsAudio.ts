@@ -7,11 +7,19 @@ export class SimsAudioGenerator {
   private audioContext: AudioContext | null = null;
   private currentOscillators: OscillatorNode[] = [];
   private isPlaying = false;
+  private isSupported = false;
 
   constructor() {
-    // Initialize AudioContext on demand
-    if (typeof window !== 'undefined') {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    // Initialize AudioContext on demand with error handling
+    try {
+      if (typeof window !== 'undefined') {
+        this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        this.isSupported = true;
+      }
+    } catch (error) {
+      console.warn('Web Audio API not supported:', error);
+      this.isSupported = false;
+      this.audioContext = null;
     }
   }
 
@@ -23,65 +31,81 @@ export class SimsAudioGenerator {
    * @param isClippy - Whether to use Clippy's higher-pitched voice (default false)
    */
   speak(text: string, speed: number = 1, isClippy: boolean = false): void {
-    if (!this.audioContext || this.isPlaying) return;
+    // Silently fail if audio not supported - it's an enhancement, not critical
+    if (!this.isSupported || !this.audioContext || this.isPlaying) return;
 
-    this.isPlaying = true;
-    this.currentOscillators = [];
+    try {
+      // Resume audio context if suspended (required by browsers)
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch((err) => {
+          console.warn('Failed to resume audio context:', err);
+        });
+      }
 
-    const baseFrequencies = isClippy
-      ? [
-          260, 286, 234, 312, 247, 273, 299, 254, 267, 280, // Higher-pitched for Clippy
-        ]
-      : [
-          200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Normal Bruno voice
-        ];
+      this.isPlaying = true;
+      this.currentOscillators = [];
 
-    const syllableCount = Math.ceil(text.length / 4); // Approximate syllables
-    const syllableDuration = (0.15 / speed) * 1000; // Duration per syllable in ms
-    const actualSpeed = isClippy ? speed * 1.15 : speed; // Clippy speaks slightly faster
+      const baseFrequencies = isClippy
+        ? [
+            260, 286, 234, 312, 247, 273, 299, 254, 267, 280, // Higher-pitched for Clippy
+          ]
+        : [
+            200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Normal Bruno voice
+          ];
 
-    for (let i = 0; i < syllableCount; i++) {
-      const startTime = this.audioContext.currentTime + i * (syllableDuration / 1000 / actualSpeed);
-      const duration = (syllableDuration / 1000 / actualSpeed) * (0.8 + Math.random() * 0.4); // Vary duration
+      const syllableCount = Math.ceil(text.length / 4); // Approximate syllables
+      const syllableDuration = (0.15 / speed) * 1000; // Duration per syllable in ms
+      const actualSpeed = isClippy ? speed * 1.15 : speed; // Clippy speaks slightly faster
 
-      // Randomly select base frequency
-      const baseFreq =
-        baseFrequencies[Math.floor(Math.random() * baseFrequencies.length)] ?? 200;
+      for (let i = 0; i < syllableCount; i++) {
+        const startTime =
+          this.audioContext.currentTime + i * (syllableDuration / 1000 / actualSpeed);
+        const duration = (syllableDuration / 1000 / actualSpeed) * (0.8 + Math.random() * 0.4); // Vary duration
 
-      // Create oscillator
-      const oscillator = this.audioContext.createOscillator();
-      const gainNode = this.audioContext.createGain();
+        // Randomly select base frequency
+        const baseFreq =
+          baseFrequencies[Math.floor(Math.random() * baseFrequencies.length)] ?? 200;
 
-      oscillator.connect(gainNode);
-      gainNode.connect(this.audioContext.destination);
+        // Create oscillator
+        const oscillator = this.audioContext.createOscillator();
+        const gainNode = this.audioContext.createGain();
 
-      // Use square or sawtooth for more "voice-like" quality
-      oscillator.type = Math.random() > 0.5 ? 'square' : 'sawtooth';
+        oscillator.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
 
-      // Add pitch variation for natural speech-like quality
-      // Clippy has more playful oscillation
-      const pitchVariation = isClippy 
-        ? 1 + (Math.random() - 0.5) * 0.4 // ±20% pitch variation for Clippy
-        : 1 + (Math.random() - 0.5) * 0.3; // ±15% pitch variation for Bruno
-      oscillator.frequency.value = baseFreq * pitchVariation;
+        // Use square or sawtooth for more "voice-like" quality
+        oscillator.type = Math.random() > 0.5 ? 'square' : 'sawtooth';
 
-      // Envelope: Quick attack, sustain, quick release
-      gainNode.gain.setValueAtTime(0, startTime);
-      gainNode.gain.linearRampToValueAtTime(0.08, startTime + 0.02); // Attack
-      gainNode.gain.linearRampToValueAtTime(0.06, startTime + duration * 0.7); // Sustain
-      gainNode.gain.linearRampToValueAtTime(0, startTime + duration); // Release
+        // Add pitch variation for natural speech-like quality
+        // Clippy has more playful oscillation
+        const pitchVariation = isClippy
+          ? 1 + (Math.random() - 0.5) * 0.4 // ±20% pitch variation for Clippy
+          : 1 + (Math.random() - 0.5) * 0.3; // ±15% pitch variation for Bruno
+        oscillator.frequency.value = baseFreq * pitchVariation;
 
-      oscillator.start(startTime);
-      oscillator.stop(startTime + duration);
+        // Envelope: Quick attack, sustain, quick release
+        gainNode.gain.setValueAtTime(0, startTime);
+        gainNode.gain.linearRampToValueAtTime(0.08, startTime + 0.02); // Attack
+        gainNode.gain.linearRampToValueAtTime(0.06, startTime + duration * 0.7); // Sustain
+        gainNode.gain.linearRampToValueAtTime(0, startTime + duration); // Release
 
-      this.currentOscillators.push(oscillator);
-    }
+        oscillator.start(startTime);
+        oscillator.stop(startTime + duration);
 
-    // Reset playing state after all sounds complete
-    setTimeout(() => {
+        this.currentOscillators.push(oscillator);
+      }
+
+      // Reset playing state after all sounds complete
+      setTimeout(() => {
+        this.isPlaying = false;
+        this.currentOscillators = [];
+      }, (syllableCount * syllableDuration) / actualSpeed + 200);
+    } catch (error) {
+      console.warn('Failed to play audio:', error);
+      // Don't crash - just log and continue
       this.isPlaying = false;
       this.currentOscillators = [];
-    }, (syllableCount * syllableDuration) / actualSpeed + 200);
+    }
   }
 
   /**

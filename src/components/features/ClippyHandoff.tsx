@@ -54,13 +54,9 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
 
   // Memoized callback for step completion
   const handleStepComplete = useCallback(() => {
-    // Auto-advance after a brief pause when typing completes
-    if (currentStepIndex < HANDOFF_STEPS.length - 1) {
-      setTimeout(() => {
-        setCurrentStepIndex((prev) => prev + 1);
-      }, 800);
-    }
-  }, [currentStepIndex]);
+    // Don't auto-advance - let user click to proceed
+    // This was causing the handoff to play automatically without user input
+  }, []);
 
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
@@ -147,14 +143,14 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                 </div>
               </div>
 
-              {/* Manual Continue Button (optional - auto-advances) */}
-              {canManuallyAdvance && currentStepIndex < HANDOFF_STEPS.length - 1 && (
+              {/* Manual Continue Button - Always show when complete */}
+              {canManuallyAdvance && (
                 <div className="flex justify-end animate-fade-in">
                   <button
                     onClick={handleContinue}
                     className="text-xs text-[#0078d4] hover:text-[#106ebe] font-semibold transition-colors"
                   >
-                    Continue →
+                    {currentStepIndex === HANDOFF_STEPS.length - 1 ? "Let's Go! 🚀" : 'Continue →'}
                   </button>
                 </div>
               )}

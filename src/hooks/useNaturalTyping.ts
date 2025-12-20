@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 interface UseNaturalTypingOptions {
   text: string;
@@ -17,28 +18,29 @@ interface UseNaturalTypingResult {
  * Mimics human/AI text generation with variable speeds and pauses
  */
 const getTypingDelay = (currentChar: string, _nextChar: string): number => {
-  const baseDelay = 35;
+  const baseDelay = 20; // Reduced from 35ms to 20ms for faster typing
 
-  // Punctuation pauses (like taking a breath)
-  if (['.', '!', '?'].includes(currentChar)) return baseDelay + 400 + Math.random() * 200;
-  if ([',', ';', ':'].includes(currentChar)) return baseDelay + 150 + Math.random() * 100;
+  // Punctuation pauses (like taking a breath) - reduced pauses
+  if (['.', '!', '?'].includes(currentChar)) return baseDelay + 250 + Math.random() * 100;
+  if ([',', ';', ':'].includes(currentChar)) return baseDelay + 100 + Math.random() * 50;
 
   // Word boundary (space) - slight hesitation
-  if (currentChar === ' ') return baseDelay + 50 + Math.random() * 80;
+  if (currentChar === ' ') return baseDelay + 30 + Math.random() * 40;
 
-  // Random "thinking" pause (1 in 30 chance)
-  if (Math.random() < 0.033) return baseDelay + 200 + Math.random() * 300;
+  // Random "thinking" pause (1 in 30 chance) - reduced
+  if (Math.random() < 0.033) return baseDelay + 100 + Math.random() * 150;
 
   // Speed burst - type faster occasionally (1 in 15 chance)
-  if (Math.random() < 0.066) return baseDelay * 0.4;
+  if (Math.random() < 0.066) return baseDelay * 0.5;
 
-  // Normal variation
-  return baseDelay + Math.random() * 30 - 15; // 20-50ms range
+  // Normal variation - faster overall
+  return baseDelay + Math.random() * 20 - 10; // 10-30ms range
 };
 
 /**
  * Custom hook for natural typing animation
  * Provides realistic typing effect with variable speeds, pauses, and hesitations
+ * Respects user's reduced motion preference
  */
 export const useNaturalTyping = ({
   text,
@@ -51,6 +53,7 @@ export const useNaturalTyping = ({
   const indexRef = useRef(0);
   const textRef = useRef(text);
   const onCompleteRef = useRef(onComplete);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   // Keep refs updated without triggering re-renders
   useEffect(() => {
@@ -79,6 +82,14 @@ export const useNaturalTyping = ({
     setDisplayedText('');
     setIsComplete(false);
     indexRef.current = 0;
+
+    // If user prefers reduced motion, show text immediately
+    if (prefersReducedMotion) {
+      setDisplayedText(text);
+      setIsComplete(true);
+      onCompleteRef.current?.();
+      return;
+    }
 
     const typeNextChar = () => {
       const currentIndex = indexRef.current;
@@ -109,7 +120,7 @@ export const useNaturalTyping = ({
         timeoutRef.current = null;
       }
     };
-  }, [text, enabled]); // onComplete intentionally removed from deps
+  }, [text, enabled, prefersReducedMotion]); // Added prefersReducedMotion to deps
 
   const reset = useCallback(() => {
     if (timeoutRef.current) {

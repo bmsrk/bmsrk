@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from '@dr.pogodin/react-helmet';
 import App from './App';
 import { ResumeProvider } from './context/ResumeContext';
+import { ErrorBoundary } from './components/common';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
@@ -12,10 +13,12 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-    <HelmetProvider>
-      <ResumeProvider>
-        <App />
-      </ResumeProvider>
-    </HelmetProvider>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <ResumeProvider>
+          <App />
+        </ResumeProvider>
+      </HelmetProvider>
+    </ErrorBoundary>
   </React.StrictMode>
 );
