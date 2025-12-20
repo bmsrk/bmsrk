@@ -64,7 +64,7 @@ const SkillCloud: React.FC<SkillCloudProps> = ({ skills, onSkillClick }) => {
     <div className="p-4 bg-white rounded-md border border-slate-200">
       <div className="mb-4">
         <h3 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Technical Expertise Map</h3>
-        <p className="text-xs text-slate-400">Click a skill to learn more with Clippy&apos;s help!</p>
+        <p className="text-xs text-slate-400">Click a skill to learn more with Clippy's help!</p>
       </div>
       <TagCloud
         minSize={14}

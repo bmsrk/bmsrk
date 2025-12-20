@@ -73,6 +73,7 @@ export const UserIcon: React.FC<IconProps> = ({ className }) => (
   </svg>
 );
 
+// Sparkle/Magic Wand icon to indicate intelligent search capabilities
 export const SearchIcon: React.FC<IconProps> = ({ className }) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048" fill="currentColor" className={className}>
     <path d="M1024 0l85 597 597 85-597 85-85 597-85-597L342 682l597-85L1024 0zm768 1280l64 448 448 64-448 64-64 448-64-448-448-64 448-64 64-448zM256 1792l43 299 298 43-298 43-43 299-42-299-299-43 299-43 42-299z" />
