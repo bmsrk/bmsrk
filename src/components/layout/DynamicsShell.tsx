@@ -22,6 +22,7 @@ import {
   RocketIcon,
   ServerIcon,
   BriefcaseIcon,
+  HelpIcon,
 } from '../common/Icons';
 import Clippy from '../features/Clippy';
 import useKonamiCode from '../features/KonamiCode';
@@ -98,11 +99,67 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
   useKonamiCode(() => {
     unlockAchievement('konami');
     triggerToast("🎮 Konami Code Activated! You're a legend!");
-    // Add a fun effect
-    document.body.style.animation = 'rainbow 2s linear';
+    
+    // Add foil tint effect
+    document.body.classList.add('foil-effect');
+    
+    // Create and play Mario star power-up music (10 seconds)
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const duration = 10; // 10 seconds
+    const startTime = audioContext.currentTime;
+    
+    // Create oscillators for the iconic Mario star theme melody
+    const playNote = (frequency: number, startOffset: number, noteLength: number) => {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.type = 'square'; // 8-bit sound
+      oscillator.frequency.value = frequency;
+      
+      gainNode.gain.setValueAtTime(0.15, startTime + startOffset);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + startOffset + noteLength);
+      
+      oscillator.start(startTime + startOffset);
+      oscillator.stop(startTime + startOffset + noteLength);
+    };
+    
+    // Mario star power-up theme notes (simplified version, looped)
+    const starTheme = [
+      { note: 587.33, time: 0, length: 0.15 },    // D5
+      { note: 659.25, time: 0.15, length: 0.15 }, // E5
+      { note: 783.99, time: 0.3, length: 0.15 },  // G5
+      { note: 1046.5, time: 0.45, length: 0.15 }, // C6
+      { note: 783.99, time: 0.6, length: 0.15 },  // G5
+      { note: 1046.5, time: 0.75, length: 0.3 },  // C6
+      { note: 987.77, time: 1.05, length: 0.15 }, // B5
+      { note: 880.00, time: 1.2, length: 0.15 },  // A5
+      { note: 783.99, time: 1.35, length: 0.15 }, // G5
+      { note: 659.25, time: 1.5, length: 0.15 },  // E5
+      { note: 783.99, time: 1.65, length: 0.3 },  // G5
+    ];
+    
+    // Loop the theme for 10 seconds
+    const themeLength = 1.95;
+    const loops = Math.ceil(duration / themeLength);
+    
+    for (let i = 0; i < loops; i++) {
+      const loopOffset = i * themeLength;
+      if (loopOffset < duration) {
+        starTheme.forEach(({ note, time, length }) => {
+          if (loopOffset + time < duration) {
+            playNote(note, loopOffset + time, Math.min(length, duration - loopOffset - time));
+          }
+        });
+      }
+    }
+    
+    // Remove effect after 10 seconds
     setTimeout(() => {
-      document.body.style.animation = '';
-    }, 2000);
+      document.body.classList.remove('foil-effect');
+    }, 10000);
   });
 
   // Track tab visits for achievements
@@ -194,11 +251,19 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
   const searchResults = useMemo(() => {
     if (!data || !searchQuery || searchQuery.length < 2) return [];
     
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.toLowerCase().trim();
     const results: SearchResult[] = [];
+    
+    // Helper function for better matching (partial word matching)
+    const matches = (text: string, searchTerm: string): boolean => {
+      const lowerText = text.toLowerCase();
+      // Check for exact match, starts with, or word boundary match
+      return lowerText.includes(searchTerm) || 
+             lowerText.split(/\s+/).some(word => word.startsWith(searchTerm));
+    };
 
     // 1. Search Summary
-    if (data.summary.toLowerCase().includes(query)) {
+    if (matches(data.summary, query)) {
       results.push({
         id: 'summary',
         category: 'General',
@@ -210,7 +275,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     }
 
     // 2. Search My Story (About Me)
-    if (data.aboutMe?.some((p) => p.toLowerCase().includes(query))) {
+    if (data.aboutMe?.some((p) => matches(p, query))) {
       results.push({
         id: 'about',
         category: 'General',
@@ -224,11 +289,14 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     // 3. Search Projects (Brag Doc)
     if (data.projects) {
         data.projects.forEach((proj, idx) => {
-            if (
-                proj.title.toLowerCase().includes(query) || 
-                proj.description.toLowerCase().includes(query) ||
-                proj.technologies.some(t => t.toLowerCase().includes(query))
-            ) {
+            const matchesProject = matches(proj.title, query) || 
+                                  matches(proj.description, query) ||
+                                  matches(proj.role, query) ||
+                                  (proj.customer && matches(proj.customer, query)) ||
+                                  proj.technologies.some(t => matches(t, query)) ||
+                                  proj.impact.some(i => matches(i, query));
+            
+            if (matchesProject) {
                 results.push({
                     id: `proj-${idx}`,
                     category: 'Projects',
@@ -243,12 +311,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
     // 4. Search Experience
     data.experience.forEach((job, idx) => {
-      if (
-        job.title.toLowerCase().includes(query) || 
-        job.company.toLowerCase().includes(query) ||
-        job.responsibilities.some(r => r.toLowerCase().includes(query)) ||
-        (job.intro && job.intro.toLowerCase().includes(query))
-      ) {
+      const matchesJob = matches(job.title, query) || 
+                        matches(job.company, query) ||
+                        job.responsibilities.some(r => matches(r, query)) ||
+                        (job.intro && matches(job.intro, query)) ||
+                        (job.location && matches(job.location, query));
+      
+      if (matchesJob) {
         results.push({
           id: `exp-${idx}`,
           category: 'Experience',
@@ -263,7 +332,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     // 5. Search Skills
     data.skills.forEach((cat, cIdx) => {
       cat.skills.forEach((skill, sIdx) => {
-        if (skill.toLowerCase().includes(query)) {
+        if (matches(skill, query)) {
           results.push({
             id: `skill-${cIdx}-${sIdx}`,
             category: 'Skills',
@@ -278,7 +347,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
     // 6. Search Achievements
     data.achievements.forEach((ach, idx) => {
-        if (ach.title.toLowerCase().includes(query) || ach.description.toLowerCase().includes(query)) {
+        if (matches(ach.title, query) || matches(ach.description, query)) {
             results.push({
                 id: `ach-${idx}`,
                 category: 'Achievements',
@@ -291,7 +360,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
     // 7. Search Certifications
     data.certifications.forEach((cert, idx) => {
-        if (cert.toLowerCase().includes(query)) {
+        if (matches(cert, query)) {
             results.push({
                 id: `cert-${idx}`,
                 category: 'Qualifications',
@@ -305,7 +374,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
 
     // 8. Search Education
     data.education.forEach((edu, idx) => {
-        if (edu.institution.toLowerCase().includes(query) || edu.degree.toLowerCase().includes(query)) {
+        if (matches(edu.institution, query) || matches(edu.degree, query)) {
             results.push({
                 id: `edu-${idx}`,
                 category: 'Qualifications',
@@ -336,6 +405,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     { id: 'skills', label: 'Skills', icon: <CodeIcon className="w-4 h-4" /> },
     { id: 'qualifications', label: 'Qualifications', icon: <EducationIcon className="w-4 h-4" /> },
     { id: 'docs', label: 'Solution Docs', icon: <ServerIcon className="w-4 h-4" /> },
+    { id: 'help', label: 'Help & Tips', icon: <HelpIcon className="w-4 h-4" /> },
   ];
 
   return (
@@ -585,7 +655,12 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            <div className="flex-1 overflow-y-auto p-1 sm:p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
-                    <div className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2">
+                    <div 
+                      onClick={() => setShowToast(false)}
+                      className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print cursor-pointer hover:bg-gray-800 transition-colors"
+                      role="button"
+                      aria-label="Click to dismiss"
+                    >
                         <CheckMarkIcon className="w-4 h-4 text-green-400" />
                         {toastMessage}
                     </div>

@@ -27,11 +27,19 @@ const AchievementNotification: React.FC<AchievementNotificationProps> = ({ achie
     return () => clearTimeout(timer);
   }, [onDismiss]);
 
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(onDismiss, 300);
+  };
+
   return (
     <div 
-      className={`fixed top-20 right-6 z-[100] transition-all duration-300 ${
+      onClick={handleClose}
+      className={`fixed top-20 right-6 z-[100] no-print cursor-pointer hover:scale-105 transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
       }`}
+      role="button"
+      aria-label="Click to dismiss"
     >
       <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 rounded-lg shadow-2xl p-4 pr-6 min-w-[300px] border-2 border-yellow-600">
         <div className="flex items-start gap-3">

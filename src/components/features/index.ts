@@ -5,6 +5,7 @@ export { default as CopilotPane } from './CopilotPane';
 export { default as PCFLibrary } from './PCFLibrary';
 export { default as PCFWrapper } from './PCFWrapper';
 export { default as Clippy } from './Clippy';
+export { default as HelpPage } from './HelpPage';
 export { default as useKonamiCode } from './KonamiCode';
 export { default as AchievementNotification, ACHIEVEMENTS } from './Achievements';
 export type { Achievement } from './Achievements';
