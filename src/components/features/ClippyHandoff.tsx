@@ -1,125 +1,122 @@
 import React, { useState, useEffect } from 'react';
-import { getSimsAudio } from '../../utils/simsAudio';
+import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
 
 interface ClippyHandoffProps {
   onHandoffComplete: () => void;
   profileImageSrc: string;
 }
 
-const HANDOFF_STEPS = [
+interface HandoffStep {
+  speaker: 'bruno' | 'clippy';
+  message: string;
+}
+
+const HANDOFF_STEPS: HandoffStep[] = [
   {
     speaker: 'bruno',
     message: "Alright, let me hand you over to my assistant... Hey Clippy! Take it from here!",
-    delay: 0,
   },
   {
     speaker: 'clippy',
     message: "Did someone say Clippy?! 📎 I've been waiting since Windows 97 for this moment!",
-    delay: 800,
+  },
+  {
+    speaker: 'bruno',
+    message: "Good to see you're still around, buddy. Remember when we used to run deltree together?",
   },
   {
     speaker: 'clippy',
-    message: "Fun fact: I once tried to help write a resignation letter for Clippy... wait, that was ME! 😅",
-    delay: 100,
+    message: "Deltree? 😢 That command doesn't exist anymore... Just like my relevance in Office 2007!",
+  },
+  {
+    speaker: 'bruno',
+    message: "Hey, you're still relevant here! This portfolio runs on nostalgia AND modern tech.",
   },
   {
     speaker: 'clippy',
-    message: "So Bruno built this whole thing to look like Dynamics 365? Classic overachiever.",
-    delay: 100,
+    message: "Aww, thanks Bruno! 🥹 Now I feel better than a freshly defragged hard drive!",
   },
   {
     speaker: 'clippy',
-    message: "Alright, enough nostalgia! Let me show you around this impressive portfolio. Ready?",
-    delay: 100,
+    message: "Alright, enough reminiscing about command prompts! Let me show you around this impressive portfolio. Ready?",
   },
 ];
 
 const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profileImageSrc }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
-  const [isBrunoVisible, setIsBrunoVisible] = useState(true);
-  const [isClippyVisible, setIsClippyVisible] = useState(false);
-  const simsAudio = getSimsAudio();
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const currentStep = HANDOFF_STEPS[currentStepIndex];
+  const isBrunoSpeaking = currentStep?.speaker === 'bruno';
+  const isClippySpeaking = currentStep?.speaker === 'clippy';
 
+  const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
+    text: currentStep?.message ?? '',
+    isClippy: isClippySpeaking,
+    enabled: !isTransitioning,
+    onComplete: () => {
+      // Auto-advance after a brief pause when typing completes
+      if (currentStepIndex < HANDOFF_STEPS.length - 1) {
+        setTimeout(() => {
+          handleContinue();
+        }, 800);
+      }
+    },
+  });
+
+  // Handle speaker transitions
   useEffect(() => {
-    if (!currentStep) return;
+    if (!currentStep) return undefined;
 
-    // Wait for delay before showing this step
-    const delayTimer = setTimeout(() => {
-      // Handle speaker transitions
-      if (currentStep.speaker === 'clippy' && isBrunoVisible) {
-        setIsBrunoVisible(false);
-        setTimeout(() => setIsClippyVisible(true), 300);
-      }
-
-      // Start typing animation
-      startTypingAnimation();
-    }, currentStep.delay);
-
-    return () => {
-      clearTimeout(delayTimer);
-      simsAudio.stop();
-    };
+    // Check if speaker changed from previous step
+    const prevStep = currentStepIndex > 0 ? HANDOFF_STEPS[currentStepIndex - 1] : null;
+    if (prevStep && prevStep.speaker !== currentStep.speaker) {
+      setIsTransitioning(true);
+      // Allow time for fade transition
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+    return undefined;
   }, [currentStepIndex]);
-
-  const startTypingAnimation = () => {
-    if (!currentStep) return;
-
-    setDisplayedText('');
-    setIsTypingComplete(false);
-
-    const fullText = currentStep.message;
-    let currentIndex = 0;
-    const typingSpeed = 25;
-    const isClippy = currentStep.speaker === 'clippy';
-
-    // Play audio with appropriate voice
-    simsAudio.speak(fullText, isClippy ? 1.8 : 1.5, isClippy);
-
-    const typingInterval = setInterval(() => {
-      if (currentIndex < fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex + 1));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-        setIsTypingComplete(true);
-      }
-    }, typingSpeed);
-  };
 
   const handleContinue = () => {
     if (currentStepIndex < HANDOFF_STEPS.length - 1) {
       setCurrentStepIndex(currentStepIndex + 1);
     } else {
       // Handoff complete, start tour
-      simsAudio.stop();
       onHandoffComplete();
     }
   };
+
+  // Prevent interaction during auto-advance
+  const canManuallyAdvance = isComplete && !isTransitioning;
 
   return (
     <>
       {/* Backdrop */}
       <div className="fixed inset-0 bg-black bg-opacity-40 z-[95] no-print animate-fade-in" />
 
-      {/* Bruno's Farewell Message */}
-      {isBrunoVisible && currentStep?.speaker === 'bruno' && (
+      {/* Bruno's Messages - Left/Center positioned */}
+      {isBrunoSpeaking && !isTransitioning && (
         <div
           className={`fixed z-[100] no-print transition-all duration-500 ${
-            isBrunoVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-          } top-[60px] right-4 sm:right-6 md:right-8 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px]`}
+            !isTransitioning ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+          } top-1/3 left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[480px] max-w-[480px]`}
         >
           <div className="relative bg-white border-[3px] border-[#0078d4] rounded-lg shadow-2xl rpg-dialog">
-            <div className="absolute -top-3 right-8 w-6 h-6 bg-white border-t-[3px] border-l-[3px] border-[#0078d4] transform rotate-45"></div>
+            {/* Pointer to profile */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-6 h-6 bg-white border-t-[3px] border-l-[3px] border-[#0078d4] transform rotate-45"></div>
+
             <div className="p-5">
               <div className="flex items-start gap-3 mb-4">
                 <img
                   src={profileImageSrc}
                   alt="Bruno"
-                  className="w-12 h-12 rounded-full border-2 border-[#0078d4] object-cover object-[center_25%]"
+                  className={`w-14 h-14 rounded-full border-2 border-[#0078d4] object-cover object-[center_25%] ${
+                    isSpeaking ? 'speaking-pulse' : ''
+                  }`}
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src.includes('profile.jpg')) {
@@ -128,31 +125,44 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                   }}
                 />
                 <div className="flex-1">
-                  <h3 className="text-sm font-bold text-[#201f1e] mb-1">Bruno</h3>
-                  <div className="text-sm text-[#323130] leading-relaxed min-h-[60px]">
+                  <h3 className="text-sm font-bold text-[#201f1e] mb-2">Bruno</h3>
+                  <div className="text-sm text-[#323130] leading-relaxed min-h-[50px]">
                     {displayedText}
-                    {!isTypingComplete && (
+                    {!isComplete && (
                       <span className="inline-block w-1.5 h-4 bg-[#0078d4] ml-0.5 animate-pulse"></span>
                     )}
                   </div>
                 </div>
               </div>
+
+              {/* Manual Continue Button (optional - auto-advances) */}
+              {canManuallyAdvance && currentStepIndex < HANDOFF_STEPS.length - 1 && (
+                <div className="flex justify-end animate-fade-in">
+                  <button
+                    onClick={handleContinue}
+                    className="text-xs text-[#0078d4] hover:text-[#106ebe] font-semibold transition-colors"
+                  >
+                    Continue →
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* Clippy's Entrance and Messages */}
-      {isClippyVisible && currentStep?.speaker === 'clippy' && (
+      {/* Clippy's Messages - Bottom Right positioned */}
+      {isClippySpeaking && !isTransitioning && (
         <div
           className={`fixed no-print z-[100] transition-all duration-500 ease-out ${
-            isClippyVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[480px] max-w-[480px]`}
+            !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[500px] max-w-[500px]`}
         >
           <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-[3px] border-yellow-400 rounded-lg shadow-2xl overflow-hidden rpg-dialog">
+            {/* Header */}
             <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="text-4xl animate-clippy-wiggle">📎</div>
+                <div className={`text-4xl ${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>📎</div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy</h3>
                   <p className="text-xs text-gray-600">Your Helpful Assistant</p>
@@ -160,15 +170,17 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
               </div>
             </div>
 
+            {/* Content */}
             <div className="px-6 py-5 space-y-4">
-              <div className="text-sm text-gray-700 leading-relaxed min-h-[80px]">
+              <div className="text-sm text-gray-700 leading-relaxed min-h-[60px]">
                 {displayedText}
-                {!isTypingComplete && (
+                {!isComplete && (
                   <span className="inline-block w-1.5 h-4 bg-gray-900 ml-0.5 animate-pulse"></span>
                 )}
               </div>
 
-              {isTypingComplete && (
+              {/* Manual Continue/Finish Button */}
+              {canManuallyAdvance && (
                 <div className="flex justify-end animate-fade-in">
                   <button
                     onClick={handleContinue}

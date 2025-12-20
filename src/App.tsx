@@ -20,7 +20,7 @@ import {
   PrintableResume,
   HireMe,
   HelpPage,
-  ProfileWelcomePopup,
+  CenteredWelcomeModal,
   LoadingModal,
   ClippyHandoff,
 } from './components/features';
@@ -385,9 +385,9 @@ const App: React.FC = () => {
 
     </DynamicsShell>
     
-    {/* Welcome Popup - Shows every time after loading */}
+    {/* Welcome Modal - Shows every time after loading */}
     {showWelcomePopup && (
-      <ProfileWelcomePopup
+      <CenteredWelcomeModal
         onTakeTour={handleWelcomeTakeTour}
         onDismiss={handleWelcomePopupDismiss}
         profileImageSrc="./profile.jpg"
