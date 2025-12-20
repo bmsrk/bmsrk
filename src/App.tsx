@@ -20,6 +20,7 @@ import {
   PrintableResume,
   HireMe,
   HelpPage,
+  ProfileWelcomePopup,
 } from './components/features';
 
 const App: React.FC = () => {
@@ -28,16 +29,17 @@ const App: React.FC = () => {
   const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
   const [showClippy, setShowClippy] = useState(false);
   const [showPitchMode, setShowPitchMode] = useState(false);
+  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
   const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
 
-  // Check if this is the user's first visit and auto-start pitch mode after a delay
+  // Check if this is the user's first visit and show welcome popup
   React.useEffect(() => {
-    const hasVisited = localStorage.getItem('hasVisitedBefore');
-    if (!hasVisited) {
-      // Show pitch mode after 3 seconds on first visit
+    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+    if (!hasSeenWelcome) {
+      // Show welcome popup after 1.5 seconds on first visit
       const timer = setTimeout(() => {
-        setShowPitchMode(true);
-      }, 3000);
+        setShowWelcomePopup(true);
+      }, 1500);
       return () => clearTimeout(timer);
     }
     return undefined;
@@ -67,8 +69,22 @@ const App: React.FC = () => {
   };
 
   const handlePitchModeComplete = () => {
-    localStorage.setItem('hasVisitedBefore', 'true');
+    localStorage.setItem('hasSeenWelcome', 'true');
     setShowPitchMode(false);
+  };
+
+  const handleWelcomePopupDismiss = () => {
+    localStorage.setItem('hasSeenWelcome', 'true');
+    setShowWelcomePopup(false);
+  };
+
+  const handleWelcomeTakeTour = () => {
+    localStorage.setItem('hasSeenWelcome', 'true');
+    setShowWelcomePopup(false);
+    // Start the enhanced pitch mode
+    setTimeout(() => {
+      setShowPitchMode(true);
+    }, 300);
   };
 
   const handleStartPitchMode = () => {
@@ -106,6 +122,7 @@ const App: React.FC = () => {
   } = resumeData;
 
   return (
+    <>
     <DynamicsShell 
       onPrint={handlePrint} 
       title={name} 
@@ -349,7 +366,16 @@ const App: React.FC = () => {
       )}
 
     </DynamicsShell>
-  );
+    
+    {/* Welcome Popup - Shows on first visit */}
+    {showWelcomePopup && (
+      <ProfileWelcomePopup
+        onTakeTour={handleWelcomeTakeTour}
+        onDismiss={handleWelcomePopupDismiss}
+        profileImageSrc="./profile.jpg"
+      />
+    )}
+  </>);
 };
 
 export default App;
