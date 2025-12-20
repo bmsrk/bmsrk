@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CloseIcon } from '../common/Icons';
 import { ResumeData } from '../../types';
-import { getSimsAudio } from '../../utils/simsAudio';
+import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
 
 interface EnhancedPitchModeProps {
   onClose: () => void;
@@ -95,14 +95,17 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isTypingComplete, setIsTypingComplete] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
-  const typingIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const simsAudio = getSimsAudio();
 
   const step = PITCH_STEPS[currentStep] ?? PITCH_STEPS[0]!;
   const progress = ((currentStep + 1) / PITCH_STEPS.length) * 100;
+
+  // Use the new speaking animation hook
+  const { displayedText, isComplete: isTypingComplete, isSpeaking } = useSpeakingAnimation({
+    text: step.description,
+    isClippy: true,
+    enabled: true,
+  });
 
   useEffect(() => {
     // Animate in
@@ -114,50 +117,15 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
       onNavigateToTab(currentPitchStep.tab);
     }
 
-    // Start typing animation for the new step
-    startTypingAnimation();
-
     // Highlight element if specified
     if (currentPitchStep?.highlightSelector) {
       highlightElement(currentPitchStep.highlightSelector);
     }
 
     return () => {
-      if (typingIntervalRef.current) {
-        clearInterval(typingIntervalRef.current);
-      }
-      simsAudio.stop();
       clearHighlight();
     };
   }, [currentStep]);
-
-  const startTypingAnimation = () => {
-    setDisplayedText('');
-    setIsTypingComplete(false);
-
-    const fullText = step.description;
-    let currentIndex = 0;
-    const typingSpeed = 25; // milliseconds per character
-
-    // Play Sims audio for the text - Use Clippy's voice
-    simsAudio.speak(fullText, 1.8, true);
-
-    if (typingIntervalRef.current) {
-      clearInterval(typingIntervalRef.current);
-    }
-
-    typingIntervalRef.current = setInterval(() => {
-      if (currentIndex < fullText.length) {
-        setDisplayedText(fullText.slice(0, currentIndex + 1));
-        currentIndex++;
-      } else {
-        if (typingIntervalRef.current) {
-          clearInterval(typingIntervalRef.current);
-        }
-        setIsTypingComplete(true);
-      }
-    }, typingSpeed);
-  };
 
   const highlightElement = (selector: string) => {
     // Clear any existing highlights
@@ -193,7 +161,6 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 
   const handleComplete = () => {
     clearHighlight();
-    simsAudio.stop();
     onComplete();
     setIsVisible(false);
     setTimeout(onClose, 300);
@@ -201,7 +168,6 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 
   const handleSkip = () => {
     clearHighlight();
-    simsAudio.stop();
     setIsVisible(false);
     setTimeout(onClose, 300);
   };
@@ -253,7 +219,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
         className="fixed no-print z-[95] transition-all duration-1000 ease-in-out"
         style={clippyStyle}
       >
-        <div className="text-[80px] leading-none animate-clippy-pulse filter drop-shadow-2xl">
+        <div className={`text-[80px] leading-none filter drop-shadow-2xl ${isSpeaking ? 'animate-clippy-pulse' : ''}`}>
           📎
         </div>
       </div>

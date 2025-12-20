@@ -85,6 +85,13 @@ export class SimsAudioGenerator {
   }
 
   /**
+   * Check if audio context is initialized and ready
+   */
+  isReady(): boolean {
+    return this.audioContext !== null && this.audioContext.state !== 'closed';
+  }
+
+  /**
    * Stop all currently playing sounds
    */
   stop(): void {
