@@ -25,7 +25,7 @@ import {
   HelpIcon,
 } from '../common/Icons';
 import Clippy from '../features/Clippy';
-import PitchMode from '../features/PitchMode';
+import EnhancedPitchMode from '../features/EnhancedPitchMode';
 import useKonamiCode from '../features/KonamiCode';
 import AchievementNotification, { ACHIEVEMENTS, Achievement } from '../features/Achievements';
 
@@ -770,7 +770,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
         />
       )}
       {showPitchMode && data && (
-        <PitchMode
+        <EnhancedPitchMode
           onClose={onPitchModeClose || (() => {})}
           data={data}
           onNavigateToTab={onTabChange}
