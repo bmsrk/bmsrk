@@ -15,6 +15,10 @@ import {
   CloudIcon,
 } from '../common/Icons';
 
+interface HelpPageProps {
+  onStartTour?: () => void;
+}
+
 interface FAQItemProps {
   question: string;
   answer: string;
@@ -48,7 +52,7 @@ const FAQItem: React.FC<FAQItemProps> = ({ question, answer }) => {
   );
 };
 
-const HelpPage: React.FC = () => {
+const HelpPage: React.FC<HelpPageProps> = ({ onStartTour }) => {
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -60,6 +64,21 @@ const HelpPage: React.FC = () => {
         <p className="text-[14px] text-[#605e5c]">
           Discover hidden features, Easter eggs, and tips for the best experience
         </p>
+        {onStartTour && (
+          <div className="mt-4">
+            <button
+              onClick={onStartTour}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d9] text-white font-semibold rounded-lg shadow-lg transition-all hover:scale-105"
+            >
+              <span className="text-2xl">📎</span>
+              Start Guided Tour with Clippy
+              <RocketIcon className="w-5 h-5" />
+            </button>
+            <p className="text-xs text-gray-500 mt-2">
+              Take a 2-minute interactive tour of this portfolio
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Easter Eggs & Secrets Section */}
@@ -152,6 +171,7 @@ const HelpPage: React.FC = () => {
                       {achievement.id === 'printer' && '💡 Export this resume to PDF'}
                       {achievement.id === 'sharer' && '💡 Click the Share button'}
                       {achievement.id === 'speedrun' && '💡 Visit 5 tabs in under 30 seconds'}
+                      {achievement.id === 'tourist' && '💡 Complete the guided tour above'}
                       {achievement.id === 'completionist' && '💡 Unlock all other achievements'}
                     </div>
                   )}

@@ -25,6 +25,7 @@ import {
   HelpIcon,
 } from '../common/Icons';
 import Clippy from '../features/Clippy';
+import PitchMode from '../features/PitchMode';
 import useKonamiCode from '../features/KonamiCode';
 import AchievementNotification, { ACHIEVEMENTS, Achievement } from '../features/Achievements';
 
@@ -40,6 +41,8 @@ interface DynamicsShellProps {
   onClippyClose?: () => void;
   onProfileClick?: () => void;
   onGeneratePDF?: (fn: () => void) => void;
+  showPitchMode?: boolean;
+  onPitchModeClose?: () => void;
 }
 
 interface SearchResult {
@@ -62,7 +65,9 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
   showClippy = false,
   onClippyClose,
   onProfileClick,
-  onGeneratePDF
+  onGeneratePDF,
+  showPitchMode = false,
+  onPitchModeClose
 }) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -762,6 +767,17 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
           skill={clippySkill}
           projects={data?.projects || []}
           skillMetadata={data?.skill_metadata}
+        />
+      )}
+      {showPitchMode && data && (
+        <PitchMode
+          onClose={onPitchModeClose || (() => {})}
+          data={data}
+          onNavigateToTab={onTabChange}
+          onComplete={() => {
+            unlockAchievement('tourist');
+            if (onPitchModeClose) onPitchModeClose();
+          }}
         />
       )}
       {currentAchievement && (
