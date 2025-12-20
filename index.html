@@ -228,6 +228,107 @@
             animation: bounce-gentle 2s ease-in-out infinite;
         }
 
+        /* Improved Clippy Animations */
+        @keyframes clippy-entrance {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-180deg);
+            }
+            60% {
+                transform: scale(1.1) rotate(10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        @keyframes clippy-wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+
+        @keyframes clippy-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .animate-clippy-entrance {
+            animation: clippy-entrance 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .animate-clippy-wiggle {
+            animation: clippy-wiggle 0.5s ease-in-out;
+        }
+
+        .animate-clippy-pulse {
+            animation: clippy-pulse 2s ease-in-out infinite;
+        }
+
+        /* 32-bit RPG Style Dialog Boxes */
+        .rpg-dialog {
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 0 rgba(0, 0, 0, 0.1),
+                0 4px 8px rgba(0, 0, 0, 0.2);
+            image-rendering: pixelated;
+            image-rendering: -moz-crisp-edges;
+            image-rendering: crisp-edges;
+        }
+
+        .rpg-button {
+            position: relative;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+                0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .rpg-button:hover {
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.4),
+                0 3px 6px rgba(0, 0, 0, 0.3);
+            transform: translateY(-1px);
+        }
+
+        .rpg-button:active {
+            transform: translateY(0);
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .rpg-text {
+            letter-spacing: 0.5px;
+        }
+
+        /* RPG Choice Buttons */
+        .rpg-choice {
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+
+        .rpg-choice::before {
+            content: '▶';
+            position: absolute;
+            left: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            color: #0078d4;
+        }
+
+        .rpg-choice:hover::before,
+        .rpg-choice:focus::before {
+            opacity: 1;
+        }
+
+        .rpg-choice:hover,
+        .rpg-choice:focus {
+            background: linear-gradient(90deg, rgba(0, 120, 212, 0.1) 0%, transparent 100%);
+        }
+
         @keyframes fade-in-down {
             from {
                 opacity: 0;
@@ -252,22 +353,33 @@
             animation: fade-in 0.3s ease-out;
         }
 
-        /* Pitch Mode Highlight */
-        @keyframes highlight-pulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(0, 120, 212, 0.7);
+        /* Pitch Mode Highlight with Glowing Spotlight */
+        @keyframes glow-pulse {
+            0%, 100% { 
+                box-shadow: 
+                    0 0 20px 10px rgba(0, 120, 212, 0.4),
+                    0 0 40px 20px rgba(0, 120, 212, 0.2),
+                    0 0 60px 30px rgba(0, 120, 212, 0.1);
             }
-            50% {
-                box-shadow: 0 0 20px 10px rgba(0, 120, 212, 0.4);
+            50% { 
+                box-shadow: 
+                    0 0 30px 15px rgba(0, 120, 212, 0.5),
+                    0 0 50px 25px rgba(0, 120, 212, 0.3),
+                    0 0 70px 35px rgba(0, 120, 212, 0.15);
             }
         }
 
         .pitch-mode-highlight {
-            animation: highlight-pulse 2s ease-in-out infinite;
+            animation: glow-pulse 2s ease-in-out infinite;
             border: 2px solid #0078d4 !important;
             border-radius: 4px;
             position: relative;
-            z-index: 85;
+            z-index: 91;
+            background: radial-gradient(
+                ellipse at center,
+                rgba(0, 120, 212, 0.05) 0%,
+                transparent 70%
+            );
         }
     </style>
 <script type="importmap">

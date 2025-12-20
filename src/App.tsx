@@ -21,6 +21,8 @@ import {
   HireMe,
   HelpPage,
   ProfileWelcomePopup,
+  LoadingModal,
+  ClippyHandoff,
 } from './components/features';
 
 const App: React.FC = () => {
@@ -30,20 +32,25 @@ const App: React.FC = () => {
   const [showClippy, setShowClippy] = useState(false);
   const [showPitchMode, setShowPitchMode] = useState(false);
   const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+  const [showHandoff, setShowHandoff] = useState(false);
+  const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
 
-  // Check if this is the user's first visit and show welcome popup
+  // Show welcome popup after loading completes (EVERY TIME - no localStorage check)
   React.useEffect(() => {
-    const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
-    if (!hasSeenWelcome) {
-      // Show welcome popup after 1.5 seconds on first visit
+    if (!showLoadingModal && !showWelcomePopup && !showHandoff && !showPitchMode) {
+      // Show welcome popup after 1.5 seconds after loading completes
       const timer = setTimeout(() => {
         setShowWelcomePopup(true);
       }, 1500);
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, []);
+  }, [showLoadingModal]);
+
+  const handleLoadingComplete = () => {
+    setShowLoadingModal(false);
+  };
 
   const handlePrint = () => {
     window.print();
@@ -69,18 +76,26 @@ const App: React.FC = () => {
   };
 
   const handlePitchModeComplete = () => {
-    localStorage.setItem('hasSeenWelcome', 'true');
     setShowPitchMode(false);
   };
 
   const handleWelcomePopupDismiss = () => {
-    localStorage.setItem('hasSeenWelcome', 'true');
     setShowWelcomePopup(false);
   };
 
   const handleWelcomeTakeTour = () => {
-    localStorage.setItem('hasSeenWelcome', 'true');
     setShowWelcomePopup(false);
+    // Start the handoff transition
+    setTimeout(() => {
+      setShowHandoff(true);
+    }, 300);
+  };
+
+  const handleHandoffComplete = () => {
+    setShowHandoff(false);
+    // Clean state before starting tour
+    setShowClippy(false);
+    setClippySkill(undefined);
     // Start the enhanced pitch mode
     setTimeout(() => {
       setShowPitchMode(true);
@@ -123,6 +138,9 @@ const App: React.FC = () => {
 
   return (
     <>
+    {/* Loading Modal - Shows first and preloads profile image */}
+    {showLoadingModal && <LoadingModal onLoadingComplete={handleLoadingComplete} />}
+    
     <DynamicsShell 
       onPrint={handlePrint} 
       title={name} 
@@ -367,11 +385,19 @@ const App: React.FC = () => {
 
     </DynamicsShell>
     
-    {/* Welcome Popup - Shows on first visit */}
+    {/* Welcome Popup - Shows every time after loading */}
     {showWelcomePopup && (
       <ProfileWelcomePopup
         onTakeTour={handleWelcomeTakeTour}
         onDismiss={handleWelcomePopupDismiss}
+        profileImageSrc="./profile.jpg"
+      />
+    )}
+
+    {/* Bruno-to-Clippy Handoff Transition */}
+    {showHandoff && (
+      <ClippyHandoff
+        onHandoffComplete={handleHandoffComplete}
         profileImageSrc="./profile.jpg"
       />
     )}

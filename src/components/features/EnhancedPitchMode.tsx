@@ -139,8 +139,8 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
     let currentIndex = 0;
     const typingSpeed = 25; // milliseconds per character
 
-    // Play Sims audio for the text
-    simsAudio.speak(fullText, 1.8);
+    // Play Sims audio for the text - Use Clippy's voice
+    simsAudio.speak(fullText, 1.8, true);
 
     if (typingIntervalRef.current) {
       clearInterval(typingIntervalRef.current);
@@ -240,10 +240,10 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 
   return (
     <>
-      {/* Backdrop with spotlight effect */}
+      {/* Backdrop with spotlight effect - Lighter opacity */}
       <div
         className={`fixed inset-0 bg-black no-print z-[90] transition-opacity duration-500 ${
-          isVisible ? 'bg-opacity-60' : 'bg-opacity-0'
+          isVisible ? 'bg-opacity-35' : 'bg-opacity-0'
         }`}
         onClick={handleSkip}
       />
@@ -253,7 +253,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
         className="fixed no-print z-[95] transition-all duration-1000 ease-in-out"
         style={clippyStyle}
       >
-        <div className="text-[80px] leading-none animate-bounce-gentle filter drop-shadow-2xl">
+        <div className="text-[80px] leading-none animate-clippy-pulse filter drop-shadow-2xl">
           📎
         </div>
       </div>
@@ -277,13 +277,13 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
         </div>
 
         {/* Main Content Card */}
-        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-b-lg shadow-2xl overflow-hidden">
+        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-[3px] border-yellow-400 rounded-b-lg shadow-2xl overflow-hidden rpg-dialog">
           {/* Header */}
           <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="text-4xl animate-bounce-gentle">📎</div>
+              <div className="text-4xl animate-clippy-pulse">📎</div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Clippy's Guided Tour</h3>
+                <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy's Guided Tour</h3>
                 <p className="text-xs text-gray-600">
                   Step {currentStep + 1} of {PITCH_STEPS.length}
                 </p>
@@ -347,7 +347,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
                 <button
                   onClick={handlePrevious}
                   disabled={currentStep === 0}
-                  className={`px-3 py-1.5 text-sm font-semibold rounded transition-colors ${
+                  className={`rpg-button px-3 py-1.5 text-sm font-semibold rounded transition-colors ${
                     currentStep === 0
                       ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
@@ -357,7 +357,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
                 </button>
                 <button
                   onClick={handleNext}
-                  className="px-4 py-1.5 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-semibold rounded transition-colors shadow-sm"
+                  className="rpg-button px-4 py-1.5 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-semibold rounded transition-colors shadow-sm"
                 >
                   {currentStep === PITCH_STEPS.length - 1 ? 'Finish! 🎉' : 'Next →'}
                 </button>
