@@ -3,9 +3,10 @@ import { ResumeData } from '../../../types';
 
 interface PrintableResumeProps {
   data: ResumeData;
+  onDownloadPDF?: () => void;
 }
 
-const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
+const PrintableResume: React.FC<PrintableResumeProps> = ({ data, onDownloadPDF }) => {
   const { 
     name, 
     title, 
@@ -19,19 +20,36 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
   } = data;
 
   return (
-    <div className="bg-white text-black p-8 max-w-[210mm] mx-auto min-h-screen">
-      {/* Header */}
-      <div className="border-b-2 border-gray-800 pb-4 mb-6">
-        <h1 className="text-3xl font-bold uppercase mb-1">{name}</h1>
-        <p className="text-xl font-medium text-gray-700 mb-3">{title}</p>
-        <div className="text-sm text-gray-600 flex flex-wrap gap-x-4 gap-y-1">
-            {contact.location && <span>📍 {contact.location}</span>}
-            {contact.email && <span>✉️ {contact.email}</span>}
-            {contact.phone && <span>📞 {contact.phone}</span>}
-            {contact.linkedin && <span>🔗 {contact.linkedin}</span>}
-            {contact.portfolio && <span>🌐 {contact.portfolio}</span>}
+    <div className="bg-white text-black">
+      {/* Download Button - Not included in PDF */}
+      {onDownloadPDF && (
+        <div className="no-print max-w-[210mm] mx-auto mb-6 flex justify-center">
+          <button
+            onClick={onDownloadPDF}
+            className="bg-[#0078d4] hover:bg-[#005a9e] text-white font-semibold py-2 px-6 rounded transition-colors inline-flex items-center gap-2 shadow-md"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            Download PDF
+          </button>
         </div>
-      </div>
+      )}
+
+      {/* Main Resume Content */}
+      <div id="printable-resume" className="p-8 max-w-[210mm] mx-auto min-h-screen">
+        {/* Header */}
+        <div className="border-b-2 border-gray-800 pb-4 mb-6">
+          <h1 className="text-3xl font-bold uppercase mb-1">{name}</h1>
+          <p className="text-xl font-medium text-gray-700 mb-3">{title}</p>
+          <div className="text-sm text-gray-600 flex flex-wrap gap-x-4 gap-y-1">
+              {contact.location && <span>Location: {contact.location}</span>}
+              {contact.email && <span>Email: {contact.email}</span>}
+              {contact.phone && <span>Phone: {contact.phone}</span>}
+              {contact.linkedin && <span>LinkedIn: {contact.linkedin}</span>}
+              {contact.portfolio && <span>Portfolio: {contact.portfolio}</span>}
+          </div>
+        </div>
 
       {/* Summary */}
       <section className="mb-6">
@@ -111,6 +129,7 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
              {languages.join(" • ")}
          </div>
       </section>
+      </div>
     </div>
   );
 };

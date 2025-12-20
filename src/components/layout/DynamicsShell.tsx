@@ -39,6 +39,7 @@ interface DynamicsShellProps {
   showClippy?: boolean;
   onClippyClose?: () => void;
   onProfileClick?: () => void;
+  onGeneratePDF?: (fn: () => void) => void;
 }
 
 interface SearchResult {
@@ -60,10 +61,12 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
   clippySkill,
   showClippy = false,
   onClippyClose,
-  onProfileClick
+  onProfileClick,
+  onGeneratePDF
 }) => {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
   
   // Mobile Menu State
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -201,19 +204,73 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, unlockAchievement]);
 
+  // Expose generatePDF function to parent
+  useEffect(() => {
+    if (onGeneratePDF && generatePDF) {
+      onGeneratePDF(generatePDF);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
   const handlePrintAction = () => {
     if (activeTab !== 'printable') {
         triggerToast("Preparing printable version...");
         onTabChange('printable');
-        // Automatically trigger print after the tab changes
+        // Automatically trigger PDF generation after the tab changes
         setTimeout(() => {
           unlockAchievement('printer');
-          onPrint();
+          generatePDF();
         }, 300); // Give time for the view to render
     } else {
         unlockAchievement('printer');
-        onPrint();
+        generatePDF();
     }
+  };
+
+  const generatePDF = () => {
+    setIsGeneratingPDF(true);
+    triggerToast("Generating PDF...");
+    
+    // Wait a bit for the DOM to be ready
+    setTimeout(() => {
+      const element = document.getElementById('printable-resume');
+      if (!element) {
+        triggerToast("Error: Resume element not found");
+        setIsGeneratingPDF(false);
+        return;
+      }
+
+      // Check if html2pdf is available
+      const html2pdfLib = (window as any).html2pdf;
+      if (typeof html2pdfLib === 'undefined') {
+        triggerToast("PDF library not loaded, using print dialog...");
+        setIsGeneratingPDF(false);
+        onPrint();
+        return;
+      }
+
+      const opt = {
+        margin: [10, 10, 10, 10],
+        filename: 'Bruno_Maciel_Servulo_Resume.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      html2pdfLib()
+        .set(opt)
+        .from(element)
+        .save()
+        .then(() => {
+          setIsGeneratingPDF(false);
+          triggerToast("PDF downloaded successfully!");
+        })
+        .catch((error: Error) => {
+          console.error('PDF generation error:', error);
+          setIsGeneratingPDF(false);
+          triggerToast("PDF generation failed. Please try again.");
+        });
+    }, 100);
   };
 
   const handleEmail = () => {
@@ -616,9 +673,10 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
                 </div>
            </div>
 
-           {/* Footer Text Moved Here */}
-           <div className="p-4 text-xs text-gray-400 border-t border-[#edebe9] text-center bg-[#f3f2f1] mt-auto">
-                Microsoft Dynamics 365 look-alike interface built with React & Tailwind.
+           {/* Footer Text with Analytics Disclaimer */}
+           <div className="p-4 text-xs text-gray-400 border-t border-[#edebe9] bg-[#f3f2f1] mt-auto space-y-2">
+                <p className="text-center">Microsoft Dynamics 365 look-alike interface built with React &amp; Tailwind.</p>
+                <p className="text-center text-[10px]">We use Google Analytics and Microsoft Clarity to understand how you use our website. By using our site, you agree that we and our analytics partners can collect and use this data.</p>
            </div>
         </div>
 
@@ -675,26 +733,23 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
                 {/* Toast Notification */}
                 {showToast && (
                     <div 
-                      onClick={() => setShowToast(false)}
-                      className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print cursor-pointer hover:bg-gray-800 transition-colors"
+                      onClick={() => !isGeneratingPDF && setShowToast(false)}
+                      className={`absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print ${isGeneratingPDF ? '' : 'cursor-pointer hover:bg-gray-800'} transition-colors`}
                       role="button"
-                      aria-label="Click to dismiss"
+                      aria-label={isGeneratingPDF ? "Generating PDF" : "Click to dismiss"}
                     >
-                        <CheckMarkIcon className="w-4 h-4 text-green-400" />
+                        {isGeneratingPDF ? (
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                          <CheckMarkIcon className="w-4 h-4 text-green-400" />
+                        )}
                         {toastMessage}
                     </div>
                 )}
 
                 {/* Resume Content Wrapper - Responsive card styling */}
-                <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white lg:border border-[#edebe9] lg:shadow-sm rounded-sm p-3 sm:p-4 lg:p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0`}>
+                <div className={`max-w-[1200px] mx-auto min-h-[500px] bg-white lg:border border-[#edebe9] lg:shadow-sm rounded-sm p-3 sm:p-4 lg:p-6 print:w-full print:max-w-none print:border-none print:shadow-none print:p-0 mb-4`}>
                     {children}
-                </div>
-
-                {/* Footer with Analytics Disclaimer */}
-                <div className="max-w-[1200px] mx-auto mt-4 mb-2 px-3 no-print">
-                    <p className="text-center text-[11px] text-[#605e5c] py-2 border-t border-[#edebe9]" role="contentinfo">
-                        We use Google Analytics and Microsoft Clarity to understand how you use our website. By using our site, you agree that we and our analytics partners can collect and use this data.
-                    </p>
                 </div>
            </div>
         </div>

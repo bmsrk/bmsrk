@@ -26,9 +26,14 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('summary');
   const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
   const [showClippy, setShowClippy] = useState(false);
+  const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleGeneratePDFCallback = (fn: () => void) => {
+    setGeneratePDFFunction(() => fn);
   };
 
   const handleSkillClick = (skill: string) => {
@@ -87,6 +92,7 @@ const App: React.FC = () => {
         setClippySkill(undefined);
         setShowClippy(true);
       }}
+      onGeneratePDF={handleGeneratePDFCallback}
     >
       <SEO />
       
@@ -94,7 +100,7 @@ const App: React.FC = () => {
         TAB: PRINTABLE VERSION (ATS FRIENDLY)
       */}
       {activeTab === 'printable' ? (
-          <PrintableResume data={resumeData} />
+          <PrintableResume data={resumeData} onDownloadPDF={generatePDFFunction || undefined} />
       ) : (
         <>
             {/* 
