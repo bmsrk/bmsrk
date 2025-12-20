@@ -18,23 +18,31 @@ export class SimsAudioGenerator {
   /**
    * Generate Sims-like speech sounds for a given text
    * Creates varying pitch oscillations that sound like gibberish speech
+   * @param text - The text to speak
+   * @param speed - Speed multiplier (default 1)
+   * @param isClippy - Whether to use Clippy's higher-pitched voice (default false)
    */
-  speak(text: string, speed: number = 1): void {
+  speak(text: string, speed: number = 1, isClippy: boolean = false): void {
     if (!this.audioContext || this.isPlaying) return;
 
     this.isPlaying = true;
     this.currentOscillators = [];
 
-    const baseFrequencies = [
-      200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Varied base frequencies
-    ];
+    const baseFrequencies = isClippy
+      ? [
+          260, 286, 234, 312, 247, 273, 299, 254, 267, 280, // Higher-pitched for Clippy
+        ]
+      : [
+          200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Normal Bruno voice
+        ];
 
     const syllableCount = Math.ceil(text.length / 4); // Approximate syllables
     const syllableDuration = (0.15 / speed) * 1000; // Duration per syllable in ms
+    const actualSpeed = isClippy ? speed * 1.15 : speed; // Clippy speaks slightly faster
 
     for (let i = 0; i < syllableCount; i++) {
-      const startTime = this.audioContext.currentTime + i * (syllableDuration / 1000);
-      const duration = (syllableDuration / 1000) * (0.8 + Math.random() * 0.4); // Vary duration
+      const startTime = this.audioContext.currentTime + i * (syllableDuration / 1000 / actualSpeed);
+      const duration = (syllableDuration / 1000 / actualSpeed) * (0.8 + Math.random() * 0.4); // Vary duration
 
       // Randomly select base frequency
       const baseFreq =
@@ -51,7 +59,10 @@ export class SimsAudioGenerator {
       oscillator.type = Math.random() > 0.5 ? 'square' : 'sawtooth';
 
       // Add pitch variation for natural speech-like quality
-      const pitchVariation = 1 + (Math.random() - 0.5) * 0.3; // ±15% pitch variation
+      // Clippy has more playful oscillation
+      const pitchVariation = isClippy 
+        ? 1 + (Math.random() - 0.5) * 0.4 // ±20% pitch variation for Clippy
+        : 1 + (Math.random() - 0.5) * 0.3; // ±15% pitch variation for Bruno
       oscillator.frequency.value = baseFreq * pitchVariation;
 
       // Envelope: Quick attack, sustain, quick release
@@ -70,7 +81,7 @@ export class SimsAudioGenerator {
     setTimeout(() => {
       this.isPlaying = false;
       this.currentOscillators = [];
-    }, syllableCount * syllableDuration + 200);
+    }, (syllableCount * syllableDuration) / actualSpeed + 200);
   }
 
   /**

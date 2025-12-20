@@ -86,9 +86,9 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
         } top-[60px] right-4 sm:right-6 md:right-8 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px]`}
       >
         {/* Speech Bubble */}
-        <div className="relative bg-white border-2 border-[#0078d4] rounded-lg shadow-2xl">
+        <div className="relative bg-white border-[3px] border-[#0078d4] rounded-lg shadow-2xl rpg-dialog">
           {/* Arrow pointing to profile image */}
-          <div className="absolute -top-3 right-8 w-6 h-6 bg-white border-t-2 border-l-2 border-[#0078d4] transform rotate-45"></div>
+          <div className="absolute -top-3 right-8 w-6 h-6 bg-white border-t-[3px] border-l-[3px] border-[#0078d4] transform rotate-45"></div>
 
           {/* Content */}
           <div className="p-5 pr-10">
@@ -130,13 +130,13 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
               <div className="flex gap-2 justify-end mt-4 animate-fade-in">
                 <button
                   onClick={handleClose}
-                  className="px-4 py-2 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
+                  className="rpg-choice px-4 py-2 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
                 >
                   I'm exploring
                 </button>
                 <button
                   onClick={handleTakeTour}
-                  className="px-4 py-2 text-sm font-semibold text-white bg-[#0078d4] hover:bg-[#106ebe] rounded transition-colors shadow-sm"
+                  className="rpg-button px-4 py-2 text-sm font-semibold text-white bg-[#0078d4] hover:bg-[#106ebe] rounded transition-colors shadow-sm"
                 >
                   Take the tour
                 </button>

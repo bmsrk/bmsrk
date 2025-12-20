@@ -8,6 +8,8 @@ export { default as Clippy } from './Clippy';
 export { default as PitchMode } from './PitchMode';
 export { default as EnhancedPitchMode } from './EnhancedPitchMode';
 export { default as ProfileWelcomePopup } from './ProfileWelcomePopup';
+export { default as LoadingModal } from './LoadingModal';
+export { default as ClippyHandoff } from './ClippyHandoff';
 export { default as HelpPage } from './HelpPage';
 export { default as useKonamiCode } from './KonamiCode';
 export { default as AchievementNotification, ACHIEVEMENTS } from './Achievements';
