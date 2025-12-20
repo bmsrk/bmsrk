@@ -761,6 +761,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
           onClose={onClippyClose || (() => {})} 
           skill={clippySkill}
           projects={data?.projects || []}
+          skillMetadata={data?.skill_metadata}
         />
       )}
       {currentAchievement && (
