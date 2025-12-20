@@ -16,7 +16,6 @@ import {
   ExperienceItem,
   SkillsGrid,
   ProjectsGallery,
-  SolutionDocs,
   PrintableResume,
   HireMe,
   HelpPage,
@@ -25,12 +24,18 @@ import {
 const App: React.FC = () => {
   const { resumeData, loading, projectFilter, setProjectFilter, filterBySkill } = useResumeContext();
   const [activeTab, setActiveTab] = useState('summary');
+  const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
+  const [showClippy, setShowClippy] = useState(false);
 
   const handlePrint = () => {
     window.print();
   };
 
   const handleSkillClick = (skill: string) => {
+    // Show Clippy with skill info
+    setClippySkill(skill);
+    setShowClippy(true);
+    // Also filter and navigate to projects
     filterBySkill(skill);
     setActiveTab('projects');
   };
@@ -66,7 +71,23 @@ const App: React.FC = () => {
   } = resumeData;
 
   return (
-    <DynamicsShell onPrint={handlePrint} title={name} activeTab={activeTab} onTabChange={setActiveTab} data={resumeData}>
+    <DynamicsShell 
+      onPrint={handlePrint} 
+      title={name} 
+      activeTab={activeTab} 
+      onTabChange={setActiveTab} 
+      data={resumeData}
+      clippySkill={clippySkill}
+      showClippy={showClippy}
+      onClippyClose={() => {
+        setShowClippy(false);
+        setClippySkill(undefined);
+      }}
+      onProfileClick={() => {
+        setClippySkill(undefined);
+        setShowClippy(true);
+      }}
+    >
       <SEO />
       
       {/* 
@@ -216,14 +237,10 @@ const App: React.FC = () => {
             </div>
 
             {/* 
-                TAB: SOLUTION DOCS
+                TAB: HELP
             */}
-            <div className={`tab-content ${activeTab === 'docs' ? 'block' : 'hidden'}`}>
-                <div className="mb-6 pb-2 border-b border-gray-200">
-                    <h2 className="text-xl font-semibold text-[#201f1e]">System Architecture</h2>
-                    <p className="text-sm text-gray-500">Technical documentation of the solution</p>
-                </div>
-                <SolutionDocs />
+            <div className={`tab-content ${activeTab === 'help' ? 'block' : 'hidden'}`}>
+                <HelpPage />
             </div>
 
             {/* 
@@ -283,13 +300,6 @@ const App: React.FC = () => {
                         </Section>
                     </div>
                 </div>
-            </div>
-
-            {/* 
-                TAB: HELP & TIPS
-            */}
-            <div className={`tab-content ${activeTab === 'help' ? 'block' : 'hidden'}`}>
-                <HelpPage />
             </div>
         </>
       )}

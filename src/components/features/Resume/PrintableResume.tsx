@@ -55,11 +55,11 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
       </section>
 
       {/* Experience */}
-      <section className="mb-6">
+      <section className="mb-6 break-inside-avoid-page">
         <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-4 pb-1">Professional Experience</h2>
         <div className="space-y-5">
             {experience.map((job, idx) => (
-                <div key={idx} className="break-inside-avoid">
+                <div key={idx} className="break-inside-avoid-page">
                     <div className="flex justify-between items-baseline mb-1">
                         <h3 className="font-bold text-base">{job.title}</h3>
                         <span className="text-xs font-semibold whitespace-nowrap">{job.date}</span>
@@ -82,11 +82,11 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
       </section>
 
       {/* Education & Certs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-         <section>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 break-inside-avoid-page">
+         <section className="break-inside-avoid">
             <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2 pb-1">Education</h2>
             {education.map((edu, idx) => (
-                <div key={idx} className="mb-2">
+                <div key={idx} className="mb-2 break-inside-avoid">
                     <h3 className="font-bold text-sm">{edu.institution}</h3>
                     <div className="text-sm">{edu.degree}</div>
                     <div className="text-xs text-gray-500">{edu.year}</div>
@@ -94,7 +94,7 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
             ))}
          </section>
 
-         <section>
+         <section className="break-inside-avoid">
             <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2 pb-1">Certifications</h2>
             <ul className="list-disc ml-4 text-sm text-gray-800 space-y-1">
                 {certifications.map((cert, idx) => (
@@ -105,7 +105,7 @@ const PrintableResume: React.FC<PrintableResumeProps> = ({ data }) => {
       </div>
 
       {/* Languages */}
-      <section className="mt-6">
+      <section className="mt-6 break-inside-avoid">
          <h2 className="text-sm font-bold uppercase tracking-wider border-b border-gray-300 mb-2 pb-1">Languages</h2>
          <div className="text-sm text-gray-800">
              {languages.join(" • ")}
