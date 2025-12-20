@@ -49,8 +49,7 @@ npm run preview
 - **Functional components only**: Use React.FC type annotation
 - **Hooks**: Prefer React hooks over class components
 - **No prop-types**: TypeScript interfaces are used for type checking
-- **JSX**: `react-jsx` transform (no need to import React in every file)
-- React is available globally (no need for explicit imports in JSX files)
+- **JSX**: `react-jsx` transform (React doesn't need to be imported for JSX syntax, but React components and hooks still require explicit imports)
 
 ### Code Formatting
 
@@ -113,7 +112,7 @@ npm run preview
 
 ## Notes for AI Assistants
 
-- Always use `npm ci` instead of `npm install` for consistent installations
+- Use `npm ci` for consistent installations in CI/CD and when package-lock.json exists; use `npm install` when adding new dependencies
 - Run `npm run type-check` before building to catch type errors
 - Follow the existing Prettier and ESLint rules
 - Maintain the Dynamics 365 design aesthetic when making UI changes
