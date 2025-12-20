@@ -91,7 +91,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [currentStepIndex, currentStep]);
+  }, [currentStepIndex]); // Removed currentStep - it's derived from currentStepIndex
 
   const handleContinue = useCallback(() => {
     if (currentStepIndex < HANDOFF_STEPS.length - 1) {
