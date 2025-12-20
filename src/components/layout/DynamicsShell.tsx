@@ -22,6 +22,7 @@ import {
   RocketIcon,
   ServerIcon,
   BriefcaseIcon,
+  HelpIcon,
 } from '../common/Icons';
 import Clippy from '../features/Clippy';
 import useKonamiCode from '../features/KonamiCode';
@@ -336,6 +337,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
     { id: 'skills', label: 'Skills', icon: <CodeIcon className="w-4 h-4" /> },
     { id: 'qualifications', label: 'Qualifications', icon: <EducationIcon className="w-4 h-4" /> },
     { id: 'docs', label: 'Solution Docs', icon: <ServerIcon className="w-4 h-4" /> },
+    { id: 'help', label: 'Help & Tips', icon: <HelpIcon className="w-4 h-4" /> },
   ];
 
   return (
@@ -585,7 +587,12 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({ children, onPrint, title,
            <div className="flex-1 overflow-y-auto p-1 sm:p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
-                    <div className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2">
+                    <div 
+                      onClick={() => setShowToast(false)}
+                      className="absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print cursor-pointer hover:bg-gray-800 transition-colors"
+                      role="button"
+                      aria-label="Click to dismiss"
+                    >
                         <CheckMarkIcon className="w-4 h-4 text-green-400" />
                         {toastMessage}
                     </div>

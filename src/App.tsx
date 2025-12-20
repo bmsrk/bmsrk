@@ -19,6 +19,7 @@ import {
   SolutionDocs,
   PrintableResume,
   HireMe,
+  HelpPage,
 } from './components/features';
 
 const App: React.FC = () => {
@@ -282,6 +283,13 @@ const App: React.FC = () => {
                         </Section>
                     </div>
                 </div>
+            </div>
+
+            {/* 
+                TAB: HELP & TIPS
+            */}
+            <div className={`tab-content ${activeTab === 'help' ? 'block' : 'hidden'}`}>
+                <HelpPage />
             </div>
         </>
       )}
