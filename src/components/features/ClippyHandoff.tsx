@@ -62,6 +62,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
+    instant: true, // Instant mode for pitch mode flow - no typing animation or audio
     onComplete: handleStepComplete,
   });
 

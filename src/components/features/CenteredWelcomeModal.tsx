@@ -11,6 +11,10 @@ interface CenteredWelcomeModalProps {
 const WELCOME_MESSAGE =
   "Built my portfolio as a working D365 interface. Figured if I'm going to claim expertise, might as well prove it up front. Clippy can show you around, or just click through - everything works.";
 
+// Duration for synchronized typing and audio animation (in milliseconds)
+// This creates a quick but readable animation that feels natural
+const ANIMATION_DURATION_MS = 3500;
+
 const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
   onTakeTour,
   onDismiss,
@@ -23,6 +27,7 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
     text: WELCOME_MESSAGE,
     isClippy: false,
     enabled: isVisible, // Only start typing when modal is visible
+    durationMs: ANIMATION_DURATION_MS, // Synchronized duration for typing and audio
   });
 
   useEffect(() => {

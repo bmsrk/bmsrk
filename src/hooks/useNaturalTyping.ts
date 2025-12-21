@@ -5,6 +5,9 @@ interface UseNaturalTypingOptions {
   text: string;
   onComplete?: () => void;
   enabled?: boolean;
+  instant?: boolean;
+  /** Total duration for the typing animation in milliseconds. If provided, overrides natural timing. */
+  durationMs?: number;
 }
 
 interface UseNaturalTypingResult {
@@ -16,8 +19,17 @@ interface UseNaturalTypingResult {
 /**
  * Get natural typing delay based on current and next character
  * Mimics human/AI text generation with variable speeds and pauses
+ * @param currentChar - The current character being typed
+ * @param _nextChar - The next character (unused but kept for future enhancements)
+ * @param fixedDelay - Optional fixed delay per character (overrides natural timing)
  */
-const getTypingDelay = (currentChar: string, _nextChar: string): number => {
+const getTypingDelay = (currentChar: string, _nextChar: string, fixedDelay?: number): number => {
+  // If a fixed delay is provided, use it with minimal variation for natural feel
+  if (fixedDelay !== undefined) {
+    // Add tiny variation (±10%) to avoid mechanical feel
+    return fixedDelay * (0.9 + Math.random() * 0.2);
+  }
+
   const baseDelay = 20; // Reduced from 35ms to 20ms for faster typing
 
   // Punctuation pauses (like taking a breath) - reduced pauses
@@ -46,6 +58,8 @@ export const useNaturalTyping = ({
   text,
   onComplete,
   enabled = true,
+  instant = false,
+  durationMs,
 }: UseNaturalTypingOptions): UseNaturalTypingResult => {
   const [displayedText, setDisplayedText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
@@ -83,13 +97,18 @@ export const useNaturalTyping = ({
     setIsComplete(false);
     indexRef.current = 0;
 
-    // If user prefers reduced motion, show text immediately
-    if (prefersReducedMotion) {
+    // If user prefers reduced motion OR instant mode is enabled, show text immediately
+    if (prefersReducedMotion || instant) {
       setDisplayedText(text);
       setIsComplete(true);
       onCompleteRef.current?.();
       return;
     }
+
+    // Calculate fixed delay per character if durationMs is specified
+    const fixedDelayPerChar = durationMs !== undefined && text.length > 0 
+      ? durationMs / text.length 
+      : undefined;
 
     const typeNextChar = () => {
       const currentIndex = indexRef.current;
@@ -105,7 +124,7 @@ export const useNaturalTyping = ({
 
       const currentChar = currentText[currentIndex] ?? '';
       const nextChar = currentText[currentIndex + 1] ?? '';
-      const delay = getTypingDelay(currentChar, nextChar);
+      const delay = getTypingDelay(currentChar, nextChar, fixedDelayPerChar);
 
       indexRef.current++;
       timeoutRef.current = setTimeout(typeNextChar, delay);
@@ -120,7 +139,7 @@ export const useNaturalTyping = ({
         timeoutRef.current = null;
       }
     };
-  }, [text, enabled, prefersReducedMotion]); // Added prefersReducedMotion to deps
+  }, [text, enabled, prefersReducedMotion, instant, durationMs]); // Added durationMs to deps
 
   const reset = useCallback(() => {
     if (timeoutRef.current) {

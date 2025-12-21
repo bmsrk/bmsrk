@@ -100,11 +100,12 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
   const step = PITCH_STEPS[currentStep] ?? PITCH_STEPS[0]!;
   const progress = ((currentStep + 1) / PITCH_STEPS.length) * 100;
 
-  // Use the new speaking animation hook
+  // Use the new speaking animation hook with instant mode for better UX
   const { displayedText, isComplete: isTypingComplete, isSpeaking } = useSpeakingAnimation({
     text: step.description,
     isClippy: true,
     enabled: true,
+    instant: true, // Instant mode for pitch mode - no typing animation or audio
   });
 
   useEffect(() => {
