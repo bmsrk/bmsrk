@@ -247,8 +247,8 @@ export const InfoIcon: React.FC<IconProps> = ({ className = "w-4 h-4" }) => (
 );
 
 /**
- * ClippyIcon - A consistent Clippy paperclip icon that renders the same across all platforms
- * Inspired by the classic Microsoft Office Clippy assistant
+ * ClippyIcon - An animated Clippy paperclip icon
+ * Inspired by the classic Microsoft Office Clippy assistant with smooth animations
  * @param size - Icon size: 'sm' (16px), 'md' (24px, default), 'lg' (32px), 'xl' (40px), '2xl' (48px), '3xl' (64px), '4xl' (80px)
  */
 export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' }> = ({ 
@@ -268,124 +268,140 @@ export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl'
   return (
     <svg 
       className={`${sizeClasses[size]} ${className}`} 
-      viewBox="0 0 120 120" 
+      viewBox="0 0 499 832" 
+      fill="none" 
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Improved Clippy with better metallic look and clearer design */}
+      <style>
+        {`
+          @keyframes clippy-bob {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+          }
+          
+          @keyframes clippy-blink {
+            0%, 90%, 100% { transform: scaleY(1); }
+            95% { transform: scaleY(0.1); }
+          }
+          
+          @keyframes clippy-eyeMove {
+            0%, 20%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-3px, -2px); }
+          }
+          
+          @keyframes clippy-wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+          }
+          
+          #clippy-main {
+            animation: clippy-bob 3s ease-in-out infinite;
+          }
+          
+          #leftEye, #rightEye {
+            animation: clippy-blink 4s ease-in-out infinite;
+            transform-origin: center;
+          }
+          
+          #leftPupil {
+            animation: clippy-eyeMove 6s ease-in-out infinite;
+          }
+          
+          #rightPupil {
+            animation: clippy-eyeMove 6s ease-in-out infinite 0.1s;
+          }
+          
+          #clippy-body {
+            animation: clippy-wiggle 4s ease-in-out infinite;
+            transform-origin: center 12%;
+          }
+        `}
+      </style>
+      <g filter="url(#filter0_d_2_45)" id="clippy-main">
+        <g filter="url(#filter1_ii_2_45)" id="clippy-body">
+          <path fillRule="evenodd" clipRule="evenodd" d="M204.784 38.5584C232.42 23.3817 263.473 20.2054 295.643 31.7146C325.641 42.4464 345.603 59.6103 356.088 82.9437C366.198 105.443 366.231 130.976 362.507 156.204C358.77 181.519 350.822 209.025 342.728 236.388C342.16 238.31 341.59 240.234 341.019 242.159C333.336 268.088 325.604 294.181 320.247 320.341C308.183 379.24 314.978 430.685 320.657 473.676C321.619 480.964 322.55 488.009 323.351 494.806C325.949 516.849 327.735 539.867 320.717 558.135C316.886 568.107 310.459 576.766 300.761 583.099C291.384 589.223 280.078 592.44 267.468 593.742C242.952 596.273 223.661 585.774 209.954 569.328C196.896 553.659 188.623 532.468 183.298 510.985C172.594 467.801 172.064 416.138 175.571 382.787C176.649 372.533 185.836 365.094 196.09 366.172C206.345 367.25 213.784 376.437 212.706 386.691C209.522 416.973 210.144 464.094 219.541 502.001C224.266 521.064 230.782 535.996 238.638 545.422C245.845 554.07 253.594 557.636 263.633 556.6C272.493 555.685 277.498 553.695 280.344 551.836C282.869 550.187 284.576 548.089 285.861 544.744C289.075 536.379 289.02 522.524 286.268 499.177C285.542 493.015 284.661 486.415 283.725 479.409C277.996 436.51 270.237 378.414 283.666 312.848C289.362 285.039 297.537 257.463 305.133 231.839C305.733 229.812 306.33 227.798 306.923 225.796C315.137 198.025 322.279 173.028 325.568 150.751C328.869 128.385 327.865 111.237 322.029 98.2476C316.567 86.0925 305.675 74.9608 283.065 66.8719C261.093 59.0113 241.154 61.1847 222.758 71.2875C203.754 81.7234 185.397 101.243 169.295 129.568C137.07 186.258 116.659 273.416 116.659 373.07C116.659 470.802 134.914 563.511 166.904 628.629C199.266 694.503 241.839 725.916 289.659 718.231C315.424 714.091 332.347 705.062 343.769 693.777C355.271 682.413 362.593 667.376 366.71 648.892C375.185 610.843 369.237 563.047 362.8 515.263C349.93 419.728 382.425 363.903 407.782 340.275C415.325 333.245 427.139 333.662 434.168 341.206C441.198 348.749 440.781 360.563 433.237 367.592C417.52 382.237 388.405 425.65 399.805 510.278C406.007 556.31 413.361 611.197 403.157 657.01C397.934 680.457 387.922 702.644 370.013 720.339C352.025 738.112 327.461 749.975 295.583 755.098C222.984 766.764 168.24 716.03 133.391 645.094C98.1705 573.402 79.3192 474.639 79.3192 373.07C79.3192 269.224 100.448 175.124 136.834 111.115C155.038 79.0916 177.755 53.4019 204.784 38.5584Z" fill="#A2A1A7"/>
+        </g>
+        <g filter="url(#filter3_ii_2_45)">
+          <path fillRule="evenodd" clipRule="evenodd" d="M164.556 68.0796C180.238 68.8804 196.206 72.3434 208.551 78.2076C218.796 83.0741 223.156 95.3245 218.29 105.57C213.423 115.815 201.173 120.175 190.928 115.308C184.603 112.304 174.2 109.699 162.461 109.1C150.709 108.5 139.858 110.025 132.216 113.3C121.791 117.768 109.718 112.939 105.25 102.514C100.783 92.0884 105.612 80.0154 116.037 75.5476C131.266 69.021 148.886 67.2795 164.556 68.0796ZM289.821 146.233C289.821 134.891 299.016 125.696 310.358 125.696C325.547 125.696 342.632 130.954 357.374 138.291C372.183 145.663 387.302 156.462 397.311 169.912C404.083 179.011 402.196 191.876 393.097 198.648C383.998 205.419 371.132 203.532 364.361 194.433C359.434 187.813 350.283 180.642 339.071 175.062C327.792 169.447 317.106 166.77 310.358 166.77C299.016 166.77 289.821 157.575 289.821 146.233Z" fill="#49383E"/>
+        </g>
+        <g filter="url(#filter5_ii_2_45)">
+          <path id="rightEye" d="M395.305 280.189C395.305 325.042 358.945 361.402 314.092 361.402C269.239 361.402 232.878 325.042 232.878 280.189C232.878 235.336 269.239 198.975 314.092 198.975C358.945 198.975 395.305 235.336 395.305 280.189Z" fill="#E3E3E3"/>
+          <path id="leftEye" d="M202.073 229.78C202.073 274.633 165.712 310.994 120.86 310.994C76.0065 310.994 39.646 274.633 39.646 229.78C39.646 184.927 76.0065 148.567 120.86 148.567C165.712 148.567 202.073 184.927 202.073 229.78Z" fill="#E3E3E3"/>
+        </g>
+        <g filter="url(#filter6_d_2_45)">
+          <path id="leftPupil" d="M187.137 230.714C187.137 261.131 162.479 285.79 132.061 285.79C101.644 285.79 76.9855 261.131 76.9855 230.714C76.9855 200.296 101.644 175.638 132.061 175.638C162.479 175.638 187.137 200.296 187.137 230.714Z" fill="#3D2A2C"/>
+          <path id="rightPupil" d="M360.766 280.189C360.766 310.606 336.108 335.265 305.69 335.265C275.273 335.265 250.614 310.606 250.614 280.189C250.614 249.771 275.273 225.113 305.69 225.113C336.108 225.113 360.766 249.771 360.766 280.189Z" fill="#3D2A2C"/>
+        </g>
+      </g>
       <defs>
-        {/* Enhanced metallic gradient */}
-        <linearGradient id="clippy-metal" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#B8B8B8" />
-          <stop offset="25%" stopColor="#E0E0E0" />
-          <stop offset="50%" stopColor="#F5F5F5" />
-          <stop offset="75%" stopColor="#D0D0D0" />
-          <stop offset="100%" stopColor="#A8A8A8" />
-        </linearGradient>
-        
-        {/* Highlight shine */}
-        <linearGradient id="clippy-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
-          <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.3" />
-          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-        </linearGradient>
-        
-        {/* Shadow gradient */}
-        <linearGradient id="clippy-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#808080" />
-          <stop offset="100%" stopColor="#606060" />
-        </linearGradient>
-
-        {/* Drop shadow filter for depth */}
-        <filter id="clippy-drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
-          <feOffset dx="2" dy="2" result="offsetblur"/>
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="0.3"/>
-          </feComponentTransfer>
-          <feMerge>
-            <feMergeNode/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
+        <filter id="filter0_d_2_45" x="-1.43051e-05" y="1.90735e-06" width="498.648" height="831.106" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dx="9.9115" dy="24.7788"/>
+          <feGaussianBlur stdDeviation="24.7788"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_45"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_45" result="shape"/>
+        </filter>
+        <filter id="filter1_ii_2_45" x="73.4382" y="16.9375" width="369.662" height="755.515" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dx="3.92065" dy="-7.8413"/>
+          <feGaussianBlur stdDeviation="19.6033"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0.075 0 0 0 0 0.1025 0 0 0 0 0.2 0 0 0 0.65 0"/>
+          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_45"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dx="-5.88098" dy="19.6033"/>
+          <feGaussianBlur stdDeviation="7.8413"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.35 0"/>
+          <feBlend mode="normal" in2="effect1_innerShadow_2_45" result="effect2_innerShadow_2_45"/>
+        </filter>
+        <filter id="filter3_ii_2_45" x="99.6641" y="60.0574" width="301.71" height="154.415" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dy="-7.8413"/>
+          <feGaussianBlur stdDeviation="19.6033"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_45"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dx="-3.92065" dy="11.762"/>
+          <feGaussianBlur stdDeviation="9.80163"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+          <feBlend mode="normal" in2="effect1_innerShadow_2_45" result="effect2_innerShadow_2_45"/>
+        </filter>
+        <filter id="filter5_ii_2_45" x="0.43948" y="140.725" width="394.866" height="224.597" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dy="-7.8413"/>
+          <feGaussianBlur stdDeviation="9.80163"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+          <feBlend mode="normal" in2="shape" result="effect1_innerShadow_2_45"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dx="-39.2065" dy="3.92065"/>
+          <feGaussianBlur stdDeviation="19.6033"/>
+          <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.25 0"/>
+          <feBlend mode="normal" in2="effect1_innerShadow_2_45" result="effect2_innerShadow_2_45"/>
+        </filter>
+        <filter id="filter6_d_2_45" x="57.3823" y="163.876" width="322.987" height="198.833" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+          <feOffset dy="7.8413"/>
+          <feGaussianBlur stdDeviation="9.80163"/>
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_2_45"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_2_45" result="shape"/>
         </filter>
       </defs>
-      
-      <g filter="url(#clippy-drop-shadow)">
-        {/* Outer paperclip curve - Thicker and more defined */}
-        <path
-          d="M 45 10 
-             C 45 5, 52 2, 60 2 
-             C 75 2, 85 10, 85 25 
-             L 85 75 
-             C 85 92, 72 105, 55 105 
-             C 38 105, 25 92, 25 75 
-             L 25 35 
-             C 25 25, 35 18, 48 18 
-             C 61 18, 70 25, 70 35 
-             L 70 70 
-             C 70 77, 64 83, 55 83 
-             C 46 83, 40 77, 40 70 
-             L 40 40"
-          fill="none"
-          stroke="url(#clippy-metal)"
-          strokeWidth="11"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        
-        {/* Inner shadow for depth */}
-        <path
-          d="M 45 10 
-             C 45 5, 52 2, 60 2 
-             C 75 2, 85 10, 85 25 
-             L 85 75"
-          fill="none"
-          stroke="url(#clippy-shadow)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          opacity="0.3"
-        />
-        
-        {/* Highlight shine on top edge */}
-        <path
-          d="M 47 12 
-             C 47 7, 53 4, 60 4 
-             C 73 4, 82 11, 82 25 
-             L 82 60"
-          fill="none"
-          stroke="url(#clippy-highlight)"
-          strokeWidth="4"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-      
-      {/* Eyes - Larger and more expressive */}
-      <g>
-        <ellipse cx="50" cy="48" rx="5.5" ry="7" fill="#2C2C2C" />
-        <ellipse cx="65" cy="48" rx="5.5" ry="7" fill="#2C2C2C" />
-        
-        {/* Eye highlights for sparkle */}
-        <ellipse cx="51.5" cy="45" rx="2.5" ry="3" fill="#FFFFFF" />
-        <ellipse cx="66.5" cy="45" rx="2.5" ry="3" fill="#FFFFFF" />
-        <circle cx="52" cy="50" r="1" fill="#FFFFFF" opacity="0.6" />
-        <circle cx="67" cy="50" r="1" fill="#FFFFFF" opacity="0.6" />
-      </g>
-      
-      {/* Happy eyebrows - More prominent */}
-      <g stroke="#404040" strokeWidth="2.5" strokeLinecap="round" fill="none">
-        <path d="M 42 38 Q 50 34, 56 37" />
-        <path d="M 60 37 Q 65 34, 73 38" />
-      </g>
-      
-      {/* Subtle smile - Making Clippy friendlier */}
-      <path 
-        d="M 52 58 Q 57.5 62, 63 58" 
-        fill="none" 
-        stroke="#404040" 
-        strokeWidth="2" 
-        strokeLinecap="round"
-      />
     </svg>
   );
 };
