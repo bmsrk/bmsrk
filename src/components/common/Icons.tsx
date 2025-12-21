@@ -268,68 +268,124 @@ export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl'
   return (
     <svg 
       className={`${sizeClasses[size]} ${className}`} 
-      viewBox="0 0 100 100" 
+      viewBox="0 0 120 120" 
       xmlns="http://www.w3.org/2000/svg"
     >
-      {/* Paperclip body - silver/gray metallic look */}
+      {/* Improved Clippy with better metallic look and clearer design */}
       <defs>
-        <linearGradient id="clippy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#C0C0C0" />
-          <stop offset="50%" stopColor="#E8E8E8" />
-          <stop offset="100%" stopColor="#A0A0A0" />
+        {/* Enhanced metallic gradient */}
+        <linearGradient id="clippy-metal" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#B8B8B8" />
+          <stop offset="25%" stopColor="#E0E0E0" />
+          <stop offset="50%" stopColor="#F5F5F5" />
+          <stop offset="75%" stopColor="#D0D0D0" />
+          <stop offset="100%" stopColor="#A8A8A8" />
         </linearGradient>
-        <linearGradient id="clippy-shine" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.6" />
+        
+        {/* Highlight shine */}
+        <linearGradient id="clippy-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.9" />
+          <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.3" />
           <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
         </linearGradient>
+        
+        {/* Shadow gradient */}
+        <linearGradient id="clippy-shadow" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#808080" />
+          <stop offset="100%" stopColor="#606060" />
+        </linearGradient>
+
+        {/* Drop shadow filter for depth */}
+        <filter id="clippy-drop-shadow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur in="SourceAlpha" stdDeviation="2"/>
+          <feOffset dx="2" dy="2" result="offsetblur"/>
+          <feComponentTransfer>
+            <feFuncA type="linear" slope="0.3"/>
+          </feComponentTransfer>
+          <feMerge>
+            <feMergeNode/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
       </defs>
       
-      {/* Main paperclip shape */}
-      <path
-        d="M 35 15 
-           C 35 8, 45 5, 55 5 
-           C 70 5, 75 15, 75 25 
-           L 75 70 
-           C 75 82, 65 90, 50 90 
-           C 35 90, 25 82, 25 70 
-           L 25 35 
-           C 25 28, 32 22, 42 22 
-           C 52 22, 58 28, 58 35 
-           L 58 65 
-           C 58 70, 54 74, 48 74 
-           C 42 74, 38 70, 38 65 
-           L 38 40"
-        fill="none"
-        stroke="url(#clippy-gradient)"
-        strokeWidth="8"
+      <g filter="url(#clippy-drop-shadow)">
+        {/* Outer paperclip curve - Thicker and more defined */}
+        <path
+          d="M 45 10 
+             C 45 5, 52 2, 60 2 
+             C 75 2, 85 10, 85 25 
+             L 85 75 
+             C 85 92, 72 105, 55 105 
+             C 38 105, 25 92, 25 75 
+             L 25 35 
+             C 25 25, 35 18, 48 18 
+             C 61 18, 70 25, 70 35 
+             L 70 70 
+             C 70 77, 64 83, 55 83 
+             C 46 83, 40 77, 40 70 
+             L 40 40"
+          fill="none"
+          stroke="url(#clippy-metal)"
+          strokeWidth="11"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        
+        {/* Inner shadow for depth */}
+        <path
+          d="M 45 10 
+             C 45 5, 52 2, 60 2 
+             C 75 2, 85 10, 85 25 
+             L 85 75"
+          fill="none"
+          stroke="url(#clippy-shadow)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          opacity="0.3"
+        />
+        
+        {/* Highlight shine on top edge */}
+        <path
+          d="M 47 12 
+             C 47 7, 53 4, 60 4 
+             C 73 4, 82 11, 82 25 
+             L 82 60"
+          fill="none"
+          stroke="url(#clippy-highlight)"
+          strokeWidth="4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </g>
+      
+      {/* Eyes - Larger and more expressive */}
+      <g>
+        <ellipse cx="50" cy="48" rx="5.5" ry="7" fill="#2C2C2C" />
+        <ellipse cx="65" cy="48" rx="5.5" ry="7" fill="#2C2C2C" />
+        
+        {/* Eye highlights for sparkle */}
+        <ellipse cx="51.5" cy="45" rx="2.5" ry="3" fill="#FFFFFF" />
+        <ellipse cx="66.5" cy="45" rx="2.5" ry="3" fill="#FFFFFF" />
+        <circle cx="52" cy="50" r="1" fill="#FFFFFF" opacity="0.6" />
+        <circle cx="67" cy="50" r="1" fill="#FFFFFF" opacity="0.6" />
+      </g>
+      
+      {/* Happy eyebrows - More prominent */}
+      <g stroke="#404040" strokeWidth="2.5" strokeLinecap="round" fill="none">
+        <path d="M 42 38 Q 50 34, 56 37" />
+        <path d="M 60 37 Q 65 34, 73 38" />
+      </g>
+      
+      {/* Subtle smile - Making Clippy friendlier */}
+      <path 
+        d="M 52 58 Q 57.5 62, 63 58" 
+        fill="none" 
+        stroke="#404040" 
+        strokeWidth="2" 
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
-      
-      {/* Shine effect */}
-      <path
-        d="M 35 15 
-           C 35 8, 45 5, 55 5 
-           C 70 5, 75 15, 75 25 
-           L 75 70"
-        fill="none"
-        stroke="url(#clippy-shine)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      
-      {/* Eyes - giving Clippy personality */}
-      <ellipse cx="44" cy="45" rx="4" ry="5" fill="#333333" />
-      <ellipse cx="56" cy="45" rx="4" ry="5" fill="#333333" />
-      
-      {/* Eye shine */}
-      <circle cx="45" cy="43" r="1.5" fill="#FFFFFF" />
-      <circle cx="57" cy="43" r="1.5" fill="#FFFFFF" />
-      
-      {/* Friendly eyebrows */}
-      <path d="M 39 38 Q 44 35, 48 38" fill="none" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M 52 38 Q 56 35, 61 38" fill="none" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 };

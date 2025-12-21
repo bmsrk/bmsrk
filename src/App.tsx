@@ -46,7 +46,7 @@ const App: React.FC = () => {
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [showLoadingModal]);
+  }, [showLoadingModal, showWelcomePopup, showHandoff, showPitchMode]);
 
   const handleLoadingComplete = () => {
     setShowLoadingModal(false);
@@ -85,18 +85,17 @@ const App: React.FC = () => {
 
   const handleWelcomeTakeTour = () => {
     setShowWelcomePopup(false);
-    // Start the handoff transition
+    // Skip handoff entirely - go straight to tour
     setTimeout(() => {
-      setShowHandoff(true);
+      setShowPitchMode(true);
     }, 300);
   };
 
   const handleHandoffComplete = () => {
+    // This is no longer used but kept for compatibility
     setShowHandoff(false);
-    // Clean state before starting tour
     setShowClippy(false);
     setClippySkill(undefined);
-    // Start the enhanced pitch mode
     setTimeout(() => {
       setShowPitchMode(true);
     }, 300);
