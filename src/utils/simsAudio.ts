@@ -3,6 +3,8 @@
  * Creates procedural audio that mimics The Sims "Simlish" speech pattern
  */
 
+/* eslint-disable no-undef */
+
 export class SimsAudioGenerator {
   private audioContext: AudioContext | null = null;
   private currentOscillators: OscillatorNode[] = [];
@@ -13,6 +15,7 @@ export class SimsAudioGenerator {
     // Initialize AudioContext on demand with error handling
     try {
       if (typeof window !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         this.isSupported = true;
       }
@@ -35,6 +38,9 @@ export class SimsAudioGenerator {
     // Silently fail if audio not supported - it's an enhancement, not critical
     if (!this.isSupported || !this.audioContext || this.isPlaying) return;
 
+    // Early return for empty text
+    if (!text || text.length === 0) return;
+
     try {
       // Resume audio context if suspended (required by browsers)
       if (this.audioContext.state === 'suspended') {
@@ -54,7 +60,7 @@ export class SimsAudioGenerator {
             200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Normal Bruno voice
           ];
 
-      const syllableCount = Math.ceil(text.length / 4); // Approximate syllables
+      const syllableCount = Math.max(1, Math.ceil(text.length / 4)); // Approximate syllables, minimum 1
       
       // Calculate syllable duration based on provided durationMs or speed
       let syllableDuration: number;

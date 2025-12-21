@@ -75,11 +75,12 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
 
   // Handle speaker transitions
   useEffect(() => {
-    if (!currentStep) return undefined;
+    const step = HANDOFF_STEPS[currentStepIndex];
+    if (!step) return undefined;
 
     // Check if speaker changed from previous step
     const prevStep = currentStepIndex > 0 ? HANDOFF_STEPS[currentStepIndex - 1] : null;
-    if (prevStep && prevStep.speaker !== currentStep.speaker) {
+    if (prevStep && prevStep.speaker !== step.speaker) {
       setIsTransitioning(true);
       // Allow time for fade transition
       const timer = setTimeout(() => {
@@ -88,7 +89,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [currentStepIndex]); // Removed currentStep - it's derived from currentStepIndex
+  }, [currentStepIndex]);
 
   const handleContinue = useCallback(() => {
     if (currentStepIndex < HANDOFF_STEPS.length - 1) {

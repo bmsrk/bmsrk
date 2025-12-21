@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
 import { ResumeData } from '../../types';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
@@ -89,7 +89,7 @@ const PITCH_STEPS: PitchStep[] = [
 
 const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
   onClose,
-  data,
+  data: _data,
   onNavigateToTab,
   onComplete,
 }) => {
@@ -126,6 +126,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
     return () => {
       clearHighlight();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
   const highlightElement = (selector: string) => {
@@ -250,7 +251,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
             <div className="flex items-center gap-3">
               <div className="text-4xl animate-clippy-pulse">📎</div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy's Guided Tour</h3>
+                <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy&apos;s Guided Tour</h3>
                 <p className="text-xs text-gray-600">
                   Step {currentStep + 1} of {PITCH_STEPS.length}
                 </p>
