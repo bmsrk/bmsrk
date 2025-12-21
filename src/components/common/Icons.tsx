@@ -274,47 +274,47 @@ export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl'
     >
       <style>
         {`
-          @keyframes bob {
+          @keyframes clippy-bob {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-15px); }
           }
           
-          @keyframes blink {
+          @keyframes clippy-blink {
             0%, 90%, 100% { transform: scaleY(1); }
             95% { transform: scaleY(0.1); }
           }
           
-          @keyframes eyeMove {
+          @keyframes clippy-eyeMove {
             0%, 20%, 100% { transform: translate(0, 0); }
             10% { transform: translate(-3px, -2px); }
           }
           
-          @keyframes wiggle {
+          @keyframes clippy-wiggle {
             0%, 100% { transform: rotate(0deg); }
             25% { transform: rotate(-2deg); }
             75% { transform: rotate(2deg); }
           }
           
           #clippy-main {
-            animation: bob 3s ease-in-out infinite;
+            animation: clippy-bob 3s ease-in-out infinite;
           }
           
           #leftEye, #rightEye {
-            animation: blink 4s ease-in-out infinite;
+            animation: clippy-blink 4s ease-in-out infinite;
             transform-origin: center;
           }
           
           #leftPupil {
-            animation: eyeMove 6s ease-in-out infinite;
+            animation: clippy-eyeMove 6s ease-in-out infinite;
           }
           
           #rightPupil {
-            animation: eyeMove 6s ease-in-out infinite 0.1s;
+            animation: clippy-eyeMove 6s ease-in-out infinite 0.1s;
           }
           
           #clippy-body {
-            animation: wiggle 4s ease-in-out infinite;
-            transform-origin: center 100px;
+            animation: clippy-wiggle 4s ease-in-out infinite;
+            transform-origin: center 12%;
           }
         `}
       </style>
