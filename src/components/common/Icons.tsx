@@ -246,3 +246,91 @@ export const InfoIcon: React.FC<IconProps> = ({ className = "w-4 h-4" }) => (
   </svg>
 );
 
+/**
+ * ClippyIcon - A consistent Clippy paperclip icon that renders the same across all platforms
+ * Inspired by the classic Microsoft Office Clippy assistant
+ * @param size - Icon size: 'sm' (16px), 'md' (24px, default), 'lg' (32px), 'xl' (40px), '2xl' (48px), '3xl' (64px), '4xl' (80px)
+ */
+export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' }> = ({ 
+  className = "", 
+  size = 'md' 
+}) => {
+  const sizeClasses = {
+    sm: 'w-4 h-4',
+    md: 'w-6 h-6',
+    lg: 'w-8 h-8',
+    xl: 'w-10 h-10',
+    '2xl': 'w-12 h-12',
+    '3xl': 'w-16 h-16',
+    '4xl': 'w-20 h-20',
+  };
+  
+  return (
+    <svg 
+      className={`${sizeClasses[size]} ${className}`} 
+      viewBox="0 0 100 100" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      {/* Paperclip body - silver/gray metallic look */}
+      <defs>
+        <linearGradient id="clippy-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#C0C0C0" />
+          <stop offset="50%" stopColor="#E8E8E8" />
+          <stop offset="100%" stopColor="#A0A0A0" />
+        </linearGradient>
+        <linearGradient id="clippy-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.6" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      
+      {/* Main paperclip shape */}
+      <path
+        d="M 35 15 
+           C 35 8, 45 5, 55 5 
+           C 70 5, 75 15, 75 25 
+           L 75 70 
+           C 75 82, 65 90, 50 90 
+           C 35 90, 25 82, 25 70 
+           L 25 35 
+           C 25 28, 32 22, 42 22 
+           C 52 22, 58 28, 58 35 
+           L 58 65 
+           C 58 70, 54 74, 48 74 
+           C 42 74, 38 70, 38 65 
+           L 38 40"
+        fill="none"
+        stroke="url(#clippy-gradient)"
+        strokeWidth="8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      
+      {/* Shine effect */}
+      <path
+        d="M 35 15 
+           C 35 8, 45 5, 55 5 
+           C 70 5, 75 15, 75 25 
+           L 75 70"
+        fill="none"
+        stroke="url(#clippy-shine)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      
+      {/* Eyes - giving Clippy personality */}
+      <ellipse cx="44" cy="45" rx="4" ry="5" fill="#333333" />
+      <ellipse cx="56" cy="45" rx="4" ry="5" fill="#333333" />
+      
+      {/* Eye shine */}
+      <circle cx="45" cy="43" r="1.5" fill="#FFFFFF" />
+      <circle cx="57" cy="43" r="1.5" fill="#FFFFFF" />
+      
+      {/* Friendly eyebrows */}
+      <path d="M 39 38 Q 44 35, 48 38" fill="none" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M 52 38 Q 56 35, 61 38" fill="none" stroke="#555555" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+};
+

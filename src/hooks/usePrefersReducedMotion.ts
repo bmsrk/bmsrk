@@ -15,6 +15,7 @@ export const usePrefersReducedMotion = (): boolean => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     setPrefersReducedMotion(mediaQuery.matches);
 
+    // eslint-disable-next-line no-undef
     const listener = (e: MediaQueryListEvent) => {
       setPrefersReducedMotion(e.matches);
     };

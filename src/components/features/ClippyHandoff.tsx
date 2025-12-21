@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
 import { getSimsAudio } from '../../utils/simsAudio';
+import { ClippyIcon } from '../common/Icons';
 
 interface ClippyHandoffProps {
   onHandoffComplete: () => void;
@@ -58,10 +59,15 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     // This was causing the handoff to play automatically without user input
   }, []);
 
+  // Duration for synchronized typing and audio animation (in milliseconds)
+  // Quick but natural-feeling animation for handoff dialogs
+  const HANDOFF_ANIMATION_DURATION_MS = 2000;
+
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
+    durationMs: HANDOFF_ANIMATION_DURATION_MS, // Synchronized typing and audio for handoff dialogs
     onComplete: handleStepComplete,
   });
 
@@ -74,11 +80,12 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
 
   // Handle speaker transitions
   useEffect(() => {
-    if (!currentStep) return undefined;
+    const step = HANDOFF_STEPS[currentStepIndex];
+    if (!step) return undefined;
 
     // Check if speaker changed from previous step
     const prevStep = currentStepIndex > 0 ? HANDOFF_STEPS[currentStepIndex - 1] : null;
-    if (prevStep && prevStep.speaker !== currentStep.speaker) {
+    if (prevStep && prevStep.speaker !== step.speaker) {
       setIsTransitioning(true);
       // Allow time for fade transition
       const timer = setTimeout(() => {
@@ -87,7 +94,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
       return () => clearTimeout(timer);
     }
     return undefined;
-  }, [currentStepIndex]); // Removed currentStep - it's derived from currentStepIndex
+  }, [currentStepIndex]);
 
   const handleContinue = useCallback(() => {
     if (currentStepIndex < HANDOFF_STEPS.length - 1) {
@@ -170,7 +177,9 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
             {/* Header */}
             <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`text-4xl ${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>📎</div>
+                <div className={`${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>
+                  <ClippyIcon size="xl" />
+                </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy</h3>
                   <p className="text-xs text-gray-600">Your Helpful Assistant</p>

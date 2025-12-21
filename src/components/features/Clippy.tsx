@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CloseIcon } from '../common/Icons';
+import { CloseIcon, ClippyIcon } from '../common/Icons';
 import { Project, SkillMetadata } from '../../types';
 import { getSkillUrl, getSkillDescription } from '../../utils';
 import { getSimsAudio } from '../../utils/simsAudio';
@@ -147,7 +147,7 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
           {skill ? (
             <div className="pr-6">
               <h3 className="text-lg font-bold text-[#201f1e] mb-3 flex items-center gap-2 rpg-text">
-                <span className="text-2xl">📎</span>
+                <ClippyIcon size="lg" />
                 {skill}
               </h3>
               <p className="text-sm text-gray-800 mb-3 leading-relaxed">
@@ -244,8 +244,8 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
         
         {/* Clippy Character - Larger with improved animations */}
         <div className="relative animate-clippy-pulse">
-          <div className="text-[90px] leading-none cursor-pointer hover:scale-110 transition-transform filter drop-shadow-2xl" onClick={nextMessage}>
-            📎
+          <div className="cursor-pointer hover:scale-110 transition-transform filter drop-shadow-2xl" onClick={nextMessage}>
+            <ClippyIcon size="4xl" className="w-24 h-24" />
           </div>
         </div>
       </div>

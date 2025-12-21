@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { CloseIcon } from '../common/Icons';
+import React, { useState, useEffect } from 'react';
+import { CloseIcon, ClippyIcon } from '../common/Icons';
 import { ResumeData } from '../../types';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
 
@@ -89,7 +89,7 @@ const PITCH_STEPS: PitchStep[] = [
 
 const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
   onClose,
-  data,
+  data: _data,
   onNavigateToTab,
   onComplete,
 }) => {
@@ -100,11 +100,16 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
   const step = PITCH_STEPS[currentStep] ?? PITCH_STEPS[0]!;
   const progress = ((currentStep + 1) / PITCH_STEPS.length) * 100;
 
-  // Use the new speaking animation hook
+  // Duration for synchronized typing and audio animation (in milliseconds)
+  // Quick but engaging animation for guided tour
+  const PITCH_ANIMATION_DURATION_MS = 2500;
+
+  // Use the speaking animation hook with synchronized duration for pitch mode
   const { displayedText, isComplete: isTypingComplete, isSpeaking } = useSpeakingAnimation({
     text: step.description,
     isClippy: true,
     enabled: true,
+    durationMs: PITCH_ANIMATION_DURATION_MS, // Synchronized typing and audio for guided tour
   });
 
   useEffect(() => {
@@ -125,6 +130,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
     return () => {
       clearHighlight();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentStep]);
 
   const highlightElement = (selector: string) => {
@@ -219,8 +225,8 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
         className="fixed no-print z-[95] transition-all duration-1000 ease-in-out"
         style={clippyStyle}
       >
-        <div className={`text-[80px] leading-none filter drop-shadow-2xl ${isSpeaking ? 'animate-clippy-pulse' : ''}`}>
-          📎
+        <div className={`leading-none filter drop-shadow-2xl ${isSpeaking ? 'animate-clippy-pulse' : ''}`}>
+          <ClippyIcon size="4xl" className="w-20 h-20" />
         </div>
       </div>
 
@@ -247,9 +253,11 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
           {/* Header */}
           <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="text-4xl animate-clippy-pulse">📎</div>
+              <div className="animate-clippy-pulse">
+                <ClippyIcon size="xl" />
+              </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy's Guided Tour</h3>
+                <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy&apos;s Guided Tour</h3>
                 <p className="text-xs text-gray-600">
                   Step {currentStep + 1} of {PITCH_STEPS.length}
                 </p>

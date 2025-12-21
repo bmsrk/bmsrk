@@ -4,7 +4,9 @@
  */
 
 export class SimsAudioGenerator {
+  // eslint-disable-next-line no-undef
   private audioContext: AudioContext | null = null;
+  // eslint-disable-next-line no-undef
   private currentOscillators: OscillatorNode[] = [];
   private isPlaying = false;
   private isSupported = false;
@@ -13,6 +15,7 @@ export class SimsAudioGenerator {
     // Initialize AudioContext on demand with error handling
     try {
       if (typeof window !== 'undefined') {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
         this.isSupported = true;
       }
@@ -29,10 +32,14 @@ export class SimsAudioGenerator {
    * @param text - The text to speak
    * @param speed - Speed multiplier (default 1)
    * @param isClippy - Whether to use Clippy's higher-pitched voice (default false)
+   * @param durationMs - Optional total duration in milliseconds. If provided, overrides speed-based calculation.
    */
-  speak(text: string, speed: number = 1, isClippy: boolean = false): void {
+  speak(text: string, speed: number = 1, isClippy: boolean = false, durationMs?: number): void {
     // Silently fail if audio not supported - it's an enhancement, not critical
     if (!this.isSupported || !this.audioContext || this.isPlaying) return;
+
+    // Early return for empty text
+    if (!text || text.length === 0) return;
 
     try {
       // Resume audio context if suspended (required by browsers)
@@ -53,14 +60,27 @@ export class SimsAudioGenerator {
             200, 220, 180, 240, 190, 210, 230, 195, 205, 215, // Normal Bruno voice
           ];
 
-      const syllableCount = Math.ceil(text.length / 4); // Approximate syllables
-      const syllableDuration = (0.15 / speed) * 1000; // Duration per syllable in ms
-      const actualSpeed = isClippy ? speed * 1.15 : speed; // Clippy speaks slightly faster
+      const syllableCount = Math.max(1, Math.ceil(text.length / 4)); // Approximate syllables, minimum 1
+      
+      // Calculate syllable duration based on provided durationMs or speed
+      let syllableDuration: number;
+      let totalDurationMs: number;
+      
+      if (durationMs !== undefined) {
+        // Use provided duration - distribute evenly across syllables
+        totalDurationMs = durationMs;
+        syllableDuration = durationMs / syllableCount;
+      } else {
+        // Use speed-based calculation (original behavior)
+        syllableDuration = (0.15 / speed) * 1000; // Duration per syllable in ms
+        const actualSpeed = isClippy ? speed * 1.15 : speed;
+        totalDurationMs = (syllableCount * syllableDuration) / actualSpeed;
+      }
 
       for (let i = 0; i < syllableCount; i++) {
         const startTime =
-          this.audioContext.currentTime + i * (syllableDuration / 1000 / actualSpeed);
-        const duration = (syllableDuration / 1000 / actualSpeed) * (0.8 + Math.random() * 0.4); // Vary duration
+          this.audioContext.currentTime + i * (syllableDuration / 1000);
+        const duration = (syllableDuration / 1000) * (0.8 + Math.random() * 0.4); // Vary duration
 
         // Randomly select base frequency
         const baseFreq =
@@ -99,7 +119,7 @@ export class SimsAudioGenerator {
       setTimeout(() => {
         this.isPlaying = false;
         this.currentOscillators = [];
-      }, (syllableCount * syllableDuration) / actualSpeed + 200);
+      }, totalDurationMs + 200);
     } catch (error) {
       console.warn('Failed to play audio:', error);
       // Don't crash - just log and continue

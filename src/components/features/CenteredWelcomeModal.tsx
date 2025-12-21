@@ -22,7 +22,8 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: WELCOME_MESSAGE,
     isClippy: false,
-    enabled: isVisible, // Only start typing when modal is visible
+    enabled: isVisible,
+    instant: true, // Instantaneous display for welcome modal - no typing animation or audio
   });
 
   useEffect(() => {
@@ -132,7 +133,7 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
                     onClick={handleClose}
                     className="rpg-choice px-5 py-2.5 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
                   >
-                    I'm exploring
+                    I&apos;m exploring
                   </button>
                   <button
                     onClick={handleTakeTour}

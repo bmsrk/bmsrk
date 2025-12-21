@@ -6,6 +6,9 @@ interface UseSpeakingAnimationOptions {
   text: string;
   isClippy?: boolean;
   enabled?: boolean;
+  instant?: boolean;
+  /** Total duration for both typing and audio animation in milliseconds. Synchronizes both animations. */
+  durationMs?: number;
   onComplete?: () => void;
 }
 
@@ -24,6 +27,8 @@ export const useSpeakingAnimation = ({
   text,
   isClippy = false,
   enabled = true,
+  instant = false,
+  durationMs,
   onComplete,
 }: UseSpeakingAnimationOptions): UseSpeakingAnimationResult => {
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -47,6 +52,8 @@ export const useSpeakingAnimation = ({
   const { displayedText, isComplete } = useNaturalTyping({
     text,
     enabled,
+    instant,
+    durationMs,
     onComplete: handleTypingComplete,
   });
 
@@ -60,9 +67,9 @@ export const useSpeakingAnimation = ({
     }
   }, [text, simsAudio]);
 
-  // Start audio when enabled and text is available
+  // Start audio when enabled and text is available (skip if instant mode)
   useEffect(() => {
-    if (!enabled || !text) {
+    if (!enabled || !text || instant) {
       setIsSpeaking(false);
       hasStartedRef.current = false;
       return;
@@ -73,7 +80,7 @@ export const useSpeakingAnimation = ({
       setIsSpeaking(true);
 
       const pitch = isClippy ? 1.8 : 1.5;
-      simsAudio.speak(text, pitch, isClippy);
+      simsAudio.speak(text, pitch, isClippy, durationMs);
     }
 
     return () => {
@@ -83,7 +90,7 @@ export const useSpeakingAnimation = ({
         hasStartedRef.current = false;
       }
     };
-  }, [text, enabled, isClippy, isComplete, simsAudio]);
+  }, [text, enabled, isClippy, isComplete, simsAudio, instant, durationMs]);
 
   return {
     displayedText,
