@@ -36,14 +36,18 @@ const App: React.FC = () => {
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
 
-  // Show welcome popup after loading completes (EVERY TIME - no localStorage check)
+  // Show welcome popup only on first session (check localStorage)
   React.useEffect(() => {
     if (!showLoadingModal && !showWelcomePopup && !showHandoff && !showPitchMode) {
-      // Show welcome popup after 1.5 seconds after loading completes
-      const timer = setTimeout(() => {
-        setShowWelcomePopup(true);
-      }, 1500);
-      return () => clearTimeout(timer);
+      const hasSeenWelcome = localStorage.getItem('hasSeenWelcome');
+      
+      if (!hasSeenWelcome) {
+        // Show welcome popup after 1.5 seconds after loading completes
+        const timer = setTimeout(() => {
+          setShowWelcomePopup(true);
+        }, 1500);
+        return () => clearTimeout(timer);
+      }
     }
     return undefined;
   }, [showLoadingModal, showWelcomePopup, showHandoff, showPitchMode]);
@@ -81,10 +85,12 @@ const App: React.FC = () => {
 
   const handleWelcomePopupDismiss = () => {
     setShowWelcomePopup(false);
+    localStorage.setItem('hasSeenWelcome', 'true');
   };
 
   const handleWelcomeTakeTour = () => {
     setShowWelcomePopup(false);
+    localStorage.setItem('hasSeenWelcome', 'true');
     // Skip handoff entirely - go straight to tour
     setTimeout(() => {
       setShowPitchMode(true);
