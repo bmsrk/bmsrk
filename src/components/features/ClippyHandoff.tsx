@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
 import { getSimsAudio } from '../../utils/simsAudio';
+import { ClippyIcon } from '../common/Icons';
 
 interface ClippyHandoffProps {
   onHandoffComplete: () => void;
@@ -58,11 +59,15 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     // This was causing the handoff to play automatically without user input
   }, []);
 
+  // Duration for synchronized typing and audio animation (in milliseconds)
+  // Quick but natural-feeling animation for handoff dialogs
+  const HANDOFF_ANIMATION_DURATION_MS = 2000;
+
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
-    instant: true, // Instant mode for pitch mode flow - no typing animation or audio
+    durationMs: HANDOFF_ANIMATION_DURATION_MS, // Synchronized typing and audio for pitch mode
     onComplete: handleStepComplete,
   });
 
@@ -172,7 +177,9 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
             {/* Header */}
             <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`text-4xl ${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>📎</div>
+                <div className={`${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>
+                  <ClippyIcon size="xl" />
+                </div>
                 <div>
                   <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy</h3>
                   <p className="text-xs text-gray-600">Your Helpful Assistant</p>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CloseIcon } from '../common/Icons';
+import { CloseIcon, ClippyIcon } from '../common/Icons';
 import { ResumeData } from '../../types';
 
 interface PitchModeProps {
@@ -178,9 +178,11 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data, onNavigateToTab, o
           {/* Header */}
           <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="text-4xl animate-bounce-gentle">📎</div>
+              <div className="animate-bounce-gentle">
+                <ClippyIcon size="xl" />
+              </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900">Clippy's Guided Tour</h3>
+                <h3 className="text-lg font-bold text-gray-900">Clippy&apos;s Guided Tour</h3>
                 <p className="text-xs text-gray-600">Step {currentStep + 1} of {PITCH_STEPS.length}</p>
               </div>
             </div>
