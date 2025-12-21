@@ -297,44 +297,72 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 
           {/* Navigation Footer - Only show when typing is complete */}
           {isTypingComplete && (
-            <div className="px-6 py-4 bg-yellow-100/30 border-t border-yellow-200 flex items-center justify-between animate-fade-in">
-              {/* Step Indicators */}
-              <div className="flex gap-1.5">
+            <div className="px-6 py-5 bg-yellow-100/30 border-t border-yellow-200 animate-fade-in">
+              {/* Main Navigation - Centered and Prominent */}
+              <div className="flex items-center justify-center gap-4 mb-4">
+                <button
+                  onClick={handlePrevious}
+                  disabled={currentStep === 0}
+                  className={`rpg-button px-5 py-2.5 text-base font-semibold rounded-lg transition-all ${
+                    currentStep === 0
+                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
+                      : 'bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md'
+                  }`}
+                  aria-label="Previous step"
+                >
+                  <span className="flex items-center gap-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back
+                  </span>
+                </button>
+
+                {/* Large centered NEXT button */}
+                <button
+                  onClick={handleNext}
+                  className="rpg-button px-10 py-3.5 bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d6] text-white text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-3"
+                >
+                  {currentStep === PITCH_STEPS.length - 1 ? (
+                    <>
+                      <span>Finish Tour</span>
+                      <span className="text-xl">🎉</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>NEXT</span>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  onClick={handleSkip}
+                  className="rpg-button px-5 py-2.5 text-base font-semibold rounded-lg transition-all bg-white text-gray-600 hover:bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md"
+                  aria-label="Skip tour"
+                >
+                  Skip Tour
+                </button>
+              </div>
+
+              {/* Step Indicators - Below navigation */}
+              <div className="flex gap-2 justify-center">
                 {PITCH_STEPS.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setCurrentStep(idx)}
-                    className={`w-2 h-2 rounded-full transition-all ${
+                    className={`transition-all rounded-full ${
                       idx === currentStep
-                        ? 'bg-[#0078d4] w-6'
+                        ? 'bg-[#0078d4] w-8 h-3'
                         : idx < currentStep
-                          ? 'bg-blue-400'
-                          : 'bg-gray-300'
+                        ? 'bg-blue-400 w-3 h-3'
+                        : 'bg-gray-300 w-3 h-3'
                     }`}
                     aria-label={`Go to step ${idx + 1}`}
                   />
                 ))}
-              </div>
-
-              {/* Navigation Buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={handlePrevious}
-                  disabled={currentStep === 0}
-                  className={`rpg-button px-3 py-1.5 text-sm font-semibold rounded transition-colors ${
-                    currentStep === 0
-                      ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-                  }`}
-                >
-                  ← Back
-                </button>
-                <button
-                  onClick={handleNext}
-                  className="rpg-button px-4 py-1.5 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-semibold rounded transition-colors shadow-sm"
-                >
-                  {currentStep === PITCH_STEPS.length - 1 ? 'Finish! 🎉' : 'Next →'}
-                </button>
               </div>
             </div>
           )}
