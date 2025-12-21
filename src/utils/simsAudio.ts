@@ -3,10 +3,10 @@
  * Creates procedural audio that mimics The Sims "Simlish" speech pattern
  */
 
-/* eslint-disable no-undef */
-
 export class SimsAudioGenerator {
+  // eslint-disable-next-line no-undef
   private audioContext: AudioContext | null = null;
+  // eslint-disable-next-line no-undef
   private currentOscillators: OscillatorNode[] = [];
   private isPlaying = false;
   private isSupported = false;

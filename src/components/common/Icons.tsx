@@ -249,6 +249,7 @@ export const InfoIcon: React.FC<IconProps> = ({ className = "w-4 h-4" }) => (
 /**
  * ClippyIcon - A consistent Clippy paperclip icon that renders the same across all platforms
  * Inspired by the classic Microsoft Office Clippy assistant
+ * @param size - Icon size: 'sm' (16px), 'md' (24px, default), 'lg' (32px), 'xl' (40px), '2xl' (48px), '3xl' (64px), '4xl' (80px)
  */
 export const ClippyIcon: React.FC<IconProps & { size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' }> = ({ 
   className = "", 

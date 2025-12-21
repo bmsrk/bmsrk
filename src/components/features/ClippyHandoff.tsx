@@ -67,7 +67,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
-    durationMs: HANDOFF_ANIMATION_DURATION_MS, // Synchronized typing and audio for pitch mode
+    durationMs: HANDOFF_ANIMATION_DURATION_MS, // Synchronized typing and audio for handoff dialogs
     onComplete: handleStepComplete,
   });
 
