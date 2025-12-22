@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { CloseIcon } from '../common/Icons';
-import { getSimsAudio } from '../../utils/simsAudio';
 
 interface ProfileWelcomePopupProps {
   onTakeTour: () => void;
@@ -19,7 +18,6 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
   const [isVisible, setIsVisible] = useState(false);
   const [displayedText, setDisplayedText] = useState('');
   const [isTypingComplete, setIsTypingComplete] = useState(false);
-  const simsAudio = getSimsAudio();
 
   useEffect(() => {
     // Delay appearance by 1.5 seconds
@@ -31,16 +29,12 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
 
     return () => {
       clearTimeout(showTimer);
-      simsAudio.stop();
     };
   }, []);
 
   const startTypingAnimation = () => {
     let currentIndex = 0;
     const typingSpeed = 30; // milliseconds per character
-
-    // Play Sims audio for the entire message
-    simsAudio.speak(WELCOME_MESSAGE, 1.5);
 
     const typingInterval = setInterval(() => {
       if (currentIndex < WELCOME_MESSAGE.length) {
@@ -54,7 +48,6 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
   };
 
   const handleClose = () => {
-    simsAudio.stop();
     setIsVisible(false);
     setTimeout(() => {
       onDismiss();
@@ -62,7 +55,6 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
   };
 
   const handleTakeTour = () => {
-    simsAudio.stop();
     setIsVisible(false);
     setTimeout(() => {
       onTakeTour();

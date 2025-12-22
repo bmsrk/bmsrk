@@ -105,11 +105,11 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
   const PITCH_ANIMATION_DURATION_MS = 2500;
 
   // Use the speaking animation hook with synchronized duration for pitch mode
-  const { displayedText, isComplete: isTypingComplete, isSpeaking } = useSpeakingAnimation({
+  const { displayedText, isComplete: isTypingComplete } = useSpeakingAnimation({
     text: step.description,
     isClippy: true,
     enabled: true,
-    durationMs: PITCH_ANIMATION_DURATION_MS, // Synchronized typing and audio for guided tour
+    durationMs: PITCH_ANIMATION_DURATION_MS, // Synchronized typing for guided tour
   });
 
   useEffect(() => {
@@ -225,7 +225,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
         className="fixed no-print z-[95] transition-all duration-1000 ease-in-out"
         style={clippyStyle}
       >
-        <div className={`leading-none filter drop-shadow-2xl ${isSpeaking ? 'animate-clippy-pulse' : ''}`}>
+        <div className="leading-none filter drop-shadow-2xl">
           <ClippyIcon size="4xl" className="w-20 h-20" />
         </div>
       </div>
@@ -253,7 +253,7 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
           {/* Header */}
           <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="animate-clippy-pulse">
+              <div>
                 <ClippyIcon size="xl" />
               </div>
               <div>

@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
-import { getSimsAudio } from '../../utils/simsAudio';
 
 interface CenteredWelcomeModalProps {
   onTakeTour: () => void;
@@ -17,13 +16,12 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
   profileImageSrc,
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const simsAudio = useMemo(() => getSimsAudio(), []);
 
-  const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
+  const { displayedText, isComplete } = useSpeakingAnimation({
     text: WELCOME_MESSAGE,
     isClippy: false,
     enabled: isVisible,
-    instant: true, // Instantaneous display for welcome modal - no typing animation or audio
+    instant: true, // Instantaneous display for welcome modal - no typing animation
   });
 
   useEffect(() => {
@@ -36,9 +34,8 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = '';
-      simsAudio.stop(); // Ensure audio stops on unmount
     };
-  }, [simsAudio]);
+  }, []);
 
   const handleClose = useCallback(() => {
     setIsVisible(false);
@@ -88,15 +85,13 @@ const CenteredWelcomeModal: React.FC<CenteredWelcomeModalProps> = ({
         aria-labelledby="welcome-title"
       >
         <div className="relative max-w-lg w-full">
-          {/* Profile Picture with Pulsing Ring */}
+          {/* Profile Picture */}
           <div className="flex justify-center mb-6">
             <div className="relative">
               <img
                 src={profileImageSrc}
                 alt="Bruno's Profile"
-                className={`w-32 h-32 rounded-full border-4 border-[#0078d4] object-cover object-[center_25%] ${
-                  isSpeaking ? 'speaking-pulse' : ''
-                }`}
+                className="w-32 h-32 rounded-full border-4 border-[#0078d4] object-cover object-[center_25%]"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (target.src.includes('profile.jpg')) {
