@@ -24,23 +24,11 @@ const HANDOFF_STEPS: HandoffStep[] = [
   },
   {
     speaker: 'bruno',
-    message: "Good to see you're still around, buddy. Remember when we used to run deltree together?",
+    message: "Good to see you're still around, buddy. This portfolio runs on nostalgia AND modern tech.",
   },
   {
     speaker: 'clippy',
-    message: "Deltree? 😢 That command doesn't exist anymore... Just like my relevance in Office 2007!",
-  },
-  {
-    speaker: 'bruno',
-    message: "Hey, you're still relevant here! This portfolio runs on nostalgia AND modern tech.",
-  },
-  {
-    speaker: 'clippy',
-    message: "Aww, thanks Bruno! 🥹 Now I feel better than a freshly defragged hard drive!",
-  },
-  {
-    speaker: 'clippy',
-    message: "Alright, enough reminiscing about command prompts! Let me show you around this impressive portfolio. Ready?",
+    message: "Aww, thanks Bruno! 🥹 Let me show you around this impressive portfolio. Ready?",
   },
 ];
 
@@ -60,8 +48,8 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
   }, []);
 
   // Duration for synchronized typing and audio animation (in milliseconds)
-  // Quick but natural-feeling animation for handoff dialogs
-  const HANDOFF_ANIMATION_DURATION_MS = 2000;
+  // Snappier animation for handoff dialogs (reduced from 2000ms)
+  const HANDOFF_ANIMATION_DURATION_MS = 1200;
 
   const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
@@ -105,6 +93,28 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     }
   }, [currentStepIndex, onHandoffComplete]);
 
+  const handleSkip = useCallback(() => {
+    simsAudio.stop();
+    onHandoffComplete();
+  }, [simsAudio, onHandoffComplete]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isTransitioning) return;
+
+      if (e.key === 'Escape') {
+        handleSkip();
+      } else if ((e.key === 'Enter' || e.key === ' ') && isComplete) {
+        e.preventDefault();
+        handleContinue();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isComplete, isTransitioning, handleContinue, handleSkip]);
+
   // Prevent interaction during auto-advance
   const canManuallyAdvance = isComplete && !isTransitioning;
 
@@ -112,6 +122,15 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
     <>
       {/* Backdrop */}
       <div className="fixed inset-0 bg-black bg-opacity-40 z-[95] no-print animate-fade-in" />
+
+      {/* Skip Button - Always visible in top right */}
+      <button
+        onClick={handleSkip}
+        className="fixed top-4 right-4 z-[101] no-print bg-white hover:bg-gray-100 text-gray-700 px-4 py-2 rounded-lg shadow-lg border-2 border-gray-300 font-semibold text-sm transition-all hover:shadow-xl"
+        aria-label="Skip handoff"
+      >
+        Skip ⏭️
+      </button>
 
       {/* Bruno's Messages - Left/Center positioned */}
       {isBrunoSpeaking && !isTransitioning && (
