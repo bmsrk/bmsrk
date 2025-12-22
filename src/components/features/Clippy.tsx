@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { CloseIcon, ClippyIcon } from '../common/Icons';
 import { Project, SkillMetadata } from '../../types';
 import { getSkillUrl, getSkillDescription } from '../../utils';
-import { getSimsAudio } from '../../utils/simsAudio';
 
 interface ClippyProps {
   onClose: () => void;
@@ -76,7 +75,6 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
   const [chatInput, setChatInput] = useState('');
   const [chatHistory, setChatHistory] = useState<Array<{ type: 'user' | 'clippy'; message: string }>>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const simsAudio = getSimsAudio();
 
   // Calculate project count for the skill
   const projectCount = skill
@@ -98,7 +96,6 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
   }, [skill]);
 
   const handleClose = () => {
-    simsAudio.stop();
     setIsVisible(false);
     setTimeout(onClose, 300);
   };
@@ -121,9 +118,6 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
       const response = getClippyResponse(userMessage);
       setChatHistory((prev) => [...prev, { type: 'clippy', message: response }]);
       setIsTyping(false);
-      
-      // Play Clippy's voice
-      simsAudio.speak(response, 1.8, true);
     }, 500 + Math.random() * 500);
   };
 

@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
-import { getSimsAudio } from '../../utils/simsAudio';
 import { ClippyIcon } from '../common/Icons';
 
 interface ClippyHandoffProps {
@@ -35,7 +34,6 @@ const HANDOFF_STEPS: HandoffStep[] = [
 const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profileImageSrc }) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const simsAudio = useMemo(() => getSimsAudio(), []);
 
   const currentStep = HANDOFF_STEPS[currentStepIndex];
   const isBrunoSpeaking = currentStep?.speaker === 'bruno';
@@ -44,27 +42,18 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
   // Memoized callback for step completion
   const handleStepComplete = useCallback(() => {
     // Don't auto-advance - let user click to proceed
-    // This was causing the handoff to play automatically without user input
   }, []);
 
-  // Duration for synchronized typing and audio animation (in milliseconds)
-  // Snappier animation for handoff dialogs (reduced from 2000ms)
+  // Duration for typing animation (in milliseconds)
   const HANDOFF_ANIMATION_DURATION_MS = 1200;
 
-  const { displayedText, isComplete, isSpeaking } = useSpeakingAnimation({
+  const { displayedText, isComplete } = useSpeakingAnimation({
     text: currentStep?.message ?? '',
     isClippy: isClippySpeaking,
     enabled: !isTransitioning,
-    durationMs: HANDOFF_ANIMATION_DURATION_MS, // Synchronized typing and audio for handoff dialogs
+    durationMs: HANDOFF_ANIMATION_DURATION_MS,
     onComplete: handleStepComplete,
   });
-
-  // Cleanup audio on unmount
-  useEffect(() => {
-    return () => {
-      simsAudio.stop();
-    };
-  }, [simsAudio]);
 
   // Handle speaker transitions
   useEffect(() => {
@@ -94,9 +83,8 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
   }, [currentStepIndex, onHandoffComplete]);
 
   const handleSkip = useCallback(() => {
-    simsAudio.stop();
     onHandoffComplete();
-  }, [simsAudio, onHandoffComplete]);
+  }, [onHandoffComplete]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -148,9 +136,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                 <img
                   src={profileImageSrc}
                   alt="Bruno"
-                  className={`w-14 h-14 rounded-full border-2 border-[#0078d4] object-cover object-[center_25%] ${
-                    isSpeaking ? 'speaking-pulse' : ''
-                  }`}
+                  className="w-14 h-14 rounded-full border-2 border-[#0078d4] object-cover object-[center_25%]"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src.includes('profile.jpg')) {
@@ -196,7 +182,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
             {/* Header */}
             <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className={`${isSpeaking ? 'animate-clippy-wiggle' : ''}`}>
+                <div>
                   <ClippyIcon size="xl" />
                 </div>
                 <div>
