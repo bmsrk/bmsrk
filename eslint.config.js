@@ -33,6 +33,8 @@ export default [
         MouseEvent: 'readonly',
         KeyboardEvent: 'readonly',
         Node: 'readonly',
+        localStorage: 'readonly',
+        sessionStorage: 'readonly',
       },
     },
     plugins: {

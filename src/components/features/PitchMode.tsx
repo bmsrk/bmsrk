@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { CloseIcon, ClippyIcon } from '../common/Icons';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ClippyIcon } from '../common/Icons';
 import { ResumeData } from '../../types';
+import { useSpeakingAnimation } from '../../hooks/useSpeakingAnimation';
+import { getSimsAudio } from '../../utils/simsAudio';
 
 interface PitchModeProps {
   onClose: () => void;
@@ -24,7 +26,7 @@ const PITCH_STEPS: PitchStep[] = [
     title: '👋 Welcome to Bruno\'s Portfolio!',
     description: 'Hi! I\'m Clippy, and I\'ll give you a quick guided tour showcasing Bruno\'s impressive experience in Dynamics 365 and Azure.',
     tab: 'summary',
-    tip: 'This tour will take about 2 minutes. You can skip it anytime!',
+    tip: 'This tour will take about 90 seconds. Press ESC to skip anytime!',
   },
   {
     id: 'experience',
@@ -51,14 +53,6 @@ const PITCH_STEPS: PitchStep[] = [
     tip: 'The project counters show real-world experience with each technology.',
   },
   {
-    id: 'architecture',
-    title: '🏗️ Architecture & Leadership',
-    description: 'Bruno excels at designing scalable solutions and leading technical teams. Experience includes Azure Service Bus integrations processing 50,000+ daily transactions.',
-    tab: 'experience',
-    highlightElement: 'experience-timeline',
-    tip: 'Leadership roles across 4 different organizations demonstrate trust and impact.',
-  },
-  {
     id: 'certifications',
     title: '🎓 Microsoft Certified',
     description: 'Multiple Microsoft certifications including Dynamics 365, Microsoft Certified Trainer, and specialized in Customer Service and Field Service.',
@@ -80,9 +74,24 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
   const [currentStep, setCurrentStep] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [touchStart, setTouchStart] = useState<number | null>(null);
+  const simsAudio = useMemo(() => getSimsAudio(), []);
 
   const step = PITCH_STEPS[currentStep] ?? PITCH_STEPS[0]!;
   const progress = ((currentStep + 1) / PITCH_STEPS.length) * 100;
+
+  // Animation duration for pitch mode (snappier than handoff)
+  const PITCH_ANIMATION_DURATION_MS = 1500;
+
+  // Speaking animation for description text
+  const { displayedText, isComplete: isTextComplete, isSpeaking } = useSpeakingAnimation({
+    text: step.description,
+    isClippy: true,
+    enabled: isVisible,
+    durationMs: PITCH_ANIMATION_DURATION_MS,
+    onComplete: useCallback(() => {
+      // Animation complete - user can proceed
+    }, []),
+  });
 
   useEffect(() => {
     // Animate in
@@ -95,30 +104,70 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
     }
   }, [currentStep, onNavigateToTab]);
 
-  const handleNext = () => {
+  // Cleanup audio on unmount
+  useEffect(() => {
+    return () => {
+      simsAudio.stop();
+    };
+  }, [simsAudio]);
+
+  const handleComplete = useCallback(() => {
+    onComplete();
+    simsAudio.stop();
+    setIsVisible(false);
+    setTimeout(onClose, 300);
+  }, [onComplete, onClose, simsAudio]);
+
+  const handleSkip = useCallback(() => {
+    simsAudio.stop();
+    setIsVisible(false);
+    setTimeout(onClose, 300);
+  }, [onClose, simsAudio]);
+
+  const handleNext = useCallback(() => {
     if (currentStep < PITCH_STEPS.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
       handleComplete();
     }
-  };
+  }, [currentStep, handleComplete]);
 
-  const handlePrevious = () => {
+  const handlePrevious = useCallback(() => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
-  };
+  }, [currentStep]);
 
-  const handleComplete = () => {
-    onComplete();
-    setIsVisible(false);
-    setTimeout(onClose, 300);
-  };
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case 'Escape':
+          handleSkip();
+          break;
+        case 'ArrowRight':
+        case 'Enter':
+          if (isTextComplete) {
+            e.preventDefault();
+            handleNext();
+          }
+          break;
+        case 'ArrowLeft':
+          e.preventDefault();
+          handlePrevious();
+          break;
+        case ' ':
+          if (isTextComplete) {
+            e.preventDefault();
+            handleNext();
+          }
+          break;
+      }
+    };
 
-  const handleSkip = () => {
-    setIsVisible(false);
-    setTimeout(onClose, 300);
-  };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isTextComplete, handleNext, handlePrevious, handleSkip]);
 
   // Touch gesture handlers for mobile swipe
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -178,7 +227,7 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
           {/* Header */}
           <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="animate-bounce-gentle">
+              <div className={`${isSpeaking ? 'animate-clippy-wiggle' : 'animate-bounce-gentle'}`}>
                 <ClippyIcon size="xl" />
               </div>
               <div>
@@ -188,10 +237,10 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
             </div>
             <button
               onClick={handleSkip}
-              className="text-gray-500 hover:text-gray-700 transition-colors p-1"
-              aria-label="Close tour"
+              className="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold text-sm transition-colors shadow-md hover:shadow-lg"
+              aria-label="Skip tour"
             >
-              <CloseIcon className="w-5 h-5" />
+              Skip Tour ⏭️
             </button>
           </div>
 
@@ -199,16 +248,23 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
           <div className="px-6 py-5 space-y-4">
             <div>
               <h4 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h4>
-              <p className="text-sm text-gray-700 leading-relaxed">{step.description}</p>
+              <p className="text-sm text-gray-700 leading-relaxed min-h-[60px]">
+                {displayedText}
+                {!isTextComplete && (
+                  <span className="inline-block w-1.5 h-4 bg-gray-900 ml-0.5 animate-pulse"></span>
+                )}
+              </p>
             </div>
 
-            {/* Tip Box */}
-            <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
-              <div className="flex items-start gap-2">
-                <span className="text-blue-600 font-bold text-sm">💡 Tip:</span>
-                <p className="text-xs text-blue-900">{step.tip}</p>
+            {/* Tip Box - Only show when text is complete */}
+            {isTextComplete && (
+              <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded animate-fade-in">
+                <div className="flex items-start gap-2">
+                  <span className="text-blue-600 font-bold text-sm">💡 Tip:</span>
+                  <p className="text-xs text-blue-900">{step.tip}</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Navigation Footer */}
@@ -232,10 +288,15 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
                 </span>
               </button>
 
-              {/* Large centered NEXT button */}
+              {/* Large centered NEXT button - disabled until text complete */}
               <button
                 onClick={handleNext}
-                className="rpg-button px-10 py-3.5 bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d6] text-white text-lg font-bold rounded-lg transition-all shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-3"
+                disabled={!isTextComplete}
+                className={`rpg-button px-10 py-3.5 text-lg font-bold rounded-lg transition-all shadow-lg flex items-center gap-3 ${
+                  isTextComplete
+                    ? 'bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d6] text-white hover:shadow-xl transform hover:scale-105'
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
+                }`}
               >
                 {currentStep === PITCH_STEPS.length - 1 ? (
                   <>
@@ -251,13 +312,6 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
                   </>
                 )}
               </button>
-
-              <button
-                onClick={handleSkip}
-                className="rpg-button px-5 py-2.5 text-base font-semibold rounded-lg transition-all bg-white text-gray-600 hover:bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md"
-              >
-                Skip Tour
-              </button>
             </div>
 
             {/* Step Indicators - Below navigation */}
@@ -266,16 +320,22 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
                 <button
                   key={idx}
                   onClick={() => setCurrentStep(idx)}
+                  disabled={!isTextComplete}
                   className={`transition-all rounded-full ${
                     idx === currentStep
                       ? 'bg-[#0078d4] w-8 h-3'
                       : idx < currentStep
                       ? 'bg-blue-400 w-3 h-3'
                       : 'bg-gray-300 w-3 h-3'
-                  }`}
+                  } ${!isTextComplete ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
                   aria-label={`Go to step ${idx + 1}`}
                 />
               ))}
+            </div>
+
+            {/* Keyboard hint */}
+            <div className="hidden md:block text-center mt-3 text-xs text-gray-500">
+              💡 Use arrow keys or Enter to navigate • Press ESC to skip
             </div>
           </div>
 
