@@ -106,6 +106,8 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
 
   // Animation duration for pitch mode
   const PITCH_ANIMATION_DURATION_MS = 1500;
+  const HIGHLIGHT_DELAY_MS = 300;
+  const SCROLL_DELAY_MS = 400;
 
   // Typing animation for description text
   const { displayedText, isComplete: isTextComplete } = useSpeakingAnimation({
@@ -142,7 +144,7 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
       } catch (error) {
         console.warn('Failed to highlight element:', selector, error);
       }
-    }, 300);
+    }, HIGHLIGHT_DELAY_MS);
   }, [clearHighlight]);
 
   // Scroll to element function
@@ -156,7 +158,7 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
       } catch (error) {
         console.warn('Failed to scroll to element:', selector, error);
       }
-    }, 400);
+    }, SCROLL_DELAY_MS);
   }, []);
 
   // Handle step changes
