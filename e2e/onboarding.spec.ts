@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test.beforeEach(async ({ page }) => {
-    // Clear localStorage to simulate first visit
+    // Clear sessionStorage to simulate first visit in a new session
     await page.goto('/');
     await page.evaluate(() => {
-      localStorage.removeItem('welcome_seen_v2');
-      localStorage.removeItem('tour_completed_v2');
+      sessionStorage.removeItem('welcome_seen_session');
+      sessionStorage.removeItem('tour_completed_session');
     });
   });
 
@@ -51,8 +51,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     // Verify welcome card is dismissed
     await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
 
-    // Verify localStorage was set
-    const welcomeSeen = await page.evaluate(() => localStorage.getItem('welcome_seen_v2'));
+    // Verify sessionStorage was set
+    const welcomeSeen = await page.evaluate(() => sessionStorage.getItem('welcome_seen_session'));
     expect(welcomeSeen).toBe('true');
   });
 
@@ -68,25 +68,46 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     // Verify welcome card is dismissed
     await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
 
-    // Verify localStorage was set
-    const welcomeSeen = await page.evaluate(() => localStorage.getItem('welcome_seen_v2'));
+    // Verify sessionStorage was set
+    const welcomeSeen = await page.evaluate(() => sessionStorage.getItem('welcome_seen_session'));
     expect(welcomeSeen).toBe('true');
   });
 
-  test('should not show welcome card on subsequent visits', async ({ page }) => {
-    // First visit
+  test('should not show welcome card again in same session after dismissal', async ({ page }) => {
+    // First visit in session
     await page.goto('/');
     await page.waitForTimeout(1000);
     await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
     await page.click('text=Not now');
     await page.waitForTimeout(500);
 
-    // Reload page
+    // Reload page (same session - sessionStorage persists)
     await page.reload();
     await page.waitForTimeout(2000);
 
-    // Welcome card should not appear
+    // Welcome card should not appear (still in same session)
     await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
+  });
+
+  test('should show welcome card again in new session (simulated)', async ({ page }) => {
+    // First session - dismiss welcome card
+    await page.goto('/');
+    await page.waitForTimeout(1000);
+    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
+    await page.click('text=Not now');
+    await page.waitForTimeout(500);
+
+    // Simulate new session by clearing sessionStorage
+    await page.evaluate(() => {
+      sessionStorage.clear();
+    });
+
+    // Navigate away and back to trigger component remount
+    await page.goto('/');
+    await page.waitForTimeout(1000);
+
+    // Welcome card should appear again (new session)
+    await expect(page.locator('text=Hi! I\'m Bruno')).toBeVisible({ timeout: 5000 });
   });
 
   test('should start recruiter tour from welcome card', async ({ page }) => {
@@ -152,7 +173,7 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     await expect(page.locator('text=Finish')).toBeVisible();
   });
 
-  test('should complete tour and set localStorage flag', async ({ page }) => {
+  test('should complete tour and set sessionStorage flag', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
     await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
@@ -174,8 +195,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     // Verify tour is closed
     await expect(page.locator('text=Recruiter Tour')).not.toBeVisible();
 
-    // Verify localStorage was set
-    const tourCompleted = await page.evaluate(() => localStorage.getItem('tour_completed_v2'));
+    // Verify sessionStorage was set
+    const tourCompleted = await page.evaluate(() => sessionStorage.getItem('tour_completed_session'));
     expect(tourCompleted).toBe('true');
   });
 
@@ -233,10 +254,10 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   });
 
   test('should start tour manually from Help page', async ({ page }) => {
-    // Set localStorage to skip welcome card
+    // Set sessionStorage to skip welcome card
     await page.goto('/');
     await page.evaluate(() => {
-      localStorage.setItem('welcome_seen_v2', 'true');
+      sessionStorage.setItem('welcome_seen_session', 'true');
     });
     await page.reload();
     await page.waitForTimeout(1000);
