@@ -187,9 +187,9 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
           ) : (
             /* Easter Egg & Chat Mode */
             <div>
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="drop-shadow-lg">
-                  <ClippyIcon size="2xl" className="w-20 h-20" />
+                  <ClippyIcon size="2xl" className="w-16 h-16" />
                 </div>
                 <p className="text-xs text-black flex-1">
                   {CLIPPY_MESSAGES[currentMessage]}
