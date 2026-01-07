@@ -27,6 +27,28 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   const autoDismissTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const onDismissRef = useRef(onDismiss);
+  const onStartTourRef = useRef(onStartTour);
+
+  // Keep refs up to date
+  useEffect(() => {
+    onDismissRef.current = onDismiss;
+    onStartTourRef.current = onStartTour;
+  }, [onDismiss, onStartTour]);
+
+  const handleClose = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onDismissRef.current();
+    }, 300);
+  }, []);
+
+  const handleStartTour = useCallback(() => {
+    setIsVisible(false);
+    setTimeout(() => {
+      onStartTourRef.current();
+    }, 300);
+  }, []);
 
   useEffect(() => {
     // Appear after short delay
@@ -51,21 +73,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
         autoDismissTimerRef.current = null;
       }
     };
-  }, [isVisible, isHovered]);
-
-  const handleClose = useCallback(() => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onDismiss();
-    }, 300);
-  }, [onDismiss]);
-
-  const handleStartTour = useCallback(() => {
-    setIsVisible(false);
-    setTimeout(() => {
-      onStartTour();
-    }, 300);
-  }, [onStartTour]);
+  }, [isVisible, isHovered, handleClose]);
 
   // ESC key handler
   useEffect(() => {
