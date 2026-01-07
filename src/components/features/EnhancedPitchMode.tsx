@@ -212,10 +212,10 @@ const EnhancedPitchMode: React.FC<EnhancedPitchModeProps> = ({
 
   return (
     <>
-      {/* Backdrop with spotlight effect - Lighter opacity */}
+      {/* Backdrop - No dimming effect */}
       <div
         className={`fixed inset-0 bg-black no-print z-[90] transition-opacity duration-500 ${
-          isVisible ? 'bg-opacity-35' : 'bg-opacity-0'
+          isVisible ? 'bg-opacity-0' : 'bg-opacity-0'
         }`}
         onClick={handleSkip}
       />
