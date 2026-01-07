@@ -108,8 +108,8 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
 
   return (
     <>
-      {/* Backdrop */}
-      <div className="fixed inset-0 bg-black bg-opacity-40 z-[95] no-print animate-fade-in" />
+      {/* Backdrop - Subtle dim effect */}
+      <div className="fixed inset-0 bg-black bg-opacity-20 z-[95] no-print animate-fade-in" />
 
       {/* Skip Button - Always visible in top right */}
       <button
@@ -171,34 +171,36 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
         </div>
       )}
 
-      {/* Clippy's Messages - Bottom Right positioned */}
+      {/* Clippy's Messages - Office 97 styled dialog */}
       {isClippySpeaking && !isTransitioning && (
         <div
           className={`fixed no-print z-[100] transition-all duration-500 ease-out ${
             !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[500px] max-w-[500px]`}
+          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[520px] max-w-[520px]`}
         >
-          <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-[3px] border-yellow-400 rounded-lg shadow-2xl overflow-hidden rpg-dialog">
-            {/* Header */}
-            <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div>
-                  <ClippyIcon size="xl" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-gray-900 rpg-text">Clippy</h3>
-                  <p className="text-xs text-gray-600">Your Helpful Assistant</p>
-                </div>
+          <div className="bg-[#c0c0c0] rounded-sm shadow-[inset_1px_1px_0_0_#dfdfdf,inset_-1px_-1px_0_0_#808080,2px_2px_8px_rgba(0,0,0,0.4)] overflow-hidden" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+            {/* Title Bar */}
+            <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-3 py-2 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <ClippyIcon size="sm" />
+                <h3 className="text-white text-sm font-bold tracking-wide">Office Assistant</h3>
               </div>
             </div>
 
             {/* Content */}
-            <div className="px-6 py-5 space-y-4">
-              <div className="text-sm text-gray-700 leading-relaxed min-h-[60px]">
-                {displayedText}
-                {!isComplete && (
-                  <span className="inline-block w-1.5 h-4 bg-gray-900 ml-0.5 animate-pulse"></span>
-                )}
+            <div className="px-4 py-4 space-y-4">
+              <div className="bg-white border-[2px] shadow-[inset_-1px_-1px_0_0_#fff,inset_1px_1px_0_0_#808080] p-4"
+                style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <ClippyIcon size="2xl" />
+                  <div className="flex-1 min-h-[60px] text-sm text-black leading-relaxed">
+                    {displayedText}
+                    {!isComplete && (
+                      <span className="inline-block w-1.5 h-4 bg-black ml-0.5 animate-pulse"></span>
+                    )}
+                  </div>
+                </div>
               </div>
 
               {/* Manual Continue/Finish Button */}
@@ -206,7 +208,8 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                 <div className="flex justify-end animate-fade-in">
                   <button
                     onClick={handleContinue}
-                    className="rpg-button px-6 py-2.5 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-bold rounded transition-all shadow-sm flex items-center gap-2 group"
+                    className="px-5 py-2 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-sm font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080,1px_1px_0_0_#000] flex items-center gap-2 group transition-all"
+                    style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
                   >
                     <span>
                       {currentStepIndex === HANDOFF_STEPS.length - 1
