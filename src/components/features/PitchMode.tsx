@@ -287,21 +287,21 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
 
   return (
     <>
-      {/* Backdrop with spotlight effect - darker for better highlight visibility */}
+      {/* Backdrop with spotlight effect - dim background for better highlight visibility */}
       <div 
         className={`fixed inset-0 bg-black no-print z-[90] transition-opacity duration-500 ${
-          isVisible ? 'bg-opacity-70' : 'bg-opacity-0'
+          isVisible ? 'bg-opacity-60' : 'bg-opacity-0'
         }`}
         onClick={handleSkip}
         aria-hidden="true"
       />
 
-      {/* Pitch Mode Card - Enhanced design */}
+      {/* Pitch Mode Card - Office 97 Enhanced Design */}
       <div
         className={`fixed no-print z-[100] transition-all duration-500 ease-out
           ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
           bottom-4 right-4 md:bottom-8 md:right-8
-          w-[calc(100vw-2rem)] md:w-[520px] max-w-[520px]
+          w-[calc(100vw-2rem)] md:w-[560px] max-w-[560px]
         `}
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -309,92 +309,94 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
         aria-modal="true"
         aria-labelledby="pitch-mode-title"
       >
-        {/* Progress Bar - Enhanced with labels */}
-        <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden">
-          <div className="flex items-center justify-between px-3 py-1 text-xs text-gray-600">
-            <span className="font-semibold">Interactive Tutorial</span>
-            <span className="font-medium">{currentStep + 1} of {PITCH_STEPS.length}</span>
-          </div>
-          <div className="h-2">
-            <div 
-              className="h-full bg-gradient-to-r from-[#0078d4] to-[#00bcf2] transition-all duration-300 shadow-sm"
-              style={{ width: `${progress}%` }}
-              role="progressbar"
-              aria-valuenow={currentStep + 1}
-              aria-valuemin={1}
-              aria-valuemax={PITCH_STEPS.length}
-            />
-          </div>
-        </div>
-
-        {/* Main Content Card */}
-        <div className="bg-gradient-to-br from-yellow-50 to-orange-50 border-2 border-yellow-400 rounded-b-lg shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="px-6 py-4 border-b border-yellow-200 bg-yellow-100/50 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="animate-bounce-gentle">
-                <ClippyIcon size="xl" />
+        {/* Office 97 Window Container */}
+        <div className="bg-[#d4d0c8] rounded-sm shadow-[inset_2px_2px_0_0_#ffffff,inset_-2px_-2px_0_0_#808080,3px_3px_12px_rgba(0,0,0,0.5)] overflow-hidden border-t-2 border-l-2 border-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+          
+          {/* Title Bar - Classic Windows style */}
+          <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-3 py-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="drop-shadow-md">
+                <ClippyIcon size="sm" />
               </div>
-              <div>
-                <h3 id="pitch-mode-title" className="text-lg font-bold text-gray-900">
-                  Clippy&apos;s Interactive Tutorial
-                </h3>
-                <p className="text-xs text-gray-600">
-                  Learning D365 Navigation
-                </p>
-              </div>
+              <span className="text-white text-sm font-bold tracking-wide drop-shadow-sm">Interactive Tutorial - Clippy</span>
             </div>
             <button
               onClick={handleSkip}
-              className="text-white bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold text-sm transition-colors shadow-md hover:shadow-lg"
+              className="bg-[#c0c0c0] hover:bg-[#e0e0e0] active:bg-[#a0a0a0] w-6 h-5 flex items-center justify-center text-black text-base font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080] border border-[#000]"
               aria-label="Skip tutorial"
             >
-              Skip ⏭️
+              ×
             </button>
           </div>
 
-          {/* Content */}
-          <div className="px-6 py-5 space-y-4">
-            <div>
-              <h4 className="text-xl font-bold text-gray-900 mb-2">{step.title}</h4>
-              <p className="text-sm text-gray-700 leading-relaxed min-h-[60px]">
-                {displayedText}
-                {!isTextComplete && (
-                  <span className="inline-block w-1.5 h-4 bg-gray-900 ml-0.5 animate-pulse" aria-hidden="true"></span>
-                )}
-              </p>
+          {/* Progress Bar - Windows style */}
+          <div className="bg-[#c0c0c0] px-3 py-2 border-b-2 border-[#808080]">
+            <div className="flex items-center justify-between mb-1 text-xs text-black">
+              <span className="font-bold">Tutorial Progress</span>
+              <span className="font-medium">{currentStep + 1} of {PITCH_STEPS.length}</span>
             </div>
-
-            {/* Tip Box - Only show when text is complete */}
-            {isTextComplete && (
-              <div className="bg-blue-50 border-l-4 border-blue-400 p-3 rounded animate-fade-in">
-                <div className="flex items-start gap-2">
-                  <span className="text-blue-600 font-bold text-sm" aria-label="Tip">💡</span>
-                  <p className="text-xs text-blue-900">{step.tip}</p>
-                </div>
-              </div>
-            )}
+            <div className="h-3 bg-white border-2 shadow-[inset_1px_1px_0_0_#808080,inset_-1px_-1px_0_0_#dfdfdf]" style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}>
+              <div 
+                className="h-full bg-[#000080] transition-all duration-300"
+                style={{ width: `${progress}%` }}
+                role="progressbar"
+                aria-valuenow={currentStep + 1}
+                aria-valuemin={1}
+                aria-valuemax={PITCH_STEPS.length}
+              />
+            </div>
           </div>
 
-          {/* Navigation Footer */}
-          <div className="px-6 py-5 bg-yellow-100/30 border-t border-yellow-200">
+          {/* Content Area - Office 97 style */}
+          <div className="p-4 bg-[#d4d0c8]">
+            <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-5"
+              style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
+            >
+              {/* Clippy avatar and content */}
+              <div className="flex items-start gap-4 mb-4">
+                <div className="drop-shadow-lg flex-shrink-0">
+                  <ClippyIcon size="2xl" className="w-20 h-20" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-black mb-2" id="pitch-mode-title">{step.title}</h4>
+                  <p className="text-sm text-black leading-relaxed min-h-[70px]">
+                    {displayedText}
+                    {!isTextComplete && (
+                      <span className="inline-block w-1.5 h-4 bg-black ml-0.5 animate-pulse" aria-hidden="true"></span>
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tip Box - Only show when text is complete */}
+              {isTextComplete && (
+                <div className="bg-[#ffffcc] border-2 p-3 mt-3 animate-fade-in" style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}>
+                  <div className="flex items-start gap-2">
+                    <span className="text-black font-bold text-sm" aria-label="Tip">💡</span>
+                    <p className="text-xs text-black leading-relaxed">{step.tip}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Navigation Footer - Office 97 style */}
+          <div className="px-4 py-4 bg-[#d4d0c8] border-t-2 border-[#fff]">
             {/* Main Navigation - Centered and Prominent */}
-            <div className="flex items-center justify-center gap-4 mb-4">
+            <div className="flex items-center justify-center gap-3 mb-4">
               <button
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className={`rpg-button px-5 py-2.5 text-base font-semibold rounded-lg transition-all ${
+                className={`px-5 py-2 text-sm font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] ${
                   currentStep === 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-300 hover:border-gray-400 shadow-sm hover:shadow-md'
+                    ? 'bg-[#a0a0a0] text-[#606060] cursor-not-allowed'
+                    : 'bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black'
                 }`}
                 aria-label="Previous step"
+                style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
               >
                 <span className="flex items-center gap-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Back
+                  ◄ Back
                 </span>
               </button>
 
@@ -402,43 +404,42 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
               <button
                 onClick={handleNext}
                 disabled={!isTextComplete}
-                className={`rpg-button px-10 py-3.5 text-lg font-bold rounded-lg transition-all shadow-lg flex items-center gap-3 ${
+                className={`px-10 py-3 text-base font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] flex items-center gap-2 ${
                   isTextComplete
-                    ? 'bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d6] text-white hover:shadow-xl transform hover:scale-105'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
+                    ? 'bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black'
+                    : 'bg-[#a0a0a0] text-[#606060] cursor-not-allowed'
                 }`}
                 aria-label={currentStep === PITCH_STEPS.length - 1 ? 'Finish tutorial' : 'Next step'}
+                style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
               >
                 {currentStep === PITCH_STEPS.length - 1 ? (
                   <>
                     <span>Finish</span>
-                    <span className="text-xl" aria-hidden="true">🎉</span>
+                    <span className="text-lg" aria-hidden="true">✓</span>
                   </>
                 ) : (
                   <>
                     <span>NEXT</span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
-                    </svg>
+                    <span aria-hidden="true">►</span>
                   </>
                 )}
               </button>
             </div>
 
             {/* Step Indicators - Below navigation */}
-            <div className="flex gap-2 justify-center" role="tablist" aria-label="Tutorial steps">
+            <div className="flex gap-2 justify-center mb-3" role="tablist" aria-label="Tutorial steps">
               {PITCH_STEPS.map((s, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleJumpToStep(idx)}
                   disabled={!isTextComplete}
-                  className={`transition-all rounded-full ${
+                  className={`transition-all ${
                     idx === currentStep
-                      ? 'bg-[#0078d4] w-8 h-3'
+                      ? 'bg-[#000080] w-8 h-3'
                       : idx < currentStep
-                      ? 'bg-blue-400 w-3 h-3'
-                      : 'bg-gray-300 w-3 h-3'
-                  } ${!isTextComplete ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:opacity-80'}`}
+                      ? 'bg-[#0078d4] w-3 h-3'
+                      : 'bg-[#808080] w-3 h-3'
+                  } ${!isTextComplete ? 'cursor-not-allowed opacity-50' : 'cursor-pointer hover:opacity-80'} border border-[#000]`}
                   aria-label={`Step ${idx + 1}: ${s.title}`}
                   aria-current={idx === currentStep ? 'step' : undefined}
                   role="tab"
@@ -447,14 +448,9 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
             </div>
 
             {/* Keyboard hint */}
-            <div className="hidden md:block text-center mt-3 text-xs text-gray-500">
-              💡 Use arrow keys, Enter, or Space to navigate • Press ESC to skip
+            <div className="text-center text-xs text-black">
+              💡 Arrow keys, Enter, Space to navigate • ESC to skip
             </div>
-          </div>
-
-          {/* Mobile Swipe Hint */}
-          <div className="md:hidden px-6 py-2 text-center text-xs text-gray-500 bg-yellow-50">
-            💡 Swipe left/right to navigate
           </div>
         </div>
       </div>

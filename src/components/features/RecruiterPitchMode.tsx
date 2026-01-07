@@ -214,7 +214,7 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
 
   return (
     <>
-      {/* Backdrop - darker for visibility */}
+      {/* Backdrop - dim background for visibility */}
       <div
         className={`fixed inset-0 bg-black no-print z-[90] transition-opacity duration-500 ${
           isVisible ? 'bg-opacity-60' : 'bg-opacity-0'
@@ -223,112 +223,122 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
         aria-hidden="true"
       />
 
-      {/* Tour Card */}
+      {/* Tour Card - Office 97 Style */}
       <div
         className={`fixed no-print z-[100] transition-all duration-500 ease-out
           ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}
           bottom-4 right-4 md:bottom-8 md:right-8
-          w-[calc(100vw-2rem)] md:w-[480px] max-w-[480px]
+          w-[calc(100vw-2rem)] md:w-[520px] max-w-[520px]
         `}
         role="dialog"
         aria-modal="true"
         aria-labelledby="recruiter-tour-title"
       >
-        {/* Progress Bar */}
-        <div className="w-full bg-gray-200 rounded-t-lg overflow-hidden">
-          <div className="flex items-center justify-between px-3 py-1 text-xs text-gray-600">
-            <span className="font-semibold">Quick Tour ({ONBOARDING_CONFIG.RECRUITER_TOUR.ESTIMATED_DURATION_SECONDS}s)</span>
-            <span className="font-medium">
-              {currentStep + 1} of {RECRUITER_PITCH_STEPS.length}
-            </span>
-          </div>
-          <div className="h-2">
-            <div
-              className="h-full bg-gradient-to-r from-[#0078d4] to-[#00bcf2] transition-all duration-300"
-              style={{ width: `${progress}%` }}
-              role="progressbar"
-              aria-valuenow={currentStep + 1}
-              aria-valuemin={1}
-              aria-valuemax={RECRUITER_PITCH_STEPS.length}
-            />
-          </div>
-        </div>
-
-        {/* Main Content Card */}
-        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-400 rounded-b-lg shadow-2xl overflow-hidden">
-          {/* Header */}
-          <div className="px-6 py-4 border-b border-blue-200 bg-blue-100/50 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <ClippyIcon size="lg" />
-              <div>
-                <h3 id="recruiter-tour-title" className="text-base font-bold text-gray-900">
-                  Recruiter Tour
-                </h3>
-                <p className="text-xs text-gray-600">Key highlights for hiring managers</p>
+        {/* Office 97 Window Container */}
+        <div className="bg-[#d4d0c8] rounded-sm shadow-[inset_2px_2px_0_0_#ffffff,inset_-2px_-2px_0_0_#808080,3px_3px_12px_rgba(0,0,0,0.5)] overflow-hidden border-t-2 border-l-2 border-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+          
+          {/* Title Bar - Classic Windows style */}
+          <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-3 py-2 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="drop-shadow-md">
+                <ClippyIcon size="sm" />
               </div>
+              <span className="text-white text-sm font-bold tracking-wide drop-shadow-sm">Recruiter Tour - Clippy</span>
             </div>
             <button
               onClick={handleSkip}
-              className="text-white bg-gray-500 hover:bg-gray-600 px-3 py-1.5 rounded font-semibold text-xs transition-colors"
+              className="bg-[#c0c0c0] hover:bg-[#e0e0e0] active:bg-[#a0a0a0] w-6 h-5 flex items-center justify-center text-black text-base font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080] border border-[#000]"
               aria-label="Skip tour"
             >
-              Skip
+              ×
             </button>
           </div>
 
-          {/* Content */}
-          <div className="px-6 py-5 space-y-4">
-            <div>
-              <h4 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h4>
-              <p className="text-sm text-gray-700 leading-relaxed min-h-[60px]">
-                {displayedText}
-                {!isTextComplete && (
-                  <span
-                    className="inline-block w-1.5 h-4 bg-gray-900 ml-0.5 animate-pulse"
-                    aria-hidden="true"
-                  ></span>
-                )}
-              </p>
+          {/* Progress Bar - Windows style */}
+          <div className="bg-[#c0c0c0] px-3 py-2 border-b-2 border-[#808080]">
+            <div className="flex items-center justify-between mb-1 text-xs text-black">
+              <span className="font-bold">Quick Tour ({ONBOARDING_CONFIG.RECRUITER_TOUR.ESTIMATED_DURATION_SECONDS}s)</span>
+              <span className="font-medium">
+                {currentStep + 1} of {RECRUITER_PITCH_STEPS.length}
+              </span>
             </div>
-
-            {/* Tip Box */}
-            {isTextComplete && (
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded animate-fade-in">
-                <div className="flex items-start gap-2">
-                  <span className="text-blue-600 font-bold text-sm">💡</span>
-                  <p className="text-xs text-blue-900">{step.tip}</p>
-                </div>
-              </div>
-            )}
+            <div className="h-3 bg-white border-2 shadow-[inset_1px_1px_0_0_#808080,inset_-1px_-1px_0_0_#dfdfdf]" style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}>
+              <div
+                className="h-full bg-[#000080] transition-all duration-300"
+                style={{ width: `${progress}%` }}
+                role="progressbar"
+                aria-valuenow={currentStep + 1}
+                aria-valuemin={1}
+                aria-valuemax={RECRUITER_PITCH_STEPS.length}
+              />
+            </div>
           </div>
 
-          {/* Navigation Footer */}
-          <div className="px-6 py-4 bg-blue-100/30 border-t border-blue-200">
-            <div className="flex items-center justify-center gap-4">
+          {/* Content Area - Office 97 style */}
+          <div className="p-4 bg-[#d4d0c8]">
+            <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-5"
+              style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
+            >
+              {/* Clippy avatar and content */}
+              <div className="flex items-start gap-4 mb-4">
+                <div className="drop-shadow-lg flex-shrink-0">
+                  <ClippyIcon size="2xl" className="w-20 h-20" />
+                </div>
+                <div className="flex-1">
+                  <h4 className="text-lg font-bold text-black mb-2" id="recruiter-tour-title">{step.title}</h4>
+                  <p className="text-sm text-black leading-relaxed min-h-[70px]">
+                    {displayedText}
+                    {!isTextComplete && (
+                      <span
+                        className="inline-block w-1.5 h-4 bg-black ml-0.5 animate-pulse"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                  </p>
+                </div>
+              </div>
+
+              {/* Tip Box */}
+              {isTextComplete && (
+                <div className="bg-[#ffffcc] border-2 p-3 mt-3 animate-fade-in" style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}>
+                  <div className="flex items-start gap-2">
+                    <span className="text-black font-bold text-sm">💡</span>
+                    <p className="text-xs text-black leading-relaxed">{step.tip}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Navigation Footer - Office 97 style */}
+          <div className="px-4 py-4 bg-[#d4d0c8] border-t-2 border-[#fff]">
+            <div className="flex items-center justify-center gap-3">
               <button
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className={`px-4 py-2 text-sm font-semibold rounded transition-all ${
+                className={`px-5 py-2 text-sm font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] ${
                   currentStep === 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed opacity-50'
-                    : 'bg-white text-gray-700 hover:bg-gray-100 border-2 border-gray-300 hover:border-gray-400'
+                    ? 'bg-[#a0a0a0] text-[#606060] cursor-not-allowed'
+                    : 'bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black'
                 }`}
                 aria-label="Previous step"
+                style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
               >
-                ← Back
+                ◄ Back
               </button>
 
               <button
                 onClick={handleNext}
                 disabled={!isTextComplete}
-                className={`px-8 py-2.5 text-base font-bold rounded transition-all shadow-md flex items-center gap-2 ${
+                className={`px-10 py-2.5 text-base font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] flex items-center gap-2 ${
                   isTextComplete
-                    ? 'bg-gradient-to-r from-[#0078d4] to-[#00bcf2] hover:from-[#106ebe] hover:to-[#00a7d6] text-white'
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed opacity-50'
+                    ? 'bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black'
+                    : 'bg-[#a0a0a0] text-[#606060] cursor-not-allowed'
                 }`}
                 aria-label={
                   currentStep === RECRUITER_PITCH_STEPS.length - 1 ? 'Finish tour' : 'Next step'
                 }
+                style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
               >
                 {currentStep === RECRUITER_PITCH_STEPS.length - 1 ? (
                   <>
@@ -338,15 +348,15 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
                 ) : (
                   <>
                     Next
-                    <span>→</span>
+                    <span>►</span>
                   </>
                 )}
               </button>
             </div>
 
             {/* Keyboard hint */}
-            <div className="text-center mt-3 text-xs text-gray-500">
-              Use arrow keys or press ESC to skip
+            <div className="text-center mt-3 text-xs text-black">
+              Arrow keys or ESC to skip
             </div>
           </div>
         </div>
