@@ -122,7 +122,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
             <img
               src={profileImageSrc}
               alt="Bruno"
-              className="w-14 h-14 rounded-full border-3 border-[#0078d4] object-cover object-[center_25%] shadow-md"
+              className="w-14 h-14 rounded-full border-[3px] border-[#0078d4] object-cover object-[center_25%] shadow-md"
               onError={(e) => {
                 const target = e.currentTarget;
                 if (target.src.includes('profile.jpg')) {
