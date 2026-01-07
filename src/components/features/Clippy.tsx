@@ -122,42 +122,59 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
       }`}
     >
       <div className="relative">
-        {/* Speech Bubble */}
-        <div className="absolute bottom-full right-0 mb-2 w-80 bg-yellow-50 border-[3px] border-yellow-400 rounded-lg shadow-2xl p-4 rpg-dialog max-h-[500px] overflow-y-auto">
-          <button 
-            onClick={handleClose}
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <CloseIcon className="w-4 h-4" />
-          </button>
+        {/* Office 97 Style Dialog */}
+        <div className="absolute bottom-full right-0 mb-2 w-96 bg-[#c0c0c0] rounded-sm shadow-[inset_1px_1px_0_0_#dfdfdf,inset_-1px_-1px_0_0_#808080,2px_2px_8px_rgba(0,0,0,0.4)] max-h-[500px] overflow-hidden" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+          {/* Title Bar */}
+          <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-2 py-1 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <ClippyIcon size="sm" className="w-4 h-4" />
+              <span className="text-white text-xs font-bold tracking-wide">Office Assistant</span>
+            </div>
+            <button 
+              onClick={handleClose}
+              className="bg-[#c0c0c0] hover:bg-[#e0e0e0] active:bg-[#a0a0a0] w-5 h-5 flex items-center justify-center text-black text-xs font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080]"
+              aria-label="Close"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* Content Area */}
+          <div className="p-3 bg-[#c0c0c0] max-h-[450px] overflow-y-auto">
+            <div className="bg-white border-[2px] shadow-[inset_-1px_-1px_0_0_#fff,inset_1px_1px_0_0_#808080] p-3"
+              style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
+            >
           
           {/* Technology Explanation Mode */}
           {skill ? (
-            <div className="pr-6">
-              <h3 className="text-lg font-bold text-[#201f1e] mb-3 flex items-center gap-2 rpg-text">
-                <ClippyIcon size="lg" />
-                {skill}
-              </h3>
-              <p className="text-sm text-gray-800 mb-3 leading-relaxed">
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <ClippyIcon size="2xl" className="w-16 h-16" />
+                <h3 className="text-base font-bold text-black flex-1" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+                  {skill}
+                </h3>
+              </div>
+              <p className="text-sm text-black mb-3 leading-relaxed">
                 {description}
               </p>
               {projectCount > 0 && (
-                <p className="text-sm font-semibold text-[#0078d4] mb-3">
+                <p className="text-sm font-bold text-[#000080] mb-3">
                   Bruno has used this in {projectCount} project{projectCount !== 1 ? 's' : ''}!
                 </p>
               )}
               {skillUrl && (
-                <div className="mt-4 pt-3 border-t border-gray-200">
+                <div className="mt-4 pt-3 border-t-[2px] border-[#808080]">
                   <a
                     href={skillUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="rpg-button inline-flex items-center gap-2 px-4 py-2 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-semibold rounded transition-colors shadow-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-sm font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080,1px_1px_0_0_#000] transition-all"
+                    style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                     </svg>
-                    Learn More on Microsoft Learn
+                    Learn More
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -167,10 +184,13 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
             </div>
           ) : (
             /* Easter Egg & Chat Mode */
-            <div className="pr-6">
-              <p className="text-sm text-gray-800 mb-3">
-                {CLIPPY_MESSAGES[currentMessage]}
-              </p>
+            <div>
+              <div className="flex items-center gap-3 mb-3">
+                <ClippyIcon size="2xl" className="w-16 h-16" />
+                <p className="text-sm text-black flex-1">
+                  {CLIPPY_MESSAGES[currentMessage]}
+                </p>
+              </div>
               
               {/* Chat History */}
               {chatHistory.length > 0 && (
@@ -178,21 +198,22 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
                   {chatHistory.map((msg, idx) => (
                     <div
                       key={idx}
-                      className={`text-xs p-2 rounded ${
+                      className={`text-xs p-2 border ${
                         msg.type === 'user'
-                          ? 'bg-blue-100 text-blue-900 ml-4'
-                          : 'bg-yellow-100 text-gray-800 mr-4'
+                          ? 'bg-[#fff] border-[#808080] ml-4'
+                          : 'bg-[#ffffcc] border-[#808080] mr-4'
                       }`}
+                      style={{ borderTopColor: msg.type === 'user' ? '#808080' : '#808080', borderLeftColor: msg.type === 'user' ? '#808080' : '#808080' }}
                     >
-                      <span className="font-semibold">
+                      <span className="font-bold">
                         {msg.type === 'user' ? 'You: ' : '📎 Clippy: '}
                       </span>
                       {msg.message}
                     </div>
                   ))}
                   {isTyping && (
-                    <div className="text-xs p-2 rounded bg-yellow-100 text-gray-800 mr-4">
-                      <span className="font-semibold">📎 Clippy: </span>
+                    <div className="text-xs p-2 border bg-[#ffffcc] border-[#808080] mr-4">
+                      <span className="font-bold">📎 Clippy: </span>
                       <span className="animate-pulse">...</span>
                     </div>
                   )}
@@ -200,40 +221,41 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
               )}
               
               {/* Chat Input */}
-              <form onSubmit={handleChatSubmit} className="mt-3">
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Ask me anything..."
-                    className="flex-1 px-3 py-2 text-sm border-2 border-gray-300 rounded focus:border-[#0078d4] focus:outline-none"
-                  />
-                  <button
-                    type="submit"
-                    className="rpg-button px-3 py-2 bg-[#0078d4] hover:bg-[#106ebe] text-white text-sm font-bold rounded transition-all shadow-sm"
-                  >
-                    →
-                  </button>
-                </div>
+              <form onSubmit={handleChatSubmit} className="mt-3 flex gap-2">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask me anything..."
+                  className="flex-1 px-2 py-1 text-sm border-[2px] bg-white shadow-[inset_-1px_-1px_0_0_#fff,inset_1px_1px_0_0_#808080] focus:outline-none focus:border-[#000080]"
+                  style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf', fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-1 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-sm font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080,1px_1px_0_0_#000]"
+                  style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
+                >
+                  →
+                </button>
               </form>
               
               <button 
                 onClick={nextMessage}
-                className="mt-3 text-xs text-blue-600 hover:text-blue-800 font-semibold"
+                className="mt-3 text-xs text-[#000080] hover:underline font-bold"
+                style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
               >
                 Tell me more →
               </button>
             </div>
           )}
-          {/* Bubble Arrow */}
-          <div className="absolute -bottom-2 right-8 w-4 h-4 bg-yellow-50 border-r-[3px] border-b-[3px] border-yellow-400 transform rotate-45"></div>
+            </div>
+          </div>
         </div>
         
-        {/* Clippy Character - Larger with improved animations */}
+        {/* Clippy Character - Larger and more prominent */}
         <div className="relative animate-clippy-pulse">
           <div className="cursor-pointer hover:scale-110 transition-transform filter drop-shadow-2xl" onClick={nextMessage}>
-            <ClippyIcon size="4xl" className="w-24 h-24" />
+            <ClippyIcon size="4xl" className="w-28 h-28" />
           </div>
         </div>
       </div>
