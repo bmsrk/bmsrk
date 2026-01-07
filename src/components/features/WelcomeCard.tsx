@@ -101,7 +101,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
         ref={cardRef}
         className={`fixed z-[100] no-print transition-all duration-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        } top-[30%] left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[500px] max-w-[540px]`}
+        } top-[30%] left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[500px] sm:max-w-[500px]`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onFocus={() => setIsHovered(true)}
