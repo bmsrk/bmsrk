@@ -122,8 +122,8 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
       }`}
     >
       <div className="relative">
-        {/* Office 97 Style Dialog - Enhanced prominence */}
-        <div className="absolute bottom-full right-0 mb-3 w-[420px] bg-[#d4d0c8] rounded-sm shadow-[inset_2px_2px_0_0_#ffffff,inset_-2px_-2px_0_0_#808080,3px_3px_12px_rgba(0,0,0,0.5)] max-h-[550px] overflow-hidden border-t-2 border-l-2 border-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+        {/* Office 97 Style Dialog - Reduced size */}
+        <div className="absolute bottom-full right-0 mb-3 w-[360px] bg-[#d4d0c8] rounded-sm shadow-[inset_2px_2px_0_0_#ffffff,inset_-2px_-2px_0_0_#808080,3px_3px_12px_rgba(0,0,0,0.5)] max-h-[480px] overflow-hidden border-t-2 border-l-2 border-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
           {/* Title Bar - Classic Windows style */}
           <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-2 py-1.5 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -140,37 +140,37 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
           </div>
 
           {/* Content Area */}
-          <div className="p-4 bg-[#d4d0c8] max-h-[480px] overflow-y-auto">
-            <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-4"
+          <div className="p-3 bg-[#d4d0c8] max-h-[400px] overflow-y-auto">
+            <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-3"
               style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
             >
           
           {/* Technology Explanation Mode */}
           {skill ? (
             <div>
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="drop-shadow-lg">
-                  <ClippyIcon size="2xl" className="w-20 h-20" />
+                  <ClippyIcon size="2xl" className="w-16 h-16" />
                 </div>
-                <h3 className="text-lg font-bold text-black flex-1" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
+                <h3 className="text-base font-bold text-black flex-1" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
                   {skill}
                 </h3>
               </div>
-              <p className="text-sm text-black mb-3 leading-relaxed">
+              <p className="text-xs text-black mb-2 leading-relaxed">
                 {description}
               </p>
               {projectCount > 0 && (
-                <p className="text-sm font-bold text-[#000080] mb-3">
+                <p className="text-xs font-bold text-[#000080] mb-2">
                   Bruno has used this in {projectCount} project{projectCount !== 1 ? 's' : ''}!
                 </p>
               )}
               {skillUrl && (
-                <div className="mt-4 pt-3 border-t-[2px] border-[#808080]">
+                <div className="mt-3 pt-2 border-t-[2px] border-[#808080]">
                   <a
                     href={skillUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-sm font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080,1px_1px_0_0_#000] transition-all"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-xs font-bold shadow-[inset_1px_1px_0_0_#fff,inset_-1px_-1px_0_0_#808080,1px_1px_0_0_#000] transition-all"
                     style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -187,11 +187,11 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
           ) : (
             /* Easter Egg & Chat Mode */
             <div>
-              <div className="flex items-center gap-4 mb-4">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="drop-shadow-lg">
-                  <ClippyIcon size="2xl" className="w-20 h-20" />
+                  <ClippyIcon size="2xl" className="w-16 h-16" />
                 </div>
-                <p className="text-sm text-black flex-1">
+                <p className="text-xs text-black flex-1">
                   {CLIPPY_MESSAGES[currentMessage]}
                 </p>
               </div>

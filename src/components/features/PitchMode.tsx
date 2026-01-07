@@ -287,10 +287,10 @@ const PitchMode: React.FC<PitchModeProps> = ({ onClose, data: _data, onNavigateT
 
   return (
     <>
-      {/* Backdrop with spotlight effect - dim background for better highlight visibility */}
+      {/* Backdrop - No dimming effect */}
       <div 
         className={`fixed inset-0 bg-black no-print z-[90] transition-opacity duration-500 ${
-          isVisible ? 'bg-opacity-60' : 'bg-opacity-0'
+          isVisible ? 'bg-opacity-0' : 'bg-opacity-0'
         }`}
         onClick={handleSkip}
         aria-hidden="true"

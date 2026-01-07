@@ -176,7 +176,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
         <div
           className={`fixed no-print z-[100] transition-all duration-500 ease-out ${
             !isTransitioning ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[540px] max-w-[540px]`}
+          } bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] md:w-[420px] max-w-[420px]`}
         >
           <div className="bg-[#d4d0c8] rounded-sm shadow-[inset_2px_2px_0_0_#ffffff,inset_-2px_-2px_0_0_#808080,3px_3px_12px_rgba(0,0,0,0.5)] overflow-hidden border-t-2 border-l-2 border-[#ffffff] border-r-2 border-b-2 border-r-[#404040] border-b-[#404040]" style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}>
             {/* Title Bar - Classic Windows style */}
@@ -190,15 +190,15 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
             </div>
 
             {/* Content */}
-            <div className="px-5 py-5 space-y-4">
-              <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-5"
+            <div className="px-4 py-4 space-y-3">
+              <div className="bg-white border-[2px] shadow-[inset_-2px_-2px_0_0_#fff,inset_2px_2px_0_0_#808080] p-4"
                 style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
               >
-                <div className="flex items-start gap-4 mb-4">
+                <div className="flex items-start gap-3 mb-3">
                   <div className="drop-shadow-lg">
-                    <ClippyIcon size="2xl" className="w-20 h-20" />
+                    <ClippyIcon size="2xl" className="w-16 h-16" />
                   </div>
-                  <div className="flex-1 min-h-[70px] text-sm text-black leading-relaxed">
+                  <div className="flex-1 min-h-[60px] text-xs text-black leading-relaxed">
                     {displayedText}
                     {!isComplete && (
                       <span className="inline-block w-1.5 h-4 bg-black ml-0.5 animate-pulse"></span>
@@ -212,7 +212,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                 <div className="flex justify-end animate-fade-in">
                   <button
                     onClick={handleContinue}
-                    className="px-6 py-2.5 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-sm font-bold shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] flex items-center gap-2 group transition-all"
+                    className="px-5 py-2 bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black text-xs font-bold shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] flex items-center gap-2 group transition-all"
                     style={{ fontFamily: '"MS Sans Serif", Tahoma, Arial, sans-serif' }}
                   >
                     <span>
