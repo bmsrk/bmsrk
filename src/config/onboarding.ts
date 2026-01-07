@@ -3,10 +3,10 @@
  */
 
 export const ONBOARDING_CONFIG = {
-  // Version 2 keys for fresh start
+  // Session-based keys - welcome shows on every new session
   STORAGE_KEYS: {
-    WELCOME_SEEN: 'welcome_seen_v2',
-    TOUR_COMPLETED: 'tour_completed_v2',
+    WELCOME_SEEN: 'welcome_seen_session',
+    TOUR_COMPLETED: 'tour_completed_session',
   },
 
   // Welcome card settings

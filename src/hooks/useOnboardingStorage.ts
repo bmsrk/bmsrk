@@ -7,16 +7,16 @@ interface OnboardingState {
 }
 
 /**
- * Hook for managing onboarding state in localStorage
- * Uses versioned keys to allow fresh onboarding flows
+ * Hook for managing onboarding state in sessionStorage
+ * Uses session-based storage so welcome appears on every new browser session
  */
 export const useOnboardingStorage = () => {
   const [state, setState] = useState<OnboardingState>(() => {
-    // Initialize from localStorage
+    // Initialize from sessionStorage - resets on new browser session
     const hasSeenWelcome =
-      localStorage.getItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN) === 'true';
+      sessionStorage.getItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN) === 'true';
     const hasTourCompleted =
-      localStorage.getItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED) === 'true';
+      sessionStorage.getItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED) === 'true';
 
     return {
       hasSeenWelcome,
@@ -25,18 +25,18 @@ export const useOnboardingStorage = () => {
   });
 
   const markWelcomeSeen = useCallback(() => {
-    localStorage.setItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN, 'true');
+    sessionStorage.setItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN, 'true');
     setState((prev) => ({ ...prev, hasSeenWelcome: true }));
   }, []);
 
   const markTourCompleted = useCallback(() => {
-    localStorage.setItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED, 'true');
+    sessionStorage.setItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED, 'true');
     setState((prev) => ({ ...prev, hasTourCompleted: true }));
   }, []);
 
   const resetOnboarding = useCallback(() => {
-    localStorage.removeItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN);
-    localStorage.removeItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED);
+    sessionStorage.removeItem(ONBOARDING_CONFIG.STORAGE_KEYS.WELCOME_SEEN);
+    sessionStorage.removeItem(ONBOARDING_CONFIG.STORAGE_KEYS.TOUR_COMPLETED);
     setState({
       hasSeenWelcome: false,
       hasTourCompleted: false,

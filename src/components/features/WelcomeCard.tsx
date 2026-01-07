@@ -92,7 +92,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
       ref={cardRef}
       className={`fixed z-[100] no-print transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-      } top-[80px] right-4 sm:right-6 md:right-8 w-[calc(100vw-2rem)] sm:w-[420px] max-w-[420px]`}
+      } top-[80px] right-4 sm:right-6 md:right-8 w-[calc(100vw-2rem)] sm:w-[460px] max-w-[460px]`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsHovered(true)}
@@ -101,10 +101,10 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
       aria-modal="false"
       aria-labelledby="welcome-card-title"
     >
-      {/* Card - Speech bubble style but non-blocking */}
-      <div className="relative bg-white border-[3px] border-[#0078d4] rounded-lg shadow-2xl">
-        {/* Arrow pointing to profile image */}
-        <div className="absolute -top-3 right-8 w-6 h-6 bg-white border-t-[3px] border-l-[3px] border-[#0078d4] transform rotate-45"></div>
+      {/* Card - Speech bubble style with enhanced visibility */}
+      <div className="relative bg-white border-[4px] border-[#0078d4] rounded-lg shadow-[0_8px_32px_rgba(0,120,212,0.3)]">
+        {/* Arrow pointing to profile image - enhanced */}
+        <div className="absolute -top-4 right-8 w-7 h-7 bg-white border-t-[4px] border-l-[4px] border-[#0078d4] transform rotate-45"></div>
 
         {/* Content */}
         <div className="p-5 pr-10">
@@ -122,7 +122,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
             <img
               src={profileImageSrc}
               alt="Bruno"
-              className="w-12 h-12 rounded-full border-2 border-[#0078d4] object-cover object-[center_25%]"
+              className="w-14 h-14 rounded-full border-[3px] border-[#0078d4] object-cover object-[center_25%] shadow-md"
               onError={(e) => {
                 const target = e.currentTarget;
                 if (target.src.includes('profile.jpg')) {
@@ -133,7 +133,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
             <div className="flex-1">
               <h3
                 id="welcome-card-title"
-                className="text-sm font-bold text-[#201f1e] mb-1"
+                className="text-base font-bold text-[#201f1e] mb-1"
               >
                 Hi! I&apos;m Bruno 👋
               </h3>
@@ -147,14 +147,14 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
           <div className="flex gap-2 justify-end mt-4">
             <button
               onClick={handleClose}
-              className="px-4 py-2 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
+              className="px-5 py-2.5 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
               aria-label="Not now, dismiss welcome card"
             >
               Not now
             </button>
             <button
               onClick={handleStartTour}
-              className="px-4 py-2 text-sm font-semibold text-white bg-[#0078d4] hover:bg-[#106ebe] rounded transition-colors shadow-sm"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-[#0078d4] hover:bg-[#106ebe] rounded transition-colors shadow-md"
               aria-label="Start 60 second tour"
             >
               Start 60s tour
