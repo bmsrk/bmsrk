@@ -11,16 +11,10 @@ interface ClippyProps {
 }
 
 const CLIPPY_MESSAGES = [
-  "It looks like you're viewing a resume. Would you like help with that?",
-  "Hey there! I'm Clippy, your friendly office assistant! 📎",
-  "Did you know? This resume was built with React and TypeScript!",
-  "Fun fact: Bruno has 10+ years of Dynamics 365 experience!",
-  "I see you're exploring this portfolio. Need any tips?",
-  "This Dynamics 365 UI replica is pixel-perfect! Pretty cool, right?",
-  "Pro tip: Try clicking on the different tabs to explore more!",
-  "Remember me from Microsoft Office? I'm back, baby! 🎉",
-  "Bruno specializes in Power Platform and Azure integrations!",
-  "Looking for a CRM architect? You're in the right place!",
+  "Looking to learn more? I'm here to help!",
+  "Click on any skill to see project details and learn more.",
+  "Need information? Try exploring the different tabs.",
+  "Questions? Feel free to browse around or ask me!",
 ];
 
 // Easter egg responses for chat

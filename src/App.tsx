@@ -20,37 +20,30 @@ import {
   PrintableResume,
   HireMe,
   HelpPage,
-  CenteredWelcomeModal,
+  WelcomeCard,
+  RecruiterPitchMode,
   LoadingModal,
-  ClippyHandoff,
 } from './components/features';
+import { useOnboardingStorage } from './hooks';
 
 const App: React.FC = () => {
   const { resumeData, loading, projectFilter, setProjectFilter, filterBySkill } = useResumeContext();
+  const { hasSeenWelcome, markWelcomeSeen, markTourCompleted } = useOnboardingStorage();
   const [activeTab, setActiveTab] = useState('summary');
   const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
   const [showClippy, setShowClippy] = useState(false);
   const [showPitchMode, setShowPitchMode] = useState(false);
-  const [showWelcomePopup, setShowWelcomePopup] = useState(false);
-  const [showHandoff, setShowHandoff] = useState(false);
+  const [showWelcomeCard, setShowWelcomeCard] = useState(false);
   const [showLoadingModal, setShowLoadingModal] = useState(true);
   const [generatePDFFunction, setGeneratePDFFunction] = useState<(() => void) | null>(null);
 
-  // Show welcome popup only on first session (check sessionStorage)
+  // Show welcome card only if not seen before (using localStorage v2)
   React.useEffect(() => {
-    if (!showLoadingModal && !showWelcomePopup && !showHandoff && !showPitchMode) {
-      const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome');
-      
-      if (!hasSeenWelcome) {
-        // Show welcome popup after 1.5 seconds after loading completes
-        const timer = setTimeout(() => {
-          setShowWelcomePopup(true);
-        }, 1500);
-        return () => clearTimeout(timer);
-      }
+    if (!showLoadingModal && !hasSeenWelcome && !showPitchMode) {
+      setShowWelcomeCard(true);
     }
     return undefined;
-  }, [showLoadingModal, showWelcomePopup, showHandoff, showPitchMode]);
+  }, [showLoadingModal, hasSeenWelcome, showPitchMode]);
 
   const handleLoadingComplete = () => {
     setShowLoadingModal(false);
@@ -81,27 +74,18 @@ const App: React.FC = () => {
 
   const handlePitchModeComplete = () => {
     setShowPitchMode(false);
+    markTourCompleted();
   };
 
-  const handleWelcomePopupDismiss = () => {
-    setShowWelcomePopup(false);
-    sessionStorage.setItem('hasSeenWelcome', 'true');
+  const handleWelcomeCardDismiss = () => {
+    setShowWelcomeCard(false);
+    markWelcomeSeen();
   };
 
-  const handleWelcomeTakeTour = () => {
-    setShowWelcomePopup(false);
-    sessionStorage.setItem('hasSeenWelcome', 'true');
-    // Skip handoff entirely - go straight to tour
-    setTimeout(() => {
-      setShowPitchMode(true);
-    }, 300);
-  };
-
-  const handleHandoffComplete = () => {
-    // This is no longer used but kept for compatibility
-    setShowHandoff(false);
-    setShowClippy(false);
-    setClippySkill(undefined);
+  const handleWelcomeStartTour = () => {
+    setShowWelcomeCard(false);
+    markWelcomeSeen();
+    // Start recruiter tour directly (no handoff)
     setTimeout(() => {
       setShowPitchMode(true);
     }, 300);
@@ -163,8 +147,8 @@ const App: React.FC = () => {
         setShowClippy(true);
       }}
       onGeneratePDF={handleGeneratePDFCallback}
-      showPitchMode={showPitchMode}
-      onPitchModeClose={handlePitchModeComplete}
+      showPitchMode={false}
+      onPitchModeClose={() => {}}
     >
       <SEO />
       
@@ -390,20 +374,22 @@ const App: React.FC = () => {
 
     </DynamicsShell>
     
-    {/* Welcome Modal - Shows every time after loading */}
-    {showWelcomePopup && (
-      <CenteredWelcomeModal
-        onTakeTour={handleWelcomeTakeTour}
-        onDismiss={handleWelcomePopupDismiss}
+    {/* Welcome Card - Non-blocking, shows once per device */}
+    {showWelcomeCard && (
+      <WelcomeCard
+        onStartTour={handleWelcomeStartTour}
+        onDismiss={handleWelcomeCardDismiss}
         profileImageSrc="./profile.jpg"
       />
     )}
 
-    {/* Bruno-to-Clippy Handoff Transition */}
-    {showHandoff && (
-      <ClippyHandoff
-        onHandoffComplete={handleHandoffComplete}
-        profileImageSrc="./profile.jpg"
+    {/* Recruiter Tour - Never auto-starts, only manual */}
+    {showPitchMode && (
+      <RecruiterPitchMode
+        onClose={() => setShowPitchMode(false)}
+        data={resumeData}
+        onNavigateToTab={setActiveTab}
+        onComplete={handlePitchModeComplete}
       />
     )}
   </>);
