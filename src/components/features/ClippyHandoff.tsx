@@ -182,7 +182,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
             {/* Title Bar */}
             <div className="bg-gradient-to-r from-[#000080] to-[#1084d0] px-3 py-2 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ClippyIcon size="sm" className="w-5 h-5" />
+                <ClippyIcon size="sm" />
                 <h3 className="text-white text-sm font-bold tracking-wide">Office Assistant</h3>
               </div>
             </div>
@@ -193,7 +193,7 @@ const ClippyHandoff: React.FC<ClippyHandoffProps> = ({ onHandoffComplete, profil
                 style={{ borderTopColor: '#808080', borderLeftColor: '#808080', borderRightColor: '#dfdfdf', borderBottomColor: '#dfdfdf' }}
               >
                 <div className="flex items-start gap-3 mb-3">
-                  <ClippyIcon size="2xl" className="w-16 h-16" />
+                  <ClippyIcon size="2xl" />
                   <div className="flex-1 min-h-[60px] text-sm text-black leading-relaxed">
                     {displayedText}
                     {!isComplete && (

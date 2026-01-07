@@ -12,11 +12,12 @@ const WELCOME_MESSAGE =
   "Welcome! This is a working Dynamics 365 portfolio. Take a quick 60-second tour to see key highlights, or explore on your own.";
 
 /**
- * Non-blocking welcome card for recruiters
- * - No backdrop overlay
+ * Welcome card for recruiters
+ * - Subtle backdrop overlay with dim effect
  * - No typing animation (static text)
  * - Auto-dismisses after 10s if not hovered
  * - Dismissible via ESC key
+ * - Dismissible by clicking backdrop
  */
 const WelcomeCard: React.FC<WelcomeCardProps> = ({
   onStartTour,
@@ -88,23 +89,30 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
   }, [handleClose]);
 
   return (
-    <div
-      ref={cardRef}
-      className={`fixed z-[100] no-print transition-all duration-300 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-      } top-[80px] right-4 sm:right-6 md:right-8 w-[calc(100vw-2rem)] sm:w-[460px] max-w-[460px]`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onFocus={() => setIsHovered(true)}
-      onBlur={() => setIsHovered(false)}
-      role="dialog"
-      aria-modal="false"
-      aria-labelledby="welcome-card-title"
-    >
-      {/* Card - Speech bubble style with enhanced visibility */}
-      <div className="relative bg-white border-[4px] border-[#0078d4] rounded-lg shadow-[0_8px_32px_rgba(0,120,212,0.3)]">
-        {/* Arrow pointing to profile image - enhanced */}
-        <div className="absolute -top-4 right-8 w-7 h-7 bg-white border-t-[4px] border-l-[4px] border-[#0078d4] transform rotate-45"></div>
+    <>
+      {/* Backdrop - Subtle dim effect */}
+      <div
+        className="fixed inset-0 bg-black bg-opacity-20 z-[95] no-print animate-fade-in"
+        onClick={handleClose}
+      />
+
+      <div
+        ref={cardRef}
+        className={`fixed z-[100] no-print transition-all duration-300 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+        } top-[20%] left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[480px] max-w-[520px]`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+        role="dialog"
+        aria-modal="false"
+        aria-labelledby="welcome-card-title"
+      >
+        {/* Card - Speech bubble style with enhanced visibility */}
+        <div className="relative bg-white border-[4px] border-[#0078d4] rounded-lg shadow-[0_8px_32px_rgba(0,120,212,0.3)]">
+          {/* Arrow pointing upward (centered) */}
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-7 h-7 bg-white border-t-[4px] border-l-[4px] border-[#0078d4] transform rotate-45"></div>
 
         {/* Content */}
         <div className="p-5 pr-10">
@@ -167,7 +175,8 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
           Auto-dismisses in 10s • Press ESC to close
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -24,11 +24,11 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     await expect(page.locator('text=Start 60s tour')).toBeVisible();
     await expect(page.locator('text=Not now')).toBeVisible();
 
-    // Verify it's non-blocking - no backdrop that covers the whole page
-    const backdrop = page.locator('.fixed.inset-0.bg-black.bg-opacity-50');
-    await expect(backdrop).not.toBeVisible();
+    // Verify subtle backdrop exists with reduced opacity
+    const backdrop = page.locator('.fixed.inset-0.bg-black.bg-opacity-20');
+    await expect(backdrop).toBeVisible();
 
-    // Verify tabs are still accessible
+    // Verify tabs are still accessible (even with backdrop)
     await expect(page.locator('text=Summary')).toBeVisible();
     await expect(page.locator('text=Experience')).toBeVisible();
 

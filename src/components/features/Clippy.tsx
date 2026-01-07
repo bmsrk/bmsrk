@@ -255,7 +255,7 @@ const Clippy: React.FC<ClippyProps> = ({ onClose, skill, projects = [], skillMet
         {/* Clippy Character - Larger and more prominent */}
         <div className="relative animate-clippy-pulse">
           <div className="cursor-pointer hover:scale-110 transition-transform filter drop-shadow-2xl" onClick={nextMessage}>
-            <ClippyIcon size="4xl" className="w-28 h-28" />
+            <ClippyIcon size="4xl" />
           </div>
         </div>
       </div>
