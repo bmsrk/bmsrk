@@ -90,17 +90,18 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
 
   return (
     <>
-      {/* Backdrop - Subtle dim effect */}
+      {/* Backdrop - Subtle dim effect (lighter than before) */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-20 z-[95] no-print animate-fade-in"
+        className="fixed inset-0 bg-black bg-opacity-15 z-[95] no-print transition-opacity duration-500 animate-fade-in"
         onClick={handleClose}
+        aria-hidden="true"
       />
 
       <div
         ref={cardRef}
         className={`fixed z-[100] no-print transition-all duration-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
-        } top-[20%] left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[480px] max-w-[520px]`}
+        } top-[30%] left-1/2 -translate-x-1/2 w-[calc(100vw-2rem)] sm:w-[500px] sm:max-w-[500px]`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onFocus={() => setIsHovered(true)}
@@ -111,7 +112,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
       >
         {/* Card - Speech bubble style with enhanced visibility */}
         <div className="relative bg-white border-[4px] border-[#0078d4] rounded-lg shadow-[0_8px_32px_rgba(0,120,212,0.3)]">
-          {/* Arrow pointing upward (centered) */}
+          {/* Arrow pointing upward toward header/profile area */}
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-7 h-7 bg-white border-t-[4px] border-l-[4px] border-[#0078d4] transform rotate-45"></div>
 
         {/* Content */}
