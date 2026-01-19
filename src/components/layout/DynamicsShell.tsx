@@ -20,7 +20,6 @@ import {
   BookIcon,
   EducationIcon,
   RocketIcon,
-  ServerIcon,
   BriefcaseIcon,
   HelpIcon,
 } from '../common/Icons';
@@ -82,7 +81,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Easter Egg State
-  const [_achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
+  const [, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
   const [currentAchievement, setCurrentAchievement] = useState<Achievement | null>(null);
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set());
   const [tabVisitTimes, setTabVisitTimes] = useState<number[]>([]);
@@ -126,7 +125,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
     document.body.classList.add('foil-effect');
     
     // Create and play Mario star power-up music (10 seconds)
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
     const duration = 10; // 10 seconds
     const startTime = audioContext.currentTime;
     
@@ -246,8 +245,18 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
       }
 
       // Check if html2pdf is available
-      const html2pdfLib = (window as any).html2pdf;
-      if (typeof html2pdfLib === 'undefined') {
+      interface Html2PdfLib {
+        (): {
+          set: (opt: unknown) => {
+            from: (element: Element) => {
+              save: () => Promise<void>;
+            };
+          };
+        };
+      }
+      
+      const html2pdfLib = (window as unknown as { html2pdf?: Html2PdfLib }).html2pdf;
+      if (!html2pdfLib) {
         triggerToast("PDF library not loaded, using print dialog...");
         setIsGeneratingPDF(false);
         onPrint();
@@ -737,11 +746,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
            <div className="flex-1 overflow-y-auto p-1 sm:p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
-                    <div 
+                    <button 
                       onClick={() => !isGeneratingPDF && setShowToast(false)}
-                      className={`absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print ${isGeneratingPDF ? '' : 'cursor-pointer hover:bg-gray-800'} transition-colors`}
-                      role="button"
-                      aria-label={isGeneratingPDF ? "Generating PDF" : "Click to dismiss"}
+                      disabled={isGeneratingPDF}
+                      className={`absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print ${isGeneratingPDF ? '' : 'cursor-pointer hover:bg-gray-800'} transition-colors border-0`}
+                      aria-label={isGeneratingPDF ? "Generating PDF, please wait" : "Click to dismiss notification"}
+                      aria-live="polite"
+                      type="button"
                     >
                         {isGeneratingPDF ? (
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -749,7 +760,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
                           <CheckMarkIcon className="w-4 h-4 text-green-400" />
                         )}
                         {toastMessage}
-                    </div>
+                    </button>
                 )}
 
                 {/* Resume Content Wrapper - Responsive card styling */}

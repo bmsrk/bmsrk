@@ -33,13 +33,13 @@ const AchievementNotification: React.FC<AchievementNotificationProps> = ({ achie
   };
 
   return (
-    <div 
+    <button 
       onClick={handleClose}
       className={`fixed top-20 right-6 z-[100] no-print cursor-pointer hover:scale-105 transition-all duration-300 ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-      }`}
-      role="button"
-      aria-label="Click to dismiss"
+      } border-0 bg-transparent p-0`}
+      aria-label={`Achievement unlocked: ${achievement.title}. Click to dismiss`}
+      type="button"
     >
       <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 rounded-lg shadow-2xl p-4 pr-6 min-w-[300px] border-2 border-yellow-600">
         <div className="flex items-start gap-3">
@@ -54,7 +54,7 @@ const AchievementNotification: React.FC<AchievementNotificationProps> = ({ achie
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

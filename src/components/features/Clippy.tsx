@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CloseIcon, ClippyIcon } from '../common/Icons';
+import { ClippyIcon } from '../common/Icons';
 import { Project, SkillMetadata } from '../../types';
 import { getSkillUrl, getSkillDescription } from '../../utils';
 

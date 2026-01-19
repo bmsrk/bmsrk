@@ -79,4 +79,4 @@ const SkillsGrid: React.FC<SkillsGridProps> = ({ skills, projects, onSkillClick 
   );
 };
 
-export default SkillsGrid;
+export default React.memo(SkillsGrid);

@@ -102,12 +102,36 @@ const App: React.FC = () => {
                   <div className="absolute top-0 left-0 w-full h-full border-4 border-[#0078d4] border-t-transparent rounded-full animate-spin"></div>
               </div>
               <div className="text-[#0078d4] font-semibold">Loading Dynamics 365...</div>
+              <div className="text-[#605e5c] text-sm">Please wait while we load the resume data</div>
           </div>
       );
   }
 
   if (!resumeData) {
-      return <div className="flex items-center justify-center h-screen bg-red-50 text-red-600">Error loading data.</div>;
+      return (
+          <div className="flex flex-col items-center justify-center h-screen bg-[#f3f2f1] gap-4 p-4">
+              <div className="bg-white border-2 border-red-200 rounded-lg p-8 max-w-md shadow-lg">
+                  <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
+                          <span className="text-red-600 text-2xl">⚠️</span>
+                      </div>
+                      <div>
+                          <h2 className="text-lg font-bold text-red-900">Error Loading Data</h2>
+                          <p className="text-sm text-red-700">Unable to load resume information</p>
+                      </div>
+                  </div>
+                  <p className="text-sm text-[#605e5c] mb-4">
+                      There was a problem loading the resume data. Please try refreshing the page.
+                  </p>
+                  <button
+                      onClick={() => window.location.reload()}
+                      className="w-full px-4 py-2 bg-[#0078d4] text-white font-semibold rounded hover:bg-[#106ebe] transition-colors"
+                  >
+                      Refresh Page
+                  </button>
+              </div>
+          </div>
+      );
   }
 
   const { 

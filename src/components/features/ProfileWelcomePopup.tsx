@@ -124,7 +124,7 @@ const ProfileWelcomePopup: React.FC<ProfileWelcomePopupProps> = ({
                   onClick={handleClose}
                   className="rpg-choice px-4 py-2 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
                 >
-                  I'm exploring
+                  I&apos;m exploring
                 </button>
                 <button
                   onClick={handleTakeTour}

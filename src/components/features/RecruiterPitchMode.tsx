@@ -316,6 +316,7 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
               <button
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
+                title={currentStep === 0 ? 'Already at first step' : 'Go to previous step'}
                 className={`px-5 py-2 text-sm font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] ${
                   currentStep === 0
                     ? 'bg-[#a0a0a0] text-[#606060] cursor-not-allowed'
@@ -330,6 +331,7 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
               <button
                 onClick={handleNext}
                 disabled={!isTextComplete}
+                title={!isTextComplete ? 'Please wait for text to finish' : (currentStep === RECRUITER_PITCH_STEPS.length - 1 ? 'Finish tour' : 'Go to next step')}
                 className={`px-10 py-2.5 text-base font-bold transition-all shadow-[inset_2px_2px_0_0_#fff,inset_-2px_-2px_0_0_#808080,2px_2px_0_0_#000] border border-[#000] flex items-center gap-2 ${
                   isTextComplete
                     ? 'bg-[#c0c0c0] hover:bg-[#d0d0d0] active:bg-[#a0a0a0] text-black'
@@ -365,4 +367,4 @@ const RecruiterPitchMode: React.FC<RecruiterPitchModeProps> = ({
   );
 };
 
-export default RecruiterPitchMode;
+export default React.memo(RecruiterPitchMode);

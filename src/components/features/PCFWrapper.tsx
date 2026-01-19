@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import Section from '../common/Section';
+
+type PropertyValue = string | number | boolean;
+
+interface PCFProperty {
+    name: string;
+    type: string;
+    value: PropertyValue;
+    onChange: (val: PropertyValue) => void;
+}
 
 interface PCFWrapperProps {
     title: string;
     description: string;
     codeSnippet: string;
     children: React.ReactNode;
-    properties: {
-        name: string;
-        type: string;
-        value: any;
-        onChange: (val: any) => void;
-    }[];
+    properties: PCFProperty[];
 }
 
 const PCFWrapper: React.FC<PCFWrapperProps> = ({ title, description, codeSnippet, children, properties }) => {
@@ -65,7 +68,7 @@ const PCFWrapper: React.FC<PCFWrapperProps> = ({ title, description, codeSnippet
                                         {prop.type === 'Whole.None' || prop.type === 'Decimal' ? (
                                             <input 
                                                 type="number" 
-                                                value={prop.value} 
+                                                value={typeof prop.value === 'number' ? prop.value : Number(prop.value)} 
                                                 onChange={(e) => prop.onChange(Number(e.target.value))}
                                                 className="w-full border border-[#8a8886] p-1.5 text-sm rounded-sm focus:border-[#0078d4] outline-none"
                                             />
@@ -73,7 +76,7 @@ const PCFWrapper: React.FC<PCFWrapperProps> = ({ title, description, codeSnippet
                                             <div className="flex items-center gap-2">
                                                 <input 
                                                     type="checkbox" 
-                                                    checked={prop.value} 
+                                                    checked={Boolean(prop.value)} 
                                                     onChange={(e) => prop.onChange(e.target.checked)}
                                                     className="w-4 h-4"
                                                 />
@@ -82,7 +85,7 @@ const PCFWrapper: React.FC<PCFWrapperProps> = ({ title, description, codeSnippet
                                         ) : (
                                             <input 
                                                 type="text" 
-                                                value={prop.value} 
+                                                value={typeof prop.value === 'string' ? prop.value : String(prop.value)} 
                                                 onChange={(e) => prop.onChange(e.target.value)}
                                                 className="w-full border border-[#8a8886] p-1.5 text-sm rounded-sm focus:border-[#0078d4] outline-none"
                                             />

@@ -5,4 +5,5 @@ export { useSpeakingAnimation } from './useSpeakingAnimation';
 export { useWelcomeFlow } from './useWelcomeFlow';
 export { usePrefersReducedMotion } from './usePrefersReducedMotion';
 export { useOnboardingStorage } from './useOnboardingStorage';
+export { useTimer } from './useTimer';
 export type { WelcomeFlowState } from './useWelcomeFlow';
