@@ -35,6 +35,8 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
     );
   }, [projects, filter]);
 
+  const hasNoFilteredResults = filteredProjects.length === 0 && filter !== null;
+
   return (
     <div className="space-y-6">
       
@@ -186,7 +188,7 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
           ))}
       </div>
       
-      {filteredProjects.length === 0 && filter && (
+      {hasNoFilteredResults && (
           <div className="text-center py-12 bg-white border border-[#edebe9] rounded-sm shadow-sm">
               <div className="flex flex-col items-center gap-4">
                   <div className="w-16 h-16 bg-[#f3f2f1] rounded-full flex items-center justify-center">

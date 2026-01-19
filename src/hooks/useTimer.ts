@@ -5,10 +5,10 @@ import { useEffect, useRef, useCallback } from 'react';
  * Provides stable references for setTimeout operations
  */
 export const useTimer = () => {
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   const clearTimer = useCallback(() => {
-    if (timeoutRef.current) {
+    if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
@@ -16,7 +16,7 @@ export const useTimer = () => {
 
   const setTimer = useCallback((callback: () => void, delay: number) => {
     clearTimer();
-    timeoutRef.current = setTimeout(callback, delay);
+    timeoutRef.current = window.setTimeout(callback, delay);
   }, [clearTimer]);
 
   // Cleanup on unmount
