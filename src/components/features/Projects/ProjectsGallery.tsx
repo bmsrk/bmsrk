@@ -60,6 +60,8 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
                   onClick={() => onFilterChange(null)}
                   className={`text-xs font-semibold hover:underline self-start sm:self-auto ${filter ? 'text-[#0078d4]' : 'text-gray-400 cursor-default'}`}
                   disabled={!filter}
+                  aria-label={filter ? `Clear filter: ${filter}` : 'No active filters'}
+                  title={filter ? `Clear filter: ${filter}` : 'No active filters to clear'}
               >
                   Clear All Filters
               </button>
@@ -199,4 +201,4 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
   );
 };
 
-export default ProjectsGallery;
+export default React.memo(ProjectsGallery);

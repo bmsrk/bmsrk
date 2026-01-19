@@ -746,11 +746,13 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
            <div className="flex-1 overflow-y-auto p-1 sm:p-2 scroll-smooth relative" id="main-scroll">
                 {/* Toast Notification */}
                 {showToast && (
-                    <div 
+                    <button 
                       onClick={() => !isGeneratingPDF && setShowToast(false)}
-                      className={`absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print ${isGeneratingPDF ? '' : 'cursor-pointer hover:bg-gray-800'} transition-colors`}
-                      role="button"
-                      aria-label={isGeneratingPDF ? "Generating PDF" : "Click to dismiss"}
+                      disabled={isGeneratingPDF}
+                      className={`absolute top-3 right-3 sm:top-5 sm:right-5 bg-black text-white px-3 py-2 sm:px-4 rounded shadow-lg z-50 text-xs sm:text-sm animate-fade-in-down flex items-center gap-2 no-print ${isGeneratingPDF ? '' : 'cursor-pointer hover:bg-gray-800'} transition-colors border-0`}
+                      aria-label={isGeneratingPDF ? "Generating PDF, please wait" : "Click to dismiss notification"}
+                      aria-live="polite"
+                      type="button"
                     >
                         {isGeneratingPDF ? (
                           <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -758,7 +760,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
                           <CheckMarkIcon className="w-4 h-4 text-green-400" />
                         )}
                         {toastMessage}
-                    </div>
+                    </button>
                 )}
 
                 {/* Resume Content Wrapper - Responsive card styling */}
