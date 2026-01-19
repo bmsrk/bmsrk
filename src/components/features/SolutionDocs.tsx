@@ -89,7 +89,7 @@ const SolutionDocs: React.FC = () => {
                             </tr>
                             <tr>
                                 <td className="px-4 py-2 font-mono text-xs">HireMe</td>
-                                <td className="px-4 py-2">Engagement models and rate card with "Inquire" call-to-actions.</td>
+                                <td className="px-4 py-2">Engagement models and rate card with &quot;Inquire&quot; call-to-actions.</td>
                                 <td className="px-4 py-2 font-mono text-xs">-</td>
                             </tr>
                              <tr>

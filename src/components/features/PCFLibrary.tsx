@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Section from '../common/Section';
 import PCFWrapper from './PCFWrapper';
 
@@ -156,7 +156,7 @@ const PCFLibrary: React.FC = () => {
                     This area demonstrates my ability to extend the Dynamics 365 / Power Platform UI using the <strong>Power Apps Component Framework (PCF)</strong>.
                 </p>
                 <p>
-                    These components are built using <strong>TypeScript</strong> and <strong>React</strong>. The "Source Code" tab in each card shows the standard PCF class implementation structure I use in production environments.
+                    These components are built using <strong>TypeScript</strong> and <strong>React</strong>. The &quot;Source Code&quot; tab in each card shows the standard PCF class implementation structure I use in production environments.
                 </p>
             </div>
 
@@ -166,7 +166,7 @@ const PCFLibrary: React.FC = () => {
                     description="Custom slider for percentage fields"
                     codeSnippet={LINEAR_CODE}
                     properties={[
-                        { name: "Value", type: "Whole.None", value: linearValue, onChange: setLinearValue }
+                        { name: "Value", type: "Whole.None", value: linearValue, onChange: (val) => setLinearValue(val as number) }
                     ]}
                 >
                     <LinearInputControl value={linearValue} onChange={setLinearValue} />
@@ -177,7 +177,7 @@ const PCFLibrary: React.FC = () => {
                     description="Visual management for CSV strings"
                     codeSnippet={TAG_CODE}
                     properties={[
-                        { name: "Tags (CSV)", type: "SingleLine.Text", value: tagValue, onChange: setTagValue }
+                        { name: "Tags (CSV)", type: "SingleLine.Text", value: tagValue, onChange: (val) => setTagValue(val as string) }
                     ]}
                 >
                     <TagListControl tags={tagValue} onChange={setTagValue} />

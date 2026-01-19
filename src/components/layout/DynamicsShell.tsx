@@ -20,7 +20,6 @@ import {
   BookIcon,
   EducationIcon,
   RocketIcon,
-  ServerIcon,
   BriefcaseIcon,
   HelpIcon,
 } from '../common/Icons';
@@ -82,7 +81,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Easter Egg State
-  const [_achievements, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
+  const [, setAchievements] = useState<Achievement[]>(ACHIEVEMENTS);
   const [currentAchievement, setCurrentAchievement] = useState<Achievement | null>(null);
   const [visitedTabs, setVisitedTabs] = useState<Set<string>>(new Set());
   const [tabVisitTimes, setTabVisitTimes] = useState<number[]>([]);
@@ -126,7 +125,7 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
     document.body.classList.add('foil-effect');
     
     // Create and play Mario star power-up music (10 seconds)
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
     const duration = 10; // 10 seconds
     const startTime = audioContext.currentTime;
     
@@ -246,8 +245,18 @@ const DynamicsShell: React.FC<DynamicsShellProps> = ({
       }
 
       // Check if html2pdf is available
-      const html2pdfLib = (window as any).html2pdf;
-      if (typeof html2pdfLib === 'undefined') {
+      interface Html2PdfLib {
+        (): {
+          set: (opt: unknown) => {
+            from: (element: Element) => {
+              save: () => Promise<void>;
+            };
+          };
+        };
+      }
+      
+      const html2pdfLib = (window as unknown as { html2pdf?: Html2PdfLib }).html2pdf;
+      if (!html2pdfLib) {
         triggerToast("PDF library not loaded, using print dialog...");
         setIsGeneratingPDF(false);
         onPrint();
