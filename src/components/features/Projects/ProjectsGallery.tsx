@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { Project } from '../../../types';
-import { CheckMarkIcon, RocketIcon, BriefcaseIcon, CodeIcon } from '../../common/Icons';
+import { CheckMarkIcon, RocketIcon, BriefcaseIcon, CodeIcon, SearchIcon } from '../../common/Icons';
 
 interface ProjectsGalleryProps {
   projects: Project[];
@@ -186,15 +186,24 @@ const ProjectsGallery: React.FC<ProjectsGalleryProps> = ({ projects, filter, onF
           ))}
       </div>
       
-      {filteredProjects.length === 0 && (
-          <div className="text-center py-10 bg-[#faf9f8] border border-dashed border-gray-300 rounded-sm">
-              <p className="text-gray-500 text-sm">No projects found matching the selected filter.</p>
-              <button 
-                  onClick={() => onFilterChange(null)}
-                  className="mt-2 text-[#0078d4] text-sm font-semibold hover:underline"
-              >
-                  Clear filters
-              </button>
+      {filteredProjects.length === 0 && filter && (
+          <div className="text-center py-12 bg-white border border-[#edebe9] rounded-sm shadow-sm">
+              <div className="flex flex-col items-center gap-4">
+                  <div className="w-16 h-16 bg-[#f3f2f1] rounded-full flex items-center justify-center">
+                      <SearchIcon className="w-8 h-8 text-[#605e5c]" />
+                  </div>
+                  <div>
+                      <p className="text-[#201f1e] text-base font-semibold mb-1">No projects found</p>
+                      <p className="text-[#605e5c] text-sm">No projects match the filter: <strong>{filter}</strong></p>
+                  </div>
+                  <button 
+                      onClick={() => onFilterChange(null)}
+                      className="mt-2 px-4 py-2 bg-[#0078d4] text-white text-sm font-semibold rounded hover:bg-[#106ebe] transition-colors"
+                      aria-label={`Clear filter: ${filter}`}
+                  >
+                      Clear filter
+                  </button>
+              </div>
           </div>
       )}
     </div>
