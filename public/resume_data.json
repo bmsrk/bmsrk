@@ -1,13 +1,13 @@
 {
   "meta": {
     "schema": "resume-v1",
-    "version": "2.0",
+    "version": "2.2",
     "ats_optimized": true,
     "nda_compliant": true
   },
   "personal": {
     "name": "Bruno Maciel Servulo",
-    "title": "Senior Software Engineer - Dynamics 365 and Azure",
+    "title": "Dynamics 365 Technical Architect | Power Platform + Dataverse Specialist",
     "email": "bruno.m.servulo@gmail.com",
     "phone": "Available upon request",
     "location": "Brazil",
@@ -15,16 +15,17 @@
     "portfolio": "bmsrk.github.io/bmsrk",
     "work_authorization": "Remote - LATAM and US time zones"
   },
-  "professional_summary": "Senior Software Engineer and CRM Architect with 10+ years of experience designing and delivering enterprise-scale Microsoft Dynamics 365, Power Platform, and Azure integration solutions. Proven track record delivering high-availability systems for 10,000+ user bases with complex integrations across financial services, manufacturing, retail, education, and government sectors. Expert in scalable architecture, system reliability, and delivery in regulated environments. Strong background in C#, .NET, Azure cloud services, and enterprise CRM implementations.",
+  "professional_summary": "Senior Dynamics 365 Technical Architect with 15+ years designing, building, and optimizing complex Microsoft solutions for enterprise, financial, industrial, and government clients across Latin America. Specialized in Dataverse architecture, high-volume implementations, performance tuning, storage optimization, complex integrations, and delivering reliable, scalable platforms.",
   "core_competencies": [
     "Microsoft Dynamics 365",
     "Power Platform",
+    "Dataverse Architecture",
     "Azure Cloud Services",
     "C# and .NET Development",
     "Enterprise Architecture",
-    "System Integration",
-    "Technical Leadership",
-    "CRM Implementation"
+    "Performance & Storage Optimization",
+    "Complex System Integration",
+    "Technical Leadership"
   ],
   "professional_experience": [
     {
@@ -34,11 +35,11 @@
       "location": "Remote",
       "start_date": "October 2025",
       "end_date": "Present",
-      "description": "Deliver end-to-end Dynamics 365 Customer Engagement and Power Platform solutions for international enterprise clients as independent technical consultant.",
+      "description": "Deliver end-to-end Dynamics 365 Customer Engagement and Power Platform solutions for international enterprise clients.",
       "achievements": [
-        "Architected secure cloud-native CRM solutions integrating Dynamics 365 with Azure Logic Apps, Azure Functions, and Service Bus for enhanced automation and scalability",
-        "Conducted technical discovery workshops and solution design sessions with C-level stakeholders to define requirements and technical architecture",
-        "Implemented DevOps best practices and CI/CD pipelines using Azure DevOps for faster more reliable deployments with automated testing",
+        "Architected secure cloud-native CRM solutions integrating Dynamics 365 with Azure Logic Apps, Functions, and Service Bus",
+        "Conducted technical discovery workshops and solution design sessions with C-level stakeholders",
+        "Implemented DevOps best practices and CI/CD pipelines using Azure DevOps",
         "Designed custom Power Apps solutions with complex business logic using PCF components and Canvas apps"
       ],
       "technologies": [
@@ -60,11 +61,11 @@
       "location": "Brazil",
       "start_date": "March 2025",
       "end_date": "September 2025",
-      "description": "Specialized contract engagement for Dynamics 365 implementation supporting digital transformation initiative for financial services client.",
+      "description": "Specialized contract engagement for Dynamics 365 implementation in the financial services sector.",
       "achievements": [
-        "Built custom Dynamics 365 Customer Engagement solutions automating complex approval workflows reducing processing time by 40%",
-        "Developed Azure Function-based middleware for real-time data synchronization between Dynamics 365 and legacy banking systems",
-        "Implemented Power Automate cloud flows handling 1000+ daily transactions with 99.9% reliability",
+        "Built custom Dynamics 365 solutions automating complex approval workflows, reducing processing time by 40%",
+        "Developed Azure Function-based middleware for real-time data synchronization with legacy banking systems",
+        "Implemented high-volume Power Automate flows handling 1,000+ daily transactions with 99.9% reliability",
         "Created custom plugins using C# and .NET for complex business logic and data validation"
       ],
       "technologies": [
@@ -83,11 +84,11 @@
       "location": "Brazil",
       "start_date": "January 2025",
       "end_date": "March 2025",
-      "description": "Subject matter expert engagement to define technical standards and architecture frameworks for Dynamics 365 practice.",
+      "description": "Defined technical standards and architecture frameworks for Dynamics 365 practice.",
       "achievements": [
-        "Established enterprise architecture standards for Dynamics 365 and Azure integration patterns adopted across 5+ concurrent projects",
-        "Created solution design templates and technical governance framework reducing architecture review time by 50%",
-        "Mentored 8 developers on Azure integration best practices secure coding standards and Dynamics 365 customization",
+        "Established enterprise architecture standards and integration patterns adopted across 5+ concurrent projects",
+        "Created solution design templates and technical governance framework, reducing architecture review time by 50%",
+        "Mentored 8 developers on Azure integration best practices and Dynamics 365 customization",
         "Defined CI/CD pipeline standards and deployment processes using Azure DevOps"
       ],
       "technologies": [
@@ -105,13 +106,13 @@
       "location": "Santiago, Chile",
       "start_date": "December 2021",
       "end_date": "September 2024",
-      "description": "Led technical delivery team for enterprise CRM implementations across Chilean and Brazilian markets in manufacturing and retail sectors.",
+      "description": "Led technical delivery for enterprise Dynamics 365 implementations across manufacturing and retail sectors.",
       "achievements": [
-        "Managed 4-member technical team delivering Dynamics 365 Sales and Customer Service solutions serving 10,000+ users",
-        "Redesigned data architecture and implemented caching strategies increasing data access speed by 30% and reducing system downtime by 20%",
-        "Architected Azure Service Bus integration connecting Dynamics 365 with SAP ERP system processing 50,000+ daily transactions",
-        "Conducted code reviews and technical mentoring sessions improving team code quality scores by 35%",
-        "Implemented Power BI dashboards for real-time business intelligence and KPI tracking"
+        "Managed technical team delivering Dynamics 365 Sales and Customer Service solutions for 10,000+ users",
+        "Redesigned data architecture and caching strategies, improving data access speed by 30% and reducing downtime by 20%",
+        "Architected high-volume Azure Service Bus integration with SAP ERP, processing 50,000+ daily transactions",
+        "Conducted code reviews and mentoring, improving team code quality by 35%",
+        "Implemented real-time Power BI dashboards for business intelligence and KPI tracking"
       ],
       "technologies": [
         "Dynamics 365",
@@ -131,9 +132,9 @@
       "start_date": "October 2021",
       "end_date": "December 2021",
       "achievements": [
-        "Led technical delivery of Dynamics 365 Customer Service implementation for logistics client reducing planned delivery time by 30% through agile sprint optimization",
-        "Designed custom plugin architecture using C# for complex business logic requirements and data transformation",
-        "Established automated testing framework using Azure DevOps catching 60+ bugs pre-production"
+        "Led technical delivery of Dynamics 365 Customer Service implementation, reducing planned timeline by 30%",
+        "Designed custom plugin architecture using C# for complex business logic",
+        "Established automated testing framework using Azure DevOps"
       ],
       "technologies": [
         "Dynamics 365",
@@ -146,14 +147,14 @@
       "company": "Accenture Brasil",
       "position": "Senior Developer",
       "employment_type": "Full-time",
-      "location": "S\u00e3o Paulo, Brazil",
+      "location": "São Paulo, Brazil",
       "start_date": "March 2021",
       "end_date": "August 2021",
       "achievements": [
-        "Developed advanced Dynamics 365 Customer Service customizations for telecommunications client customer service transformation",
-        "Created custom Power Apps portal with integrated authentication reducing customer support tickets by 25%",
-        "Built JavaScript-based form validations and business rules reducing data entry errors by 35%",
-        "Implemented Power BI dashboards providing real-time visibility into customer service KPIs"
+        "Developed advanced Dynamics 365 Customer Service customizations for telecommunications client",
+        "Created custom Power Apps portal with integrated authentication, reducing support tickets by 25%",
+        "Built JavaScript form validations and business rules, reducing data entry errors by 35%",
+        "Implemented real-time Power BI dashboards for customer service KPIs"
       ],
       "technologies": [
         "Dynamics 365",
@@ -171,9 +172,9 @@
       "end_date": "March 2021",
       "achievements": [
         "Delivered complex Dynamics 365 and Azure integration projects for healthcare and manufacturing clients",
-        "Implemented bidirectional integration between Dynamics 365 and Azure Blob Storage for document management cutting storage costs by 15%",
-        "Developed custom workflows using C# plugins processing 10,000+ records daily with error handling and logging",
-        "Created Power Automate cloud flows connecting Dynamics 365 with third-party APIs including DocuSign and SendGrid"
+        "Implemented bidirectional integration with Azure Blob Storage, cutting storage costs by 15%",
+        "Developed high-volume custom workflows and plugins processing 10,000+ records daily",
+        "Created Power Automate flows connecting Dynamics 365 with third-party APIs (DocuSign, SendGrid)"
       ],
       "technologies": [
         "Dynamics 365",
@@ -191,8 +192,8 @@
       "start_date": "June 2018",
       "end_date": "October 2018",
       "achievements": [
-        "Developed custom sales forecasting module for retail client improving forecast accuracy by 20%",
-        "Led User Acceptance Testing sessions resolving 50+ critical issues and training 30+ end users",
+        "Developed custom sales forecasting module for retail client, improving forecast accuracy by 20%",
+        "Led User Acceptance Testing sessions, resolving 50+ critical issues and training 30+ end users",
         "Created technical documentation and knowledge transfer materials for client IT team"
       ],
       "technologies": [
@@ -209,10 +210,10 @@
       "start_date": "June 2014",
       "end_date": "May 2018",
       "achievements": [
-        "Delivered full-lifecycle Dynamics CRM 2013/2015/2016 and Dynamics 365 implementations for 8+ enterprise clients in banking insurance and retail sectors across Latin America",
-        "Built customer-facing portals using Power Apps Portals reducing support call volume by 30%",
-        "Developed custom integrations with Microsoft SharePoint Outlook and ERP systems reducing project delivery timelines by 20%",
-        "Configured Dynamics CRM workflows business process flows and security roles for complex organizational structures"
+        "Delivered full-lifecycle Dynamics CRM and Dynamics 365 implementations for 8+ enterprise clients across Latin America",
+        "Built customer-facing portals using Power Apps Portals, reducing support call volume by 30%",
+        "Developed custom integrations with SharePoint, Outlook and ERP systems, shortening project timelines by 20%",
+        "Configured workflows, business process flows and security roles for complex organizational structures"
       ],
       "technologies": [
         "Dynamics CRM",
@@ -230,10 +231,10 @@
       "start_date": "September 2011",
       "end_date": "April 2014",
       "achievements": [
-        "Progressed from functional consultant to technical developer role advancing from CRM configuration to .NET development within first 18 months",
-        "Rescued 15 at-risk CRM projects through technical problem-solving and client relationship management saving estimated 10% in project costs",
-        "Conducted 40+ training sessions for clients on Dynamics CRM functionality customization and best practices",
-        "Performed requirements gathering solution design configuration and deployment for Dynamics CRM 2011 implementations"
+        "Progressed from functional consultant to full-stack developer within 18 months",
+        "Rescued 15 at-risk CRM projects through technical problem-solving, saving approximately 10% in project costs",
+        "Conducted 40+ training sessions for clients on Dynamics CRM functionality and customization",
+        "Performed requirements gathering, solution design, configuration and deployment for Dynamics CRM 2011 implementations"
       ],
       "technologies": [
         "Dynamics CRM 2011",
@@ -245,7 +246,7 @@
   "education": [
     {
       "degree": "Bachelor of Business Administration",
-      "institution": "Universidade Metodista de S\u00e3o Paulo",
+      "institution": "Universidade Metodista de São Paulo",
       "location": "Brazil",
       "graduation_year": "2011"
     }
@@ -293,19 +294,9 @@
       "client_industry": "Manufacturing",
       "location": "Latin America",
       "year": "2022-2024",
-      "description": "Orchestrated migration and modernization of legacy CRM to Dynamics 365 for 10,000+ users across multiple countries in Latin America",
-      "technologies": [
-        "Dynamics 365 Sales",
-        "Azure Service Bus",
-        "React",
-        "C#",
-        "SQL Server"
-      ],
-      "key_results": [
-        "Reduced system downtime by 20%",
-        "Improved data access speed by 30%",
-        "Unified data across 3 countries"
-      ]
+      "description": "Orchestrated migration and modernization of legacy CRM to Dynamics 365 for 10,000+ users across multiple countries",
+      "technologies": ["Dynamics 365 Sales", "Azure Service Bus", "React", "C#", "SQL Server"],
+      "key_results": ["Reduced system downtime by 20%", "Improved data access speed by 30%", "Unified data across 3 countries"]
     },
     {
       "project_name": "Financial Services Legacy Integration",
@@ -314,287 +305,8 @@
       "location": "Brazil",
       "year": "2025",
       "description": "Developed high-performance middleware to synchronize sensitive financial data between Dynamics 365 and mainframe systems",
-      "technologies": [
-        "Azure Functions",
-        ".NET Core",
-        "Dynamics 365",
-        "API Integration"
-      ],
-      "key_results": [
-        "Processed 1,000+ daily transactions",
-        "Achieved 99.9% system reliability",
-        "Secured PII data transfer with encryption"
-      ]
-    },
-    {
-      "project_name": "Enterprise ERP Integration",
-      "role": "Solutions Architect",
-      "client_industry": "Manufacturing",
-      "location": "Latin America",
-      "year": "2022-2024",
-      "description": "Designed robust decoupled integration architecture using Azure Service Bus to connect Dynamics 365 with SAP ERP",
-      "technologies": [
-        "Azure Service Bus",
-        "Azure Logic Apps",
-        "SAP Integration",
-        "Dynamics 365"
-      ],
-      "key_results": [
-        "Processed 50,000+ daily transactions",
-        "Prevented data loss during ERP maintenance",
-        "Reduced infrastructure costs by 15%"
-      ]
-    },
-    {
-      "project_name": "Government Education Platform",
-      "role": "Lead Architect",
-      "client_industry": "Government",
-      "location": "Chile",
-      "year": "2016-2018",
-      "description": "Led technical team supporting government education customer service system with transparency portal integration and multi-agency connections",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration",
-        "Web Portals"
-      ],
-      "key_results": [
-        "First transparency portal integration in Chile",
-        "Multi-agency government integration",
-        "2 years of production support"
-      ]
-    },
-    {
-      "project_name": "B2B Order Management Platform",
-      "role": "Developer",
-      "client_industry": "Manufacturing",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "B2B platform connecting manufacturer with dealer network for streamlined order management",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration"
-      ],
-      "key_results": [
-        "Streamlined order processing",
-        "Improved dealer relationships"
-      ]
-    },
-    {
-      "project_name": "Corporate Roadmap Visualization System",
-      "role": "Developer",
-      "client_industry": "Chemical Industry",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Board-level decision support system with database modeling for HTML canvas generation of vectorized corporate decision roadmaps",
-      "technologies": [
-        "Dynamics CRM",
-        "HTML Canvas",
-        "SQL Server",
-        "Database Modeling"
-      ],
-      "key_results": [
-        "Visual corporate roadmap for executives",
-        "Enhanced board decision-making process"
-      ]
-    },
-    {
-      "project_name": "Media Project and Cost Management",
-      "role": "Developer",
-      "client_industry": "Media and Entertainment",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Custom project and cost management module with multi-instance integration",
-      "technologies": [
-        "Dynamics CRM",
-        "Custom Development",
-        "Integration"
-      ],
-      "key_results": [
-        "Centralized project tracking",
-        "Improved cost visibility"
-      ]
-    },
-    {
-      "project_name": "Public Utilities Citizen Portal",
-      "role": "Developer",
-      "client_industry": "Public Utilities",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "CRM implementation supporting public-facing Power Pages portal for citizen services",
-      "technologies": [
-        "Dynamics CRM",
-        "Power Pages"
-      ],
-      "key_results": [
-        "Public-facing self-service portal",
-        "Improved citizen service delivery"
-      ]
-    },
-    {
-      "project_name": "Insurance Multi-System Implementation",
-      "role": "Developer",
-      "client_industry": "Insurance",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Comprehensive CRM solution including lead management, customer service platform, and automated commission calculation",
-      "technologies": [
-        "Dynamics CRM",
-        "Custom Development",
-        "Integration"
-      ],
-      "key_results": [
-        "End-to-end CRM solution",
-        "Automated commission processing"
-      ]
-    },
-    {
-      "project_name": "Government Transport Document System",
-      "role": "Developer/Architect",
-      "client_industry": "Government",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Document processing system with digital signature and treasury system integration",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration",
-        "Digital Signatures"
-      ],
-      "key_results": [
-        "Automated document processing",
-        "Government system integration"
-      ]
-    },
-    {
-      "project_name": "Higher Education CRM Architecture",
-      "role": "Architect",
-      "client_industry": "Education",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Implementation and integration architecture for Dynamics CRM across multiple departments of educational institutions (3 separate institutions)",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration Architecture"
-      ],
-      "key_results": [
-        "Unified educational platform",
-        "Multi-department integration",
-        "Delivered for 3 major institutions"
-      ]
-    },
-    {
-      "project_name": "Mining Company Global Sales Platform",
-      "role": "Developer/Architect",
-      "client_industry": "Mining and Chemical",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Global sales system with custom pricing engine and advanced product search capabilities",
-      "technologies": [
-        "Dynamics CRM",
-        "Custom Development"
-      ],
-      "key_results": [
-        "Global sales platform",
-        "Advanced product search",
-        "Dynamic pricing capabilities"
-      ]
-    },
-    {
-      "project_name": "Corporate Banking Platform",
-      "role": "Developer",
-      "client_industry": "Banking",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Corporate banking CRM for large client evaluation and relationship management",
-      "technologies": [
-        "Dynamics CRM",
-        "Custom Development"
-      ],
-      "key_results": [
-        "Enhanced corporate banking capabilities"
-      ]
-    },
-    {
-      "project_name": "Insurance Cloud Migration",
-      "role": "Developer/Architect",
-      "client_industry": "Insurance",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Cloud migration of custom customer service system to Azure",
-      "technologies": [
-        "Dynamics CRM",
-        "Cloud Migration",
-        "Azure"
-      ],
-      "key_results": [
-        "Successful cloud migration",
-        "Modernized infrastructure"
-      ]
-    },
-    {
-      "project_name": "Banking System Optimization",
-      "role": "Developer/Architect",
-      "client_industry": "Banking",
-      "location": "Chile",
-      "year": "2014-2018",
-      "description": "Refactoring and optimization of CRM customer service implementation and bank system integrations",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration",
-        "Performance Optimization"
-      ],
-      "key_results": [
-        "Improved system performance",
-        "Optimized bank integrations"
-      ]
-    },
-    {
-      "project_name": "Automotive Management Reports",
-      "role": "Developer",
-      "client_industry": "Automotive",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Complete refactoring of management reporting infrastructure",
-      "technologies": [
-        "Dynamics CRM",
-        "SQL Server Reporting Services"
-      ],
-      "key_results": [
-        "Improved report performance",
-        "Enhanced data visualization"
-      ]
-    },
-    {
-      "project_name": "Industrial Budget System",
-      "role": "Developer",
-      "client_industry": "Industrial",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Budget management with report optimization and ASP.NET MVC cost calculation system",
-      "technologies": [
-        "Dynamics CRM",
-        "ASP.NET MVC 4",
-        "SQL Server"
-      ],
-      "key_results": [
-        "Optimized budget processes",
-        "Enhanced cost calculation accuracy"
-      ]
-    },
-    {
-      "project_name": "Construction Materials Contact Center",
-      "role": "Developer",
-      "client_industry": "Construction Materials",
-      "location": "Brazil",
-      "year": "2014-2018",
-      "description": "Contact center customer service system implementation and go-live",
-      "technologies": [
-        "Dynamics CRM",
-        "Integration"
-      ],
-      "key_results": [
-        "Improved customer service operations",
-        "Successful go-live delivery"
-      ]
+      "technologies": ["Azure Functions", ".NET Core", "Dynamics 365", "API Integration"],
+      "key_results": ["Processed 1,000+ daily transactions", "Achieved 99.9% system reliability", "Secured PII data transfer"]
     }
   ],
   "technical_skills": {
@@ -627,333 +339,10 @@
     ]
   },
   "skill_metadata": {
-    "Microsoft Dynamics 365": {
-      "description": "Comprehensive expertise in the Dynamics 365 suite including Sales, Customer Service, Field Service, and Customer Insights. Deep knowledge of configuration, customization, and integration patterns.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/"
-    },
-    "Dynamics 365": {
-      "description": "Suite of intelligent business applications for CRM and relationship management.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customer-engagement/guidance/server/introduction"
-    },
-    "Dynamics 365 Sales": {
-      "description": "Sales force automation to manage relationships and close deals faster.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/sales/"
-    },
-    "Dynamics 365 Customer Service": {
-      "description": "Support solutions to drive customer satisfaction and loyalty.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customer-service/"
-    },
-    "Dynamics 365 Field Service": {
-      "description": "End-to-end management for on-site service operations and scheduling.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/field-service/"
-    },
-    "Dynamics 365 Customer Insights": {
-      "description": "Unified customer data platform (CDP) and journey orchestration.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customer-insights/"
-    },
-    "Dynamics CRM": {
-      "description": "Legacy Microsoft Dynamics CRM platform (2011-2016) for customer relationship management.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/overview"
-    },
-    "Dynamics CRM 2011": {
-      "description": "Microsoft Dynamics CRM 2011 version for customer relationship management.",
-      "learn_url": "https://learn.microsoft.com/en-us/previous-versions/dynamicscrm-2016/administering-dynamics-365/dn531129(v=crm.8)"
-    },
-    "Power Platform": {
-      "description": "Advanced skills in Power Apps (Canvas & Model-Driven), Power Automate, Power BI, and Power Pages. Expert in low-code/no-code solutions and custom component development.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-platform/"
-    },
-    "Power Apps": {
-      "description": "Suite for building custom low-code/no-code business applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/powerapps-overview"
-    },
-    "Power Automate": {
-      "description": "Service to automate workflows between apps and services.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-automate/getting-started-cloud-flow"
-    },
-    "Power BI": {
-      "description": "Business analytics service for interactive visualizations and BI.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-bi/fundamentals/power-bi-overview"
-    },
-    "Power Apps Portals": {
-      "description": "External-facing websites for users outside the organization (now Power Pages).",
-      "learn_url": "https://learn.microsoft.com/en-us/power-pages/introduction"
-    },
-    "Power Pages": {
-      "description": "Low-code platform for building external-facing websites and portals.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-pages/introduction"
-    },
-    "Custom Connectors": {
-      "description": "Wrappers around APIs to communicate with Logic Apps and Power Automate.",
-      "learn_url": "https://learn.microsoft.com/en-us/connectors/custom-connectors/"
-    },
-    "PCF Components": {
-      "description": "Power Apps Component Framework for creating custom UI controls.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/developer/component-framework/overview"
-    },
-    "Canvas Apps": {
-      "description": "UI-focused apps with pixel-perfect control over the layout.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/maker/canvas-apps/getting-started"
-    },
-    "Model-Driven Apps": {
-      "description": "Component-focused apps design offering rich business logic and data modeling.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/maker/model-driven-apps/model-driven-app-overview"
-    },
-    "Microsoft Dataverse": {
-      "description": "Secure, scalable data platform for Power Platform and Dynamics 365.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/maker/data-platform/data-platform-intro"
-    },
-    "Azure Cloud Services": {
-      "description": "Proficient in Azure services including Logic Apps, Functions, Service Bus, API Management, DevOps, and App Services. Experience designing cloud-native and hybrid solutions.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/"
-    },
-    "Azure": {
-      "description": "Microsoft's cloud computing platform for building, deploying, and managing applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/"
-    },
-    "Azure Logic Apps": {
-      "description": "Cloud service to schedule, automate, and orchestrate tasks and workflows.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-overview"
-    },
-    "Azure Functions": {
-      "description": "Serverless compute service to run event-triggered code without infrastructure.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview"
-    },
-    "Azure Service Bus": {
-      "description": "Enterprise message broker for decoupling applications and services.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview"
-    },
-    "Azure API Management": {
-      "description": "Platform to create, publish, maintain, monitor, and secure APIs.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts"
-    },
-    "Azure DevOps": {
-      "description": "Services for teams to share code, track work, and ship software.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/devops/user-guide/what-is-azure-devops"
-    },
-    "Azure App Services": {
-      "description": "HTTP-based service for hosting web applications, REST APIs, and mobile back ends.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/app-service/overview"
-    },
-    "Azure Blob Storage": {
-      "description": "Massively scalable object storage for unstructured data.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction"
-    },
-    "C# and .NET Development": {
-      "description": "Advanced development capabilities in C#, .NET, JavaScript, TypeScript, and React. Experience building plugins, custom workflows, PCF components, and web resources.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/"
-    },
-    "C#": {
-      "description": "Modern, object-oriented, type-safe programming language for .NET.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/"
-    },
-    ".NET Framework": {
-      "description": "Development framework for building apps on Windows.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/framework/get-started/"
-    },
-    ".NET": {
-      "description": "Microsoft's free, open-source development platform for building many types of applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/"
-    },
-    ".NET Core": {
-      "description": "Cross-platform, high-performance framework for modern cloud-enabled apps.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/core/introduction"
-    },
-    "JavaScript": {
-      "description": "High-level, interpreted scripting language for web pages.",
-      "learn_url": "https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/javascript/"
-    },
-    "TypeScript": {
-      "description": "Superset of JavaScript adding static type definitions.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/paths/build-javascript-applications-typescript/"
-    },
-    "React": {
-      "description": "JavaScript library for building user interfaces.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/paths/react/"
-    },
-    "HTML": {
-      "description": "Standard markup language for documents designed to be displayed in a web browser.",
-      "learn_url": "https://developer.mozilla.org/en-US/docs/Web/HTML"
-    },
-    "HTML Canvas": {
-      "description": "HTML element for drawing graphics via JavaScript.",
-      "learn_url": "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"
-    },
-    "CSS": {
-      "description": "Style sheet language used for describing the presentation of a document.",
-      "learn_url": "https://developer.mozilla.org/en-US/docs/Web/CSS"
-    },
-    "SQL Server": {
-      "description": "Relational database management system developed by Microsoft.",
-      "learn_url": "https://learn.microsoft.com/en-us/sql/sql-server/sql-server-technical-documentation"
-    },
-    "SQL Server Reporting Services": {
-      "description": "Server-based report generation software system from Microsoft.",
-      "learn_url": "https://learn.microsoft.com/en-us/sql/reporting-services/create-deploy-and-manage-mobile-and-paginated-reports"
-    },
-    "T-SQL": {
-      "description": "Proprietary extension to SQL for SQL Server interaction.",
-      "learn_url": "https://learn.microsoft.com/en-us/sql/t-sql/language-reference"
-    },
-    "Web API": {
-      "description": "Framework for building HTTP services that reach a broad range of clients.",
-      "learn_url": "https://learn.microsoft.com/en-us/aspnet/core/web-api/"
-    },
-    "REST API": {
-      "description": "Architectural style for designing networked applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
-    },
-    "ASP.NET MVC 4": {
-      "description": "Model-View-Controller framework for building web applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-aspnet-mvc4/intro-to-aspnet-mvc-4"
-    },
-    "Plugin Development": {
-      "description": "Custom business logic execution within the Dynamics 365 event pipeline.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/plug-ins"
-    },
-    "System Integration": {
-      "description": "Proven track record in integrating Dynamics 365 with various systems including SAP, legacy applications, and third-party services using REST APIs, OData, and middleware.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/developer/introduction-entities"
-    },
-    "API Integration": {
-      "description": "Connecting systems via Application Programming Interfaces.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/best-practices/api-design"
-    },
-    "SAP Integration": {
-      "description": "Connecting Microsoft ecosystem with SAP ERP modules.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/logic-apps/logic-apps-using-sap-connector"
-    },
-    "ERP Integration": {
-      "description": "Synchronizing data between CRM and Enterprise Resource Planning systems.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/fin-ops-core/dev-itpro/data-entities/integration-overview"
-    },
-    "SharePoint": {
-      "description": "Microsoft's web-based collaborative platform for document management and storage.",
-      "learn_url": "https://learn.microsoft.com/en-us/sharepoint/dev/"
-    },
-    "Middleware Development": {
-      "description": "Software connecting different applications or services.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/patterns/gateway-aggregation"
-    },
-    "ETL Processes": {
-      "description": "Extract, Transform, Load data integration processes.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl"
-    },
-    "Real-time Data Synchronization": {
-      "description": "Immediate data consistency across multiple systems.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/data/stream-processing-databricks"
-    },
-    "Legacy System Integration": {
-      "description": "Connecting modern apps with older, established systems.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/mainframe/modernize-mainframe-data-to-azure"
-    },
-    "Integration": {
-      "description": "Connecting and synchronizing different systems and applications.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/enterprise-integration/basic-enterprise-integration"
-    },
-    "Integration Architecture": {
-      "description": "Designing patterns and strategies for system integration.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/enterprise-integration/basic-enterprise-integration"
-    },
-    "Web Portals": {
-      "description": "External-facing websites for customer and partner engagement.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-pages/introduction"
-    },
-    "Digital Signatures": {
-      "description": "Electronic authentication and document signing mechanisms.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/security/fundamentals/encryption-overview"
-    },
-    "Database Modeling": {
-      "description": "Designing and structuring database schemas and relationships.",
-      "learn_url": "https://learn.microsoft.com/en-us/sql/relational-databases/database-design"
-    },
-    "Enterprise Architecture": {
-      "description": "Skills in designing scalable, secure, and maintainable enterprise solutions that align with business objectives and technical best practices.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/"
-    },
-    "Solution Architecture": {
-      "description": "Designing comprehensive solutions that balance business requirements, technical constraints, performance, security, and maintainability.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/"
-    },
-    "Technical Leadership": {
-      "description": "Leading development teams, mentoring junior developers, conducting code reviews, and establishing best practices and architectural standards.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/paths/architect-great-solutions-in-azure/"
-    },
-    "CRM Implementation": {
-      "description": "Expertise in managing complete CRM project lifecycles, from requirements gathering and solution design through development, testing, deployment, and user adoption.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/overview"
-    },
-    "Custom Development": {
-      "description": "Building tailored solutions and extensions for specific business needs.",
-      "learn_url": "https://learn.microsoft.com/en-us/power-apps/developer/data-platform/overview"
-    },
-    "CRM Configuration": {
-      "description": "Configuring and customizing CRM systems without code.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customerengagement/on-premises/customize/overview"
-    },
-    "Cloud Migration": {
-      "description": "Moving applications and data from on-premises to cloud infrastructure.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/migrate/"
-    },
-    "Performance Optimization": {
-      "description": "Identifying and resolving performance bottlenecks, optimizing queries, implementing caching strategies.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/framework/scalability/performance-efficiency"
-    },
-    "Agile": {
-      "description": "Iterative approach to project management and software development.",
-      "learn_url": "https://learn.microsoft.com/en-us/devops/plan/what-is-agile"
-    },
-    "Scrum": {
-      "description": "Framework for developing, delivering, and sustaining complex products.",
-      "learn_url": "https://learn.microsoft.com/en-us/devops/plan/what-is-scrum"
-    },
-    "DevOps": {
-      "description": "Practices combining software development and IT operations.",
-      "learn_url": "https://learn.microsoft.com/en-us/devops/what-is-devops"
-    },
-    "CI/CD": {
-      "description": "Continuous Integration and Continuous Delivery/Deployment.",
-      "learn_url": "https://learn.microsoft.com/en-us/devops/deliver/what-is-cicd"
-    },
-    "Test-Driven Development": {
-      "description": "Software development process relying on software requirements being converted to test cases.",
-      "learn_url": "https://learn.microsoft.com/en-us/dotnet/core/testing/"
-    },
-    "Code Reviews": {
-      "description": "Systematic examination of computer source code.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/devops/repos/git/pull-requests-overview"
-    },
-    "Technical Team Leadership": {
-      "description": "Guiding technical teams towards successful delivery.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/paths/architect-great-solutions-in-azure/"
-    },
-    "Client Workshops": {
-      "description": "Collaborative sessions to define requirements and solutions.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/guidance/"
-    },
-    "Stakeholder Management": {
-      "description": "Maintaining relationships with project investors and users.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/guidance/"
-    },
-    "Solution Design": {
-      "description": "Defining the architecture and components of a solution.",
-      "learn_url": "https://learn.microsoft.com/en-us/azure/architecture/"
-    },
-    "Mentoring": {
-      "description": "Guiding less experienced developers.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/"
-    },
-    "Training": {
-      "description": "Educating users or team members.",
-      "learn_url": "https://learn.microsoft.com/en-us/training/"
-    },
-    "Project Rescue": {
-      "description": "Recovering failing projects through technical intervention.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/guidance/"
-    },
-    "Sales Forecasting": {
-      "description": "Predicting future sales using data analysis and CRM tools.",
-      "learn_url": "https://learn.microsoft.com/en-us/dynamics365/sales/configure-forecast"
-    }
+    "Microsoft Dynamics 365": { "description": "Comprehensive expertise in the Dynamics 365 suite including Sales, Customer Service, Field Service, and Customer Insights. Deep knowledge of configuration, customization, and integration patterns.", "learn_url": "https://learn.microsoft.com/en-us/dynamics365/" },
+    "Dynamics 365": { "description": "Suite of intelligent business applications for CRM and relationship management.", "learn_url": "https://learn.microsoft.com/en-us/dynamics365/customer-engagement/guidance/server/introduction" },
+    "Power Platform": { "description": "Advanced skills in Power Apps, Power Automate, Power BI, and Power Pages. Expert in low-code/no-code solutions and custom component development.", "learn_url": "https://learn.microsoft.com/en-us/power-platform/" },
+    "Azure Cloud Services": { "description": "Proficient in Azure services including Logic Apps, Functions, Service Bus, API Management, DevOps, and App Services.", "learn_url": "https://learn.microsoft.com/en-us/azure/" },
+    "C# and .NET Development": { "description": "Advanced development capabilities in C#, .NET, JavaScript, TypeScript, and React. Experience building plugins, custom workflows, PCF components, and web resources.", "learn_url": "https://learn.microsoft.com/en-us/dotnet/" }
   }
 }
