@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema": "resume-v1",
-    "version": "2.1",
+    "version": "2.2",
     "ats_optimized": true,
     "nda_compliant": true,
     "last_updated": "2026-05-31"
@@ -11,12 +11,12 @@
     "title": "Dynamics 365 Technical Architect | Power Platform + Dataverse Specialist",
     "email": "bruno.m.servulo@gmail.com",
     "phone": "Available upon request",
-    "location": "São Bernardo do Campo, Brazil",
+    "location": "Brazil",
     "linkedin": "linkedin.com/in/brunoservulo",
     "portfolio": "bmsrk.github.io/bmsrk",
-    "work_authorization": "Fully remote"
+    "work_authorization": "Fully remote - Europe / UK friendly"
   },
-  "professional_summary": "Senior Dynamics 365 Technical Architect with 15+ years designing, building, and optimizing complex Microsoft solutions for enterprise, financial, industrial, and government clients across Latin America. Specialized in Dataverse architecture, high-volume implementations, performance tuning, storage optimization, complex integrations, and delivering reliable, scalable platforms.",
+  "professional_summary": "Senior Dynamics 365 Technical Architect with 15+ years designing, building, and optimizing complex Microsoft solutions for enterprise, financial, industrial, and government clients. Specialized in Dataverse architecture, high-volume implementations, performance tuning, storage optimization, complex integrations, and delivering reliable, scalable platforms.",
   "core_competencies": [
     "Microsoft Dynamics 365",
     "Power Platform",
@@ -27,6 +27,53 @@
     "Performance & Storage Optimization",
     "Complex System Integration",
     "Technical Leadership"
+  ],
+  "key_projects": [
+    {
+      "project_name": "B2B Order Management Platform",
+      "role": "Lead Solutions Architect",
+      "client_industry": "Manufacturing",
+      "year": "2014-2018",
+      "description": "Designed and implemented a multi-instance Dynamics 365 platform connecting headquarters with a distributed dealer network",
+      "technologies": ["Dynamics 365", "Integration Architecture"],
+      "key_results": ["Complex business rules and approval workflows", "Real-time data synchronization across instances"]
+    },
+    {
+      "project_name": "Executive Reporting Overhaul",
+      "role": "Technical Lead / Architect",
+      "client_industry": "Automotive & Industrial",
+      "year": "2014-2018",
+      "description": "Refactored critical management reporting and KPI dashboards built on Dynamics 365",
+      "technologies": ["Dynamics 365", "Power BI", "SQL Server"],
+      "key_results": ["Improved data consistency and query performance", "Better support for strategic decision-making"]
+    },
+    {
+      "project_name": "Custom Project & Cost Management Module",
+      "role": "Senior Developer / Architect",
+      "client_industry": "Media & Entertainment",
+      "year": "2014-2018",
+      "description": "Built a fully custom project and financial consolidation module integrated with Dynamics 365",
+      "technologies": ["Dynamics 365", "C#", "Azure"],
+      "key_results": ["Unified operational and financial data", "Improved cross-department visibility"]
+    },
+    {
+      "project_name": "National Government & Regulatory Platforms",
+      "role": "Lead Architect",
+      "client_industry": "Government",
+      "year": "2014-2018",
+      "description": "Designed nationwide administrative workflows and public-facing digital services in Dynamics 365",
+      "technologies": ["Dynamics 365", "Integrations", "Portals"],
+      "key_results": ["Complex government system integrations", "Multi-agency connectivity"]
+    },
+    {
+      "project_name": "Legacy Modernization & Cloud Migration",
+      "role": "Lead Technical Specialist",
+      "client_industry": "Financial Services & Insurance",
+      "year": "2014-2025",
+      "description": "Led migration of custom CRM platforms to Microsoft Cloud with heavy optimization",
+      "technologies": ["Dynamics 365", "Azure", "C#"],
+      "key_results": ["Improved scalability and reliability", "Better performance under high load"]
+    }
   ],
   "professional_experience": [
     {
@@ -60,127 +107,6 @@
         "Created custom plugins using C# and .NET"
       ],
       "technologies": ["Dynamics 365", "Azure Functions", "Power Automate", "C#", ".NET"]
-    },
-    {
-      "company": "Kinix",
-      "position": "Senior Solutions Architect",
-      "employment_type": "Contract",
-      "location": "Brazil",
-      "start_date": "January 2025",
-      "end_date": "March 2025",
-      "description": "Defined technical standards and architecture frameworks for Dynamics 365 practice.",
-      "achievements": [
-        "Established enterprise architecture standards and integration patterns adopted across multiple projects",
-        "Created solution design templates and technical governance framework",
-        "Mentored developers on best practices and Dynamics 365 customization",
-        "Defined CI/CD pipeline standards using Azure DevOps"
-      ],
-      "technologies": ["Dynamics 365", "Azure", "Solution Architecture", "Azure DevOps"]
-    },
-    {
-      "company": "XMS Chile",
-      "position": "Lead Technical Specialist",
-      "employment_type": "Full-time",
-      "location": "Santiago, Chile",
-      "start_date": "December 2021",
-      "end_date": "September 2024",
-      "description": "Led technical delivery for enterprise Dynamics 365 implementations across manufacturing and retail sectors.",
-      "achievements": [
-        "Managed technical team delivering Dynamics 365 Sales and Customer Service solutions for 10,000+ users",
-        "Redesigned data architecture and caching strategies improving performance and reducing downtime",
-        "Architected high-volume integrations with SAP ERP via Azure Service Bus",
-        "Mentored team and raised overall code quality standards"
-      ],
-      "technologies": ["Dynamics 365", "Azure Service Bus", "SAP Integration", "Power BI", "C#", ".NET"]
-    },
-    {
-      "company": "AlfaPeople",
-      "position": "Technical Lead",
-      "employment_type": "Full-time",
-      "location": "Brazil",
-      "start_date": "October 2021",
-      "end_date": "December 2021",
-      "description": "Provided technical leadership for Dynamics 365 Customer Service implementations.",
-      "achievements": [
-        "Led technical delivery reducing planned project timeline by 30%",
-        "Designed custom plugin architecture for complex business logic",
-        "Established automated testing framework"
-      ],
-      "technologies": ["Dynamics 365", "C#", "Azure DevOps"]
-    },
-    {
-      "company": "Accenture Brasil",
-      "position": "Senior Developer",
-      "employment_type": "Full-time",
-      "location": "São Paulo, Brazil",
-      "start_date": "March 2021",
-      "end_date": "August 2021",
-      "description": "Developed advanced Dynamics 365 Customer Service customizations.",
-      "achievements": [
-        "Built custom Power Apps portal reducing customer support tickets",
-        "Implemented form validations and business rules significantly reducing data entry errors",
-        "Created real-time Power BI dashboards for customer service KPIs"
-      ],
-      "technologies": ["Dynamics 365", "Power Apps", "Power BI", "JavaScript"]
-    },
-    {
-      "company": "AX4B Enterprise Solutions",
-      "position": "Senior Developer",
-      "employment_type": "Full-time",
-      "location": "Brazil",
-      "start_date": "April 2019",
-      "end_date": "March 2021",
-      "description": "Delivered complex Dynamics 365 and Azure integration projects.",
-      "achievements": [
-        "Implemented bidirectional integration with Azure Blob Storage reducing storage costs",
-        "Developed high-volume custom workflows and plugins",
-        "Built Power Automate flows connecting Dynamics 365 with third-party APIs"
-      ],
-      "technologies": ["Dynamics 365", "Azure", "C#", "Power Automate"]
-    },
-    {
-      "company": "AlfaPeople",
-      "position": "Senior Developer",
-      "employment_type": "Full-time",
-      "location": "Brazil",
-      "start_date": "June 2018",
-      "end_date": "October 2018",
-      "description": "Developed Dynamics 365 solutions for multiple products and custom implementations.",
-      "achievements": [
-        "Designed and architected Dynamics 365 solutions with Azure integrations",
-        "Delivered complex custom client requirements across different industry sectors"
-      ],
-      "technologies": ["Dynamics 365", "Azure", "C#", ".NET"]
-    },
-    {
-      "company": "XMS Chile",
-      "position": "Senior Consultant",
-      "employment_type": "Full-time",
-      "location": "Chile",
-      "start_date": "June 2014",
-      "end_date": "May 2018",
-      "description": "Evolved from CRM developer to Solutions Architect on large-scale Dynamics implementations.",
-      "achievements": [
-        "Delivered complex CRM solutions with extensive integrations to legacy systems, websites and customer portals",
-        "Progressed to Solutions Architect role, defining technical approaches for high-performance and reliable deliveries",
-        "Supported delivery teams on multiple enterprise projects across Chile and Brazil"
-      ],
-      "technologies": ["Dynamics CRM", "C#", ".NET", "Integration Architecture"]
-    },
-    {
-      "company": "AlfaPeople",
-      "position": "Consultant",
-      "employment_type": "Full-time",
-      "location": "Brazil",
-      "start_date": "September 2011",
-      "end_date": "April 2014",
-      "description": "Progressed from functional consultant to full-stack developer on Dynamics CRM projects.",
-      "achievements": [
-        "Worked on 15+ projects across industry and services, specializing in recovering delayed implementations",
-        "Evolved into BI developer (SSRS + Dynamics CRM) and full developer supporting lead architect",
-        "Delivered functional, BI and development work on multiple enterprise and government projects"
-      ],
-      "technologies": ["Dynamics CRM", "SSRS", "SQL Server", "C#"]
     }
   ]
 }
