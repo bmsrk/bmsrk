@@ -1,7 +1,7 @@
 {
   "meta": {
     "schema": "resume-v1",
-    "version": "2.2",
+    "version": "2.1",
     "ats_optimized": true,
     "nda_compliant": true,
     "last_updated": "2026-05-31"
@@ -11,75 +11,12 @@
     "title": "Dynamics 365 Technical Architect | Power Platform + Dataverse Specialist",
     "email": "bruno.m.servulo@gmail.com",
     "phone": "Available upon request",
-    "location": "São Bernardo do Campo, Brazil (GMT-3)",
+    "location": "São Bernardo do Campo, Brazil",
     "linkedin": "linkedin.com/in/brunoservulo",
     "portfolio": "bmsrk.github.io/bmsrk",
-    "work_authorization": "Fully remote - Available for Europe, UK and LATAM time zones"
+    "work_authorization": "Fully remote"
   },
   "professional_summary": "Senior Dynamics 365 Technical Architect with 15+ years designing, building, and optimizing complex Microsoft solutions for enterprise, financial, industrial, and government clients across Latin America. Specialized in Dataverse architecture, high-volume implementations, performance tuning, storage optimization, complex integrations, and delivering reliable, scalable platforms.",
-  "key_engagements": [
-    {
-      "title": "B2B Order Management Platform",
-      "client_type": "Global Industrial Manufacturer",
-      "role": "Lead Solutions Architect",
-      "highlights": [
-        "Designed and implemented a multi-instance Dynamics 365 platform connecting headquarters with a distributed dealer network",
-        "Modeled complex business rules, approval workflows, and real-time data synchronization"
-      ]
-    },
-    {
-      "title": "Executive & Board-Level Reporting Overhaul",
-      "client_type": "Multinational Automotive & Industrial Groups",
-      "role": "Technical Lead / Architect",
-      "highlights": [
-        "Refactored critical management reporting and KPI dashboards built on Dynamics 365",
-        "Improved data consistency, query performance, and long-term maintainability for strategic decision-making"
-      ]
-    },
-    {
-      "title": "Custom Project & Cost Management Module",
-      "client_type": "Major Media & Entertainment Group",
-      "role": "Senior Developer / Architect",
-      "highlights": [
-        "Built a fully custom project and financial consolidation module integrated with Dynamics 365",
-        "Delivered cross-system integrations to unify operational and financial data"
-      ]
-    },
-    {
-      "title": "National Government & Regulatory Platforms",
-      "client_type": "Transportation & Education Authorities",
-      "role": "Lead Architect",
-      "highlights": [
-        "Designed and maintained nationwide administrative workflows and public-facing digital services in Dynamics 365",
-        "Delivered complex integrations with legacy systems, digital signature providers, and government services"
-      ]
-    },
-    {
-      "title": "Legacy Modernization & Cloud Migration",
-      "client_type": "Financial Services & Insurance Clients",
-      "role": "Lead Technical Specialist",
-      "highlights": [
-        "Led technical discovery, integration mapping, and migration of custom CRM platforms to the Microsoft Cloud",
-        "Optimized customer service, commission engines, and core business workflows for performance and reliability"
-      ]
-    },
-    {
-      "title": "Contact Center Platform Go-Live",
-      "client_type": "Industrial & Infrastructure Company",
-      "role": "Technical Lead",
-      "highlights": [
-        "Led end-to-end implementation and production stabilization of a high-volume CRM-based contact center solution"
-      ]
-    },
-    {
-      "title": "Global Sales Platform with Advanced Pricing",
-      "client_type": "Mining & Industrial Company",
-      "role": "Solutions Architect",
-      "highlights": [
-        "Designed and built a global sales solution inside Dynamics 365 with custom pricing engines and intelligent product search"
-      ]
-    }
-  ],
   "core_competencies": [
     "Microsoft Dynamics 365",
     "Power Platform",
@@ -221,3 +158,29 @@
       "employment_type": "Full-time",
       "location": "Chile",
       "start_date": "June 2014",
+      "end_date": "May 2018",
+      "description": "Evolved from CRM developer to Solutions Architect on large-scale Dynamics implementations.",
+      "achievements": [
+        "Delivered complex CRM solutions with extensive integrations to legacy systems, websites and customer portals",
+        "Progressed to Solutions Architect role, defining technical approaches for high-performance and reliable deliveries",
+        "Supported delivery teams on multiple enterprise projects across Chile and Brazil"
+      ],
+      "technologies": ["Dynamics CRM", "C#", ".NET", "Integration Architecture"]
+    },
+    {
+      "company": "AlfaPeople",
+      "position": "Consultant",
+      "employment_type": "Full-time",
+      "location": "Brazil",
+      "start_date": "September 2011",
+      "end_date": "April 2014",
+      "description": "Progressed from functional consultant to full-stack developer on Dynamics CRM projects.",
+      "achievements": [
+        "Worked on 15+ projects across industry and services, specializing in recovering delayed implementations",
+        "Evolved into BI developer (SSRS + Dynamics CRM) and full developer supporting lead architect",
+        "Delivered functional, BI and development work on multiple enterprise and government projects"
+      ],
+      "technologies": ["Dynamics CRM", "SSRS", "SQL Server", "C#"]
+    }
+  ]
+}
