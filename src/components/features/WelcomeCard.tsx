@@ -9,7 +9,7 @@ interface WelcomeCardProps {
 }
 
 const WELCOME_MESSAGE =
-  "Welcome! This is a working Dynamics 365 portfolio. Take a quick 60-second tour to see key highlights, or explore on your own.";
+  'Want to explore the interactive version? You can navigate through tabs, filter projects, and more.';
 
 /**
  * Welcome card for recruiters
@@ -144,7 +144,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
                 id="welcome-card-title"
                 className="text-base font-bold text-[#201f1e] mb-1"
               >
-                Hi! I&apos;m Bruno 👋
+                Explore the interactive experience
               </h3>
               <div className="text-sm text-[#323130] leading-relaxed">
                 {WELCOME_MESSAGE}
@@ -157,16 +157,16 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
             <button
               onClick={handleClose}
               className="px-5 py-2.5 text-sm font-semibold text-[#323130] bg-[#f3f2f1] hover:bg-[#edebe9] rounded transition-colors"
-              aria-label="Not now, dismiss welcome card"
+              aria-label="Stay on printable CV"
             >
-              Not now
+              Stay on printable CV
             </button>
             <button
               onClick={handleStartTour}
               className="px-5 py-2.5 text-sm font-semibold text-white bg-[#0078d4] hover:bg-[#106ebe] rounded transition-colors shadow-md"
-              aria-label="Start 60 second tour"
+              aria-label="Open interactive experience"
             >
-              Start 60s tour
+              Open interactive experience
             </button>
           </div>
         </div>
