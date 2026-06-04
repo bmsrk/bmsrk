@@ -17,20 +17,23 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     await page.waitForTimeout(1000);
 
     // Wait for welcome card to appear
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
 
     // Verify welcome card is visible
-    await expect(page.locator('text=Hi! I\'m Bruno')).toBeVisible();
-    await expect(page.locator('text=Start 60s tour')).toBeVisible();
-    await expect(page.locator('text=Not now')).toBeVisible();
+    await expect(page.locator('text=Want to explore the interactive experience?')).toBeVisible();
+    await expect(page.locator('text=Open interactive experience')).toBeVisible();
+    await expect(page.locator('text=Stay on printable CV')).toBeVisible();
 
     // Verify subtle backdrop exists with reduced opacity
-    const backdrop = page.locator('.fixed.inset-0.bg-black.bg-opacity-20');
+    const backdrop = page.locator('.fixed.inset-0.bg-black');
     await expect(backdrop).toBeVisible();
+    await expect(backdrop).toHaveClass(/bg-opacity-15/);
 
     // Verify tabs are still accessible (even with backdrop)
     await expect(page.locator('text=Summary')).toBeVisible();
     await expect(page.locator('text=Experience')).toBeVisible();
+    await expect(page.locator('button:has-text("Printable Version")')).toHaveClass(/font-semibold/);
+    await expect(page.locator('h2', { hasText: 'Technical Skills' })).toBeVisible();
 
     // Take screenshot
     await page.screenshot({
@@ -39,17 +42,17 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     });
   });
 
-  test('should dismiss welcome card with "Not now" button', async ({ page }) => {
+  test('should dismiss welcome card with "Stay on printable CV" button', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
 
-    // Click "Not now"
-    await page.click('text=Not now');
+    // Click "Stay on printable CV"
+    await page.click('text=Stay on printable CV');
     await page.waitForTimeout(500);
 
     // Verify welcome card is dismissed
-    await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
+    await expect(page.locator('text=Want to explore the interactive experience?')).not.toBeVisible();
 
     // Verify sessionStorage was set
     const welcomeSeen = await page.evaluate(() => sessionStorage.getItem('welcome_seen_session'));
@@ -59,14 +62,14 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should dismiss welcome card with ESC key', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
 
     // Press ESC
     await page.keyboard.press('Escape');
     await page.waitForTimeout(500);
 
     // Verify welcome card is dismissed
-    await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
+    await expect(page.locator('text=Want to explore the interactive experience?')).not.toBeVisible();
 
     // Verify sessionStorage was set
     const welcomeSeen = await page.evaluate(() => sessionStorage.getItem('welcome_seen_session'));
@@ -77,8 +80,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     // First visit in session
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Not now');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Stay on printable CV');
     await page.waitForTimeout(500);
 
     // Reload page (same session - sessionStorage persists)
@@ -86,15 +89,15 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     await page.waitForTimeout(2000);
 
     // Welcome card should not appear (still in same session)
-    await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
+    await expect(page.locator('text=Want to explore the interactive experience?')).not.toBeVisible();
   });
 
   test('should show welcome card again in new session (simulated)', async ({ page }) => {
     // First session - dismiss welcome card
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Not now');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Stay on printable CV');
     await page.waitForTimeout(500);
 
     // Simulate new session by clearing sessionStorage
@@ -107,20 +110,20 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
     await page.waitForTimeout(1000);
 
     // Welcome card should appear again (new session)
-    await expect(page.locator('text=Hi! I\'m Bruno')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('text=Want to explore the interactive experience?')).toBeVisible({ timeout: 5000 });
   });
 
   test('should start recruiter tour from welcome card', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
 
-    // Click "Start 60s tour"
-    await page.click('text=Start 60s tour');
+    // Click "Open interactive experience"
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(500);
 
     // Verify welcome card is dismissed
-    await expect(page.locator('text=Hi! I\'m Bruno')).not.toBeVisible();
+    await expect(page.locator('text=Want to explore the interactive experience?')).not.toBeVisible();
 
     // Verify recruiter tour starts
     await expect(page.locator('text=Recruiter Tour')).toBeVisible();
@@ -136,8 +139,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should navigate through all recruiter tour steps', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Start 60s tour');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(1000);
 
     // Step 1: Professional Summary
@@ -176,8 +179,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should complete tour and set sessionStorage flag', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Start 60s tour');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(1000);
 
     // Navigate through all steps quickly
@@ -203,8 +206,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should skip tour with Skip button', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Start 60s tour');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(1000);
 
     // Click Skip button
@@ -222,8 +225,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should skip tour with ESC key', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Start 60s tour');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(1000);
 
     // Press ESC
@@ -237,8 +240,8 @@ test.describe('Onboarding Flow - Welcome Card & Recruiter Tour', () => {
   test('should navigate backwards in tour', async ({ page }) => {
     await page.goto('/');
     await page.waitForTimeout(1000);
-    await page.waitForSelector('text=Hi! I\'m Bruno', { timeout: 5000 });
-    await page.click('text=Start 60s tour');
+    await page.waitForSelector('text=Want to explore the interactive experience?', { timeout: 5000 });
+    await page.click('text=Open interactive experience');
     await page.waitForTimeout(1500);
 
     // Go to step 2

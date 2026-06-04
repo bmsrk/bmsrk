@@ -29,7 +29,7 @@ import { useOnboardingStorage } from './hooks';
 const App: React.FC = () => {
   const { resumeData, loading, projectFilter, setProjectFilter, filterBySkill } = useResumeContext();
   const { hasSeenWelcome, markWelcomeSeen, markTourCompleted } = useOnboardingStorage();
-  const [activeTab, setActiveTab] = useState('summary');
+  const [activeTab, setActiveTab] = useState('printable');
   const [clippySkill, setClippySkill] = useState<string | undefined>(undefined);
   const [showClippy, setShowClippy] = useState(false);
   const [showPitchMode, setShowPitchMode] = useState(false);
@@ -85,6 +85,7 @@ const App: React.FC = () => {
   const handleWelcomeStartTour = () => {
     setShowWelcomeCard(false);
     markWelcomeSeen();
+    setActiveTab('summary');
     // Start recruiter tour directly (no handoff)
     setTimeout(() => {
       setShowPitchMode(true);
