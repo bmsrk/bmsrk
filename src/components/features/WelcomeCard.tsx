@@ -9,7 +9,7 @@ interface WelcomeCardProps {
 }
 
 const WELCOME_MESSAGE =
-  'Want to explore the interactive version? You can navigate through tabs, filter projects, and more.';
+  'Explore this interactive portfolio where you can navigate through tabs, filter projects, and more.';
 
 /**
  * Welcome card for recruiters
@@ -144,7 +144,7 @@ const WelcomeCard: React.FC<WelcomeCardProps> = ({
                 id="welcome-card-title"
                 className="text-base font-bold text-[#201f1e] mb-1"
               >
-                Explore the interactive experience
+                Want to explore the interactive experience?
               </h3>
               <div className="text-sm text-[#323130] leading-relaxed">
                 {WELCOME_MESSAGE}
